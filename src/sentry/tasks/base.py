@@ -13,6 +13,7 @@ from functools import wraps
 
 from sentry.celery import app
 from sentry.utils import metrics
+from sentry.utils.performance import SqlQueryCountMonitor
 
 
 def instrumented_task(name, stat_suffix=None, **kwargs):
@@ -26,10 +27,11 @@ def instrumented_task(name, stat_suffix=None, **kwargs):
                 instance = name
             Raven.tags_context({'task_name': name})
             with metrics.timer(key, instance=instance):
-                try:
-                    result = func(*args, **kwargs)
-                finally:
-                    Raven.context.clear()
+                with SqlQueryCountMonitor(name):
+                    try:
+                        result = func(*args, **kwargs)
+                    finally:
+                        Raven.context.clear()
             return result
         return app.task(name=name, **kwargs)(_wrapped)
     return wrapped
