@@ -13,6 +13,8 @@ class EventSerializer(Serializer):
             # we treat user as a special contextual item
             if key == 'sentry.interfaces.User':
                 continue
+            if key == 'sentry.interfaces.Device':
+                continue
 
             entry = {
                 'data': interface.get_api_context(is_public=is_public),
@@ -33,10 +35,16 @@ class EventSerializer(Serializer):
                 user_data = user_interface.to_json()
             else:
                 user_data = None
+            device_interface = item.interfaces.get('sentry.interfaces.Device')
+            if device_interface:
+                device_data = user_interface.to_json()
+            else:
+                device_data = None
 
             results[item] = {
                 'entries': self._get_entries(item, user, is_public=is_public),
                 'user': user_data,
+                'device': device_data,
             }
         return results
 
