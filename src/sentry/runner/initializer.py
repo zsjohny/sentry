@@ -251,7 +251,9 @@ def apply_legacy_settings(settings):
             raise Exception("Cannot specify both SENTRY_OPTIONS['redis.clusters'] option and SENTRY_REDIS_OPTIONS setting.")
         else:
             import warnings
-            warnings.warn("SENTRY_REDIS_OPTIONS is deprecated. Use SENTRY_OPTIONS instead, key 'redis.clusters'", DeprecationWarning)
+            warnings.warn(
+                "SENTRY_REDIS_OPTIONS is deprecated. Use SENTRY_OPTIONS instead, key 'redis.clusters'. "
+                "SENTRY_REDIS_OPTIONS will be removed in Sentry 8.4.", DeprecationWarning)
             settings.SENTRY_OPTIONS['redis.clusters'] = {
                 'default': settings.SENTRY_REDIS_OPTIONS,
             }

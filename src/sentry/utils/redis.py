@@ -47,7 +47,8 @@ _make_rb_cluster = functools.partial(rb.Cluster, pool_cls=_shared_pool)
 
 def make_rb_cluster(*args, **kwargs):
     warnings.warn(
-        'Direct Redis cluster construction is deprecated, please use named clusters.',
+        'Direct Redis cluster construction is deprecated, please use named clusters. '
+        'Direct cluster construction will be removed in Sentry 8.4.',
         DeprecationWarning,
     )
     return _make_rb_cluster(*args, **kwargs)
@@ -95,7 +96,8 @@ def get_cluster_from_options(backend, options, cluster_manager=clusters):
             warnings.warn(
                 'Providing Redis cluster configuration options ({}) to {!r} is '
                 'deprecated, please update your configuration to use named Redis '
-                'clusters ({!r}).'.format(
+                'clusters ({!r}). The ability to pass configuration options will '
+                'be removed in Sentry 8.4.'.format(
                     ', '.join(map(repr, cluster_constructor_option_names)),
                     backend,
                     cluster_option_name,
