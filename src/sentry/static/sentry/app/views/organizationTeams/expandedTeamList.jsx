@@ -116,14 +116,12 @@ const ExpandedTeamList = React.createClass({
     }
 
     return (
-      <tr key={project.id} className={project.isBookmarked && 'isBookmarked'}>
-        <td>
-          <a onClick={this.toggleBookmark.bind(this, project)}>
-            <span className="icon-bookmark" />
-          </a>
-        </td>
+      <tr key={project.id} className={project.isBookmarked ? 'isBookmarked' : null}>
         <td>
           <h5>
+            <a onClick={this.toggleBookmark.bind(this, project)}>
+              <span className="icon-bookmark" />
+            </a>
             <Link to={`/${org.slug}/${project.slug}/`}>
               {project.name}
             </Link>
