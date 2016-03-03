@@ -3,6 +3,7 @@ import {Link} from 'react-router';
 import LazyLoad from 'react-lazy-load';
 
 import ApiMixin from '../../mixins/apiMixin';
+import {update as projectUpdate} from '../../actionCreators/projects';
 import BarChart from '../../components/barChart';
 import ConfigStore from '../../stores/configStore';
 import PropTypes from '../../proptypes';
@@ -18,9 +19,7 @@ const ExpandedTeamList = React.createClass({
     hasTeams: React.PropTypes.bool
   },
 
-  mixins: [
-    ApiMixin
-  ],
+  mixins: [ApiMixin],
 
   leaveTeam(team) {
     // TODO(dcramer): handle loading indicator
@@ -33,6 +32,10 @@ const ExpandedTeamList = React.createClass({
   urlPrefix() {
     let org = this.props.organization;
     return ConfigStore.get('urlPrefix') + '/organizations/' + org.slug;
+  },
+
+  onProjectChange() {
+
   },
 
   renderProjectList(team) {
@@ -94,14 +97,12 @@ const ExpandedTeamList = React.createClass({
   },
 
   toggleBookmark(project) {
-    let orgSlug = this.props.organization.slug;
-    // TODO(dcramer): we have no great way to populate changes to projects
-    // currently
-    this.api.request(`/projects/${orgSlug}/${project.slug}/`, {
-      method: 'PUT',
+    projectUpdate(this.api, {
+      orgId: this.props.organization.slug,
+      projectId: project.slug,
       data: {
-        isBookmarked: !project.isBookmarked,
-      },
+        isBookmarked: !project.isBookmarked
+      }
     });
   },
 
