@@ -8,6 +8,7 @@ sentry.web.frontend.generic
 from __future__ import absolute_import
 
 from django.conf import settings
+from django.contrib.staticfiles.views import serve
 from django.views.generic import TemplateView as BaseTemplateView
 
 from sentry.web.helpers import render_to_response
@@ -20,7 +21,6 @@ def static_media(request, **kwargs):
     """
     Serve static files below a given point in the directory structure.
     """
-    from django.contrib.staticfiles.views import serve
 
     module = kwargs.get('module')
     path = kwargs.get('path', '')
