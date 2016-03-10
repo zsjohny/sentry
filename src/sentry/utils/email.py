@@ -23,7 +23,7 @@ from django.utils.encoding import force_bytes, force_str, force_text
 from django.utils.functional import cached_property
 
 from sentry import options
-from sentry.models import Event, Group, GroupEmailThread, Project
+from sentry.models import Activity, Event, Group, GroupEmailThread, Project
 from sentry.utils import metrics
 from sentry.utils.safe import safe_execute
 from sentry.utils.strings import is_valid_dot_atom
@@ -161,6 +161,7 @@ class ListResolver(object):
 
 
 default_list_type_handlers = {
+    Activity: attrgetter('project.slug', 'project.organization.slug'),
     Project: attrgetter('slug', 'organization.slug'),
     Group: attrgetter('project.slug', 'organization.slug'),
     Event: attrgetter('project.slug', 'organization.slug'),
