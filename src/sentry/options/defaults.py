@@ -43,3 +43,5 @@ register('system.root-api-key', type=String)
 # symbolizer specifics
 register('dsym.llvm-symbolizer-path', type=String)
 register('dsym.cache-path', type=String, default='/tmp/sentry-dsym-cache')
+
+register('mail.list-namespace', type=String, default='localhost', flags=FLAG_NOSTORE)

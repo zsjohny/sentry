@@ -11,6 +11,7 @@ import logging
 import os
 import time
 import toronado
+from operator import attrgetter
 from random import randrange
 
 from django.conf import settings
@@ -21,10 +22,12 @@ from django.utils.encoding import force_bytes, force_str, force_text
 from django.utils.functional import cached_property
 from email.utils import parseaddr
 
-from sentry.models import GroupEmailThread, Group
+from sentry import options
+from sentry.models import GroupEmailThread, Group, Project, Event
 from sentry.web.helpers import render_to_string
 from sentry.utils import metrics
 from sentry.utils.safe import safe_execute
+from sentry.utils.strings import is_valid_dot_atom
 
 
 logger = logging.getLogger(__name__)
@@ -112,6 +115,43 @@ def make_msgid(domain):
 FROM_EMAIL_DOMAIN = domain_from_email(settings.DEFAULT_FROM_EMAIL)
 
 
+class ListResolver(object):
+
+    class UnregisteredTypeError(Exception):
+        pass
+
+    def __init__(self, namespace, type_handlers):
+        assert is_valid_dot_atom(namespace)
+        self.__namespace = namespace
+        self.__type_handlers = type_handlers
+
+    def __call__(self, instance):
+        try:
+            handler = self.__type_handlers[type(instance)]
+        except KeyError:
+            raise self.UnregisteredTypeError(
+                'Cannot generate mailing list identifier for {!r}'.format(instance)
+            )
+
+        label = '.'.join(map(str, handler(instance)))
+        assert is_valid_dot_atom(label)
+
+        return '{}.{}'.format(label, self.__namespace)
+
+
+default_list_type_handlers = {
+    Project: attrgetter('slug', 'organization.slug'),
+    Group: attrgetter('project.slug', 'organization.slug'),
+    Event: attrgetter('project.slug', 'organization.slug'),
+}
+
+
+make_listid_from_instance = ListResolver(
+    options.get('mail.list-namespace'),
+    default_list_type_handlers,
+)
+
+
 class MessageBuilder(object):
     def __init__(self, subject, context=None, template=None, html_template=None,
                  body=None, html_body=None, headers=None, reference=None,
@@ -119,6 +159,9 @@ class MessageBuilder(object):
         assert not (body and template)
         assert not (html_body and html_template)
         assert context or not (template or html_template)
+
+        if headers is None:
+            headers = {}
 
         self.subject = subject
         self.context = context or {}
@@ -131,6 +174,14 @@ class MessageBuilder(object):
         self.reply_reference = reply_reference  # The object this message is replying about
         self.from_email = from_email or settings.SERVER_EMAIL
         self._send_to = set()
+
+        if reference is not None and 'List-Id' not in headers:
+            try:
+                headers['List-Id'] = make_listid_from_instance(reference)
+            except ListResolver.UnregisteredTypeError as error:
+                logger.debug(str(error))
+            except AssertionError as error:
+                logger.warning(str(error))
 
     @cached_property
     def html_body(self):
