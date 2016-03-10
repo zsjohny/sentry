@@ -10,25 +10,24 @@ from __future__ import absolute_import
 import logging
 import os
 import time
-import toronado
+from email.utils import parseaddr
 from operator import attrgetter
 from random import randrange
 
+import toronado
 from django.conf import settings
-from django.core.mail import get_connection, EmailMultiAlternatives
-from django.core.signing import Signer, BadSignature
+from django.core.mail import EmailMultiAlternatives, get_connection
+from django.core.signing import BadSignature, Signer
 from django.utils.crypto import constant_time_compare
 from django.utils.encoding import force_bytes, force_str, force_text
 from django.utils.functional import cached_property
-from email.utils import parseaddr
 
 from sentry import options
-from sentry.models import GroupEmailThread, Group, Project, Event
-from sentry.web.helpers import render_to_string
+from sentry.models import Event, Group, GroupEmailThread, Project
 from sentry.utils import metrics
 from sentry.utils.safe import safe_execute
 from sentry.utils.strings import is_valid_dot_atom
-
+from sentry.web.helpers import render_to_string
 
 logger = logging.getLogger(__name__)
 

@@ -1,10 +1,6 @@
 import functools
-from sentry.utils.strings import (
-    is_valid_dot_atom,
-    soft_break,
-    soft_hyphenate,
-)
 
+from sentry.utils.strings import is_valid_dot_atom, soft_break, soft_hyphenate
 
 ZWSP = u'\u200b'  # zero width space
 SHY = u'\u00ad'  # soft hyphen

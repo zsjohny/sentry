@@ -12,9 +12,8 @@ import re
 import string
 import zlib
 
-from django.utils.encoding import smart_unicode, force_unicode
-
 import six
+from django.utils.encoding import force_unicode, smart_unicode
 
 
 def truncatechars(value, arg):
