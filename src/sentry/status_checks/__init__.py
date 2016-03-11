@@ -1,8 +1,15 @@
 from __future__ import absolute_import
 
-__all__ = ('check_all', 'Problem', 'StatusCheck')
+__all__ = (
+    'Problem',
+    'SEVERITY_CRITICAL',
+    'SEVERITY_WARNING',
+    'StatusCheck',
+    'check_all',
+    'severity_threshold',
+)
 
-from .base import Problem, StatusCheck  # NOQA
+from .base import Problem, StatusCheck, SEVERITY_CRITICAL, SEVERITY_WARNING, severity_threshold  # NOQA
 from .celery_alive import CeleryAliveCheck
 from .celery_app_version import CeleryAppVersionCheck
 

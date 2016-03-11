@@ -19,18 +19,14 @@ class HealthCheck(object):
         if 'full' not in request.GET:
             return HttpResponse('ok', content_type='text/plain')
 
-        from sentry.status_checks import check_all
+        from sentry.status_checks import SEVERITY_CRITICAL, severity_threshold, check_all
         from sentry.utils import json
 
-        results = check_all()
+        threshold = severity_threshold(SEVERITY_CRITICAL)
+        results = {check: filter(threshold, problems) for check, problems in check_all().items()}
         problems = list(itertools.chain.from_iterable(results.values()))
+
         return HttpResponse(json.dumps({
-            'problems': map(
-                lambda problem: {
-                    'message': problem.message,
-                    'severity': problem.severity,
-                },
-                problems,
-            ),
+            'problems': map(unicode, problems),
             'healthy': {type(check).__name__: not problems for check, problems in results.items()},
         }), content_type='application/json', status=(500 if problems else 200))
