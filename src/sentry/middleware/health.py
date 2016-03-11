@@ -1,5 +1,7 @@
 from __future__ import absolute_import
 
+import itertools
+
 from django.http import HttpResponse
 
 
@@ -19,9 +21,16 @@ class HealthCheck(object):
 
         from sentry.status_checks import check_all
         from sentry.utils import json
-        problems, checks = check_all()
 
+        results = check_all()
+        problems = list(itertools.chain.from_iterable(results.values()))
         return HttpResponse(json.dumps({
-            'problems': map(unicode, problems),
-            'healthy': checks,
+            'problems': map(
+                lambda problem: {
+                    'message': problem.message,
+                    'severity': problem.severity,
+                },
+                problems,
+            ),
+            'healthy': {type(check).__name__: not problems for check, problems in results.items()},
         }), content_type='application/json', status=(500 if problems else 200))
