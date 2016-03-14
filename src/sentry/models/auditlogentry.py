@@ -56,6 +56,12 @@ class AuditLogEntryEvent(object):
     APIKEY_EDIT = 71
     APIKEY_REMOVE = 72
 
+    HOST_ADD = 73
+    HOST_EDIT = 74
+    HOST_REMOVE = 75
+
+    AGENT_HOST_ADD = 76
+
 
 class AuditLogEntry(Model):
     __core__ = False
@@ -110,6 +116,14 @@ class AuditLogEntry(Model):
         (AuditLogEntryEvent.APIKEY_ADD, 'api-key.create'),
         (AuditLogEntryEvent.APIKEY_EDIT, 'api-key.edit'),
         (AuditLogEntryEvent.APIKEY_REMOVE, 'api-key.remove'),
+
+        (AuditLogEntryEvent.HOST_ADD, 'host.create'),
+        (AuditLogEntryEvent.HOST_EDIT, 'host.edit'),
+        (AuditLogEntryEvent.HOST_REMOVE, 'host.remove'),
+
+        (AuditLogEntryEvent.AGENT_HOST_ADD, 'agent.host.add'),
+
+
     ))
     ip_address = models.GenericIPAddressField(null=True, unpack_ipv4=True)
     data = GzippedDictField()
@@ -216,4 +230,12 @@ class AuditLogEntry(Model):
         elif self.event == AuditLogEntryEvent.APIKEY_REMOVE:
             return 'removed api key %s (%s)' % (self.data['label'], self.data['key'])
 
+        elif self.event == AuditLogEntryEvent.HOST_ADD:
+            return 'added host %s (%s)' % (self.data['label'], self.data['host'])
+        elif self.event == AuditLogEntryEvent.HOST_EDIT:
+            return 'removed host %s (%s)' % (self.data['label'], self.data['host'])
+        elif self.event == AuditLogEntryEvent.HOST_REMOVE:
+            return 'removed host %s (%s)' % (self.data['label'], self.data['host'])
+        elif self.event == AuditLogEntryEvent.AGENT_HOST_ADD:
+            return 'AGENT ADD host %s (%s)' % (self.data['label'], self.data['host'])
         return ''

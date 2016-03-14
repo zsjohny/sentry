@@ -62,6 +62,7 @@ from .endpoints.project_user_reports import ProjectUserReportsEndpoint
 from .endpoints.release_details import ReleaseDetailsEndpoint
 from .endpoints.release_files import ReleaseFilesEndpoint
 from .endpoints.release_file_details import ReleaseFileDetailsEndpoint
+from .endpoints.user_organizations import UserEndpoint
 from .endpoints.dsym_files import DSymFilesEndpoint, GlobalDSymFilesEndpoint, \
     UnknownDSymFilesEndpoint, UnknownGlobalDSymFilesEndpoint
 from .endpoints.shared_group_details import SharedGroupDetailsEndpoint
@@ -75,11 +76,56 @@ from .endpoints.team_project_index import TeamProjectIndexEndpoint
 from .endpoints.team_stats import TeamStatsEndpoint
 from .endpoints.user_index import UserIndexEndpoint
 from .endpoints.user_details import UserDetailsEndpoint
+from .endpoints.stream_index import StreamIndexEndpoint, LogAgentStreamEndpoint
+from .endpoints.demo_exception import DemoExceptionEndpoint
+from .endpoints.user_key import UserkeyEndpoint
+from .endpoints.host_index import HostIndexEndpoint, LogAgentHostIndexEndpoint
+from .endpoints.logfiles_index import LogfileIndexEndpoint
+from .endpoints.logevents import LogEventIndexEndpoint
+from .endpoints.host_index import HelloToken
+from .endpoints.host_index import AccessTokenView
+from .endpoints.stream_timeseries_index import StreamTimeSeriesIndexEndpoint
+from .endpoints.dashboard_index import DashboardIndexEndpoint
+from .endpoints.visualization_index import VisualizationIndexEndpoint
+from .endpoints.visualization_details import VisualizationDetailsEndpoint
+from .endpoints.widget_index import WidgetIndexEndpoint
+from .endpoints.widget_details import WidgetDetailsEndpoint
+from .endpoints.search_index import SearchIndexEndpoint
+from .endpoints.search_details import SearchDetailsEndpoint
+from .endpoints.search_index import SearchResultEndpoint
+from .endpoints.dashboard_details import DashboardDetailsEndpoint
+from .endpoints.indexes_index import IndexesIndexEndpoint
+from .endpoints.indexes_details import IndexesDetailsEndpoint
+from .endpoints.indexes_fields_index import IndexesFieldsIndexEndpoint
+from .endpoints.upload_index import UploadIndexEndpoint
 from .endpoints.user_organizations import UserOrganizationsEndpoint
-
-
 urlpatterns = patterns(
     '',
+    #  loginsight
+    url(r'^user_key', UserkeyEndpoint.as_view(), name='sentry-api-0-user-key'),
+    url(r'^streams', StreamIndexEndpoint.as_view(), name='sentry-api-0-streams'),
+    url(r'^logfiles', LogfileIndexEndpoint.as_view(), name='sentry-api-0-logfiles'),
+    url(r'^logevents', LogEventIndexEndpoint.as_view(), name='sentry-api-0-events'),
+    url(r'^create_demo', DemoExceptionEndpoint.as_view(), name='sentry-api-0-create-demo'),
+    url(r'^hosts', HostIndexEndpoint.as_view(), name='sentry-api-0-hosts'),
+    url(r'^stream_timeseries', StreamTimeSeriesIndexEndpoint.as_view(), name='sentry-api-0-stream-timeseries'),
+    url(r'^agent/hosts', LogAgentHostIndexEndpoint.as_view(), name='sentry-api-0-agent-hosts'),
+    url(r'^agent/streams', LogAgentStreamEndpoint.as_view(), name='sentry-api-0-agent-streams'),
+    url(r'^agent/hello', HelloToken.as_view(), name='hello-token'),
+    url(r'^accesstoken', AccessTokenView.as_view(), name='access-token'),
+    url(r'^dashboard/$', DashboardIndexEndpoint.as_view(), name='sentry-api-0-log-dashboard'),
+    url(r'^dashboard/(?P<dashboard_id>[^\/]+)/$', DashboardDetailsEndpoint.as_view(), name='sentry-api-0-log-dashboard-details'),
+    url(r'^visualization/$', VisualizationIndexEndpoint.as_view(), name='sentry-log-visualization'),
+    url(r'^visualization/(?P<visualization_id>[^\/]+)/$', VisualizationDetailsEndpoint.as_view(), name='sentry-api-0-log-visualization-details'),
+    url(r'^widget/$', WidgetIndexEndpoint.as_view(), name='sentry-log-widget'),
+    url(r'^widget/(?P<widget_id>[^\/]+)/$', WidgetDetailsEndpoint.as_view(), name='sentry-api-0-log-widget-details'),
+    url(r'^search/$', SearchIndexEndpoint.as_view(), name='sentry-log-search'),
+    url(r'^search/(?P<search_id>[^\/]+)/$', SearchDetailsEndpoint.as_view(), name='sentry-api-0-log-search-details'),
+    url(r'^query/(?P<index_name>[^\/]+)/$', SearchResultEndpoint.as_view(), name='sentry-api-0-log-search-result'),
+    url(r'^indexes/$', IndexesIndexEndpoint.as_view(), name='sentry-log-indexes'),
+    url(r'^indexes/(?P<index_id>[^\/]+)/$', IndexesDetailsEndpoint.as_view(), name='sentry-api-0-log-index-details'),
+    url(r'^indexes/(?P<index_id>[^\/]+)/fields/$', IndexesFieldsIndexEndpoint.as_view(), name='sentry-api-0-log-index-fields'),
+    url(r'^upload/$', UploadIndexEndpoint.as_view(), name='sentry-api-0-log-index-fields'),
 
     # Auth
     url(r'^auth/$',
@@ -305,7 +351,7 @@ urlpatterns = patterns(
     # Events
     url(r'^events/(?P<event_id>\d+)/$',
         EventDetailsEndpoint.as_view(),
-        name='sentry-api-0-event-details'),
+            name='sentry-api-0-event-details'),
 
     # Installation Global Endpoints
     url(r'^system/global-dsyms/$',

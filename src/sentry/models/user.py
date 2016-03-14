@@ -26,6 +26,7 @@ class User(BaseModel, AbstractBaseUser):
     username = models.CharField(_('username'), max_length=128, unique=True)
     # this column is called first_name for legacy reasons, but it is the entire
     # display name
+    userkey = models.CharField(_('user key'), max_length=128, null=True, unique=True)
     name = models.CharField(_('name'), max_length=200, blank=True,
                             db_column='first_name')
     email = models.EmailField(_('email address'), blank=True)

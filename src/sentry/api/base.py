@@ -15,16 +15,18 @@ from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
+from sentry.models.user import User
 from sentry.app import raven, tsdb
 from sentry.models import ApiKey, AuditLogEntry
+from sentry.models.organization import Organization
+from sentry.models.organizationmember import OrganizationMember
 from sentry.utils.cursors import Cursor
 from sentry.utils.http import absolute_uri, is_valid_origin
 
 from .authentication import ApiKeyAuthentication
 from .paginator import Paginator
 from .permissions import NoPermission
-
+import requests
 
 ONE_MINUTE = 60
 ONE_HOUR = ONE_MINUTE * 60
@@ -42,6 +44,8 @@ class DocSection(Enum):
     ACCOUNTS = 'Accounts'
     EVENTS = 'Events'
     ORGANIZATIONS = 'Organizations'
+    HOSTS = 'Hosts'
+    STREAMS = 'Streams'
     PROJECTS = 'Projects'
     RELEASES = 'Releases'
     TEAMS = 'Teams'
@@ -52,6 +56,50 @@ class Endpoint(APIView):
     renderer_classes = (JSONRenderer,)
     parser_classes = (JSONParser,)
     permission_classes = (NoPermission,)
+    INVALID_ACCESS_TOKEN = -1
+
+    def parse_path(self, request, pattern, arg):
+        path = request.path
+        m = pattern.search(path)
+        if m:
+            return m.group(arg)
+
+    def validate_accesstoken(self, authorization, request):
+        headers = {'Authorization': authorization}
+        url = settings.OAUTH_SERVER + "/api/0/access_token"
+        r = requests.get(url, headers=headers)
+        if r.status_code == 200:
+            user_id = r.json()['user_id']
+            if not User.objects.filter(id=user_id):
+                # get user
+                resp = requests.post(settings.OAUTH_SERVER + "/api/user_info", data={'token': authorization.split(" ")[1]}, headers=headers)
+                print 'data = ', resp.json()
+                data = resp.json()[0]['fields']
+                # sync user
+                try:
+                    user = User.objects.get(username=data['username'])
+                    return user.id
+                except ObjectDoesNotExist:
+                    user = User.objects.create(id=user_id, username=data['username'], password=data['password'], email=data['email'])
+                    user_id = user.id
+                data1 = resp.json()[1]['fields']
+
+                try:
+                    Organization.objects.get(name=data['org_name'])
+                except ObjectDoesNotExist:
+                    org = Organization.objects.create(
+                        name=data1['org_name'],
+                        slug=data1['org_name'],
+                    )
+
+                    OrganizationMember.objects.create(
+                        user=user,
+                        organization=org,
+                        role=roles.get_top_dog().id,
+                    )
+
+            return user_id
+        return -1
 
     def build_cursor_link(self, request, name, cursor):
         querystring = u'&'.join(

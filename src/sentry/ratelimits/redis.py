@@ -28,5 +28,5 @@ class RedisRateLimiter(RateLimiter):
         with self.cluster.map() as client:
             proj_result = client.incr(key)
             client.expire(key, self.ttl)
-
+            
         return proj_result.value > limit
