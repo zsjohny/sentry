@@ -99,6 +99,8 @@ from .endpoints.indexes_details import IndexesDetailsEndpoint
 from .endpoints.indexes_fields_index import IndexesFieldsIndexEndpoint
 from .endpoints.upload_index import UploadIndexEndpoint
 from .endpoints.user_organizations import UserOrganizationsEndpoint
+from .endpoints.project_settings import ProjectSettingsEndpoint
+from .endpoints.react import ReactEnpoint
 urlpatterns = patterns(
     '',
     #  loginsight
@@ -126,6 +128,12 @@ urlpatterns = patterns(
     url(r'^indexes/(?P<index_id>[^\/]+)/$', IndexesDetailsEndpoint.as_view(), name='sentry-api-0-log-index-details'),
     url(r'^indexes/(?P<index_id>[^\/]+)/fields/$', IndexesFieldsIndexEndpoint.as_view(), name='sentry-api-0-log-index-fields'),
     url(r'^upload/$', UploadIndexEndpoint.as_view(), name='sentry-api-0-log-index-fields'),
+
+    url(r'^react/$', ReactEnpoint.as_view(), name='sentry-api-0-react'),
+    # settings
+    url(r'^(?P<organization_slug>[\w_-]+)/(?P<project_slug>[\w_-]+)/settings/$',
+        ProjectSettingsEndpoint.as_view(),
+        name='sentry-manage-project'),
 
     # Auth
     url(r'^auth/$',

@@ -223,9 +223,10 @@ class ProjectSettingsView(ProjectView):
 
     def handle(self, request, organization, team, project):
         form = self.get_form(request, project)
-
+        print 'form ==== ', form
         if form.is_valid():
             project = form.save()
+            print 'project ==== ', project
             for opt in (
                     'origins',
                     'token',
