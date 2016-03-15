@@ -98,6 +98,7 @@ from .endpoints.indexes_index import IndexesIndexEndpoint
 from .endpoints.indexes_details import IndexesDetailsEndpoint
 from .endpoints.indexes_fields_index import IndexesFieldsIndexEndpoint
 from .endpoints.upload_index import UploadIndexEndpoint
+from .endpoints.settings_rules import SettingsRulesEndpoint
 from .endpoints.user_organizations import UserOrganizationsEndpoint
 urlpatterns = patterns(
     '',
@@ -131,6 +132,10 @@ urlpatterns = patterns(
     url(r'^auth/$',
         AuthIndexEndpoint.as_view(),
         name='sentry-api-0-auth'),
+
+    url(r'^(?P<organization_slug>[\w_-]+)/(?P<project_slug>[\w_-]+)/settings/rules/$',
+        SettingsRulesEndpoint.as_view(),
+        name='sentry-api-0-project-rules'),
 
     # Broadcasts
     url(r'^broadcasts/$',
@@ -381,5 +386,18 @@ urlpatterns = patterns(
         CatchallEndpoint.as_view(),
         name='sentry-api-catchall'),
 
+    #settings/rules
+
+    # url(r'^(?P<organization_slug>[\w_-]+)/(?P<project_slug>[\w_-]+)/settings/rules/$',
+    #     SettingsRulesEndpoint.as_view(),
+    #     name='sentry-api-0-project-rules'),
+
     # url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 )
+from .endpoints.indexes_details import IndexesDetailsEndpoint
+from .endpoints.indexes_fields_index import IndexesFieldsIndexEndpoint
+from .endpoints.upload_index import UploadIndexEndpoint
+from .endpoints.user_organizations import UserOrganizationsEndpoint
+
+from .endpoints.settings_rules import SettingsRulesEndpoint
+
