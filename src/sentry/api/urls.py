@@ -100,6 +100,7 @@ from .endpoints.indexes_fields_index import IndexesFieldsIndexEndpoint
 from .endpoints.upload_index import UploadIndexEndpoint
 from .endpoints.settings_rules import SettingsRulesEndpoint
 from .endpoints.user_organizations import UserOrganizationsEndpoint
+from .endpoints.project_notifications import ProjectNotificationsEndpoint
 urlpatterns = patterns(
     '',
     #  loginsight
@@ -136,6 +137,10 @@ urlpatterns = patterns(
     url(r'^(?P<organization_slug>[\w_-]+)/(?P<project_slug>[\w_-]+)/settings/rules/$',
         SettingsRulesEndpoint.as_view(),
         name='sentry-api-0-project-rules'),
+
+    url(r'^(?P<organization_slug>[\w_-]+)/(?P<project_slug>[\w_-]+)/settings/notifications/$',
+        ProjectNotificationsEndpoint.as_view(),
+        name='sentry-api-0-project-notifications'),
 
     # Broadcasts
     url(r'^broadcasts/$',
@@ -386,12 +391,16 @@ urlpatterns = patterns(
         CatchallEndpoint.as_view(),
         name='sentry-api-catchall'),
 
+
     #settings/rules
 
     # url(r'^(?P<organization_slug>[\w_-]+)/(?P<project_slug>[\w_-]+)/settings/rules/$',
     #     SettingsRulesEndpoint.as_view(),
     #     name='sentry-api-0-project-rules'),
-
+#
+    # url(r'^(?P<organization_slug>[\w_-]+)/(?P<project_slug>[\w_-]+)/settings/notifications/$',
+    #     ProjectNotificationsEndpoint.as_view(),
+    #     name='sentry-api-0-project-notifications'),
     # url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 )
 from .endpoints.indexes_details import IndexesDetailsEndpoint
