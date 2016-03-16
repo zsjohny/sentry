@@ -29,3 +29,4 @@ example/db.sqlite
 /src/sentry/integration-docs
 /wheelhouse
 /test_cli/
+.idea/
