@@ -718,6 +718,15 @@ SENTRY_ENABLE_INVITES = True
 # Default to not sending the Access-Control-Allow-Origin header on api/store
 SENTRY_ALLOW_ORIGIN = None
 
+# ALLOW HOST
+ALLOWED_HOSTS = [
+    'li.io',  # Allow domain and subdomains
+    # '.example.com.',  # Also allow FQDN and subdomains
+    'localhost',
+    '127.0.0.1',
+    '192.168.200.120',
+]
+
 # Enable scraping of javascript context for source code
 SENTRY_SCRAPE_JAVASCRIPT_CONTEXT = True
 
