@@ -28,7 +28,13 @@ from sentry.testutils import APITestCase
 
 OK_SETTINGS_SAVED = ('Your settings were saved successfully.')
 
-
+'''
+input:
+post {'general-subject_prefix': '[Sentryss] abc',
+'digests-maximum_delay': '40',
+'digests-minimum_delay': '35',
+'op': 'save-settings'}
+'''
 class ProjectNotificationsEndpoint(ProjectEndpoint):
     # required_scope = 'project:write'
     # permission_classes = []
