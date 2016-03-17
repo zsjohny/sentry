@@ -193,5 +193,4 @@ class ReactEnpoint(Endpoint):
             })
         if request.user.username == 'AnonymousUser':
             return Response(status=401, data=context)
-
         return Response(context)

@@ -1,26 +1,49 @@
 {% load i18n %}
 {% load sentry_api %}
 {% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link href="/_static/sentry/images/favicon.ico" rel="shortcut icon" type="image/ico">
+  <title>Login</title>
+  <link href="/_static/sentry/dist/sentry.css" rel="stylesheet" />
+  <style>
+      .login-body{
+          width:300px;
+          margin:0 auto;
+          padding:0;
+      }
+      .logo-img{
+          width:60px;
+          margin:30px 0;
+      }
+  </style>
+  <script src="/_static/sentry/js/jquery.js"></script>
+</head>
+<body>
+    <div class="login">
+        <div class="align-center login-header">
+            <img src="/_static/sentry/images/logo.png" class="logo-img" data-pin-nopin="true">
+            <h3>Login Loginsight</h3>
+        </div>
+        <div class="login-body">
+            <form class="form-stacked" action="" method="post" autocomplete="off">
+                {% csrf_token %}
+                <input type="hidden" name="op" value="login" />
+                {{ login_form|as_crispy_errors }}
 
-<div class="align-center">
-    <h3>Login</h3>
-</div>
-<div class="tab-content login-body">
-    <div class="tab-pane{% if op == " login " %} active{% endif %}" id="login">
-        <form class="form-stacked" action="" method="post" autocomplete="off">
-            {% csrf_token %}
-            <input type="hidden" name="op" value="login" />
-            {{ login_form|as_crispy_errors }}
-
-            {% for field in login_form %}
-            {{ field|as_crispy_field }}
-            {% endfor %}
-            <fieldset class="form-actions">
-                <button type="submit" class="btn btn-success">{% trans "Login" %}</button>
-                <a class="pull-right" style="margin-top: 9px" href="/sentry-account-recover">
-                    {% trans "Lost your password?" %}
-                </a>
-            </fieldset>
-        </form>
+                {% for field in login_form %}
+                {{ field|as_crispy_field }}
+                {% endfor %}
+                <fieldset class="form-actions">
+                    <button type="submit" class="btn btn-success">{% trans "Login" %}</button>
+                    <a class="forget-password pull-right" href="/sentry-account-recover">
+                        {% trans "Lost your password?" %}
+                    </a>
+                </fieldset>
+            </form>
+        </div>
     </div>
-</div>
+</body>
+</html>
