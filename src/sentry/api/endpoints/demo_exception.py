@@ -21,7 +21,7 @@ class DemoExceptionEndpoint(Endpoint):
     PROCESS_PERCENT = 0
 
     def get(self, request):
-        return Response({'msg': load_demo.PROCESS_PERCENT})
+        return Response({'msg': ''})
 
     def post(self, request):
         org_member = OrganizationMember.objects.get(user_id=request.user.id)
