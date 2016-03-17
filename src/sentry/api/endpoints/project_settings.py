@@ -1,3 +1,11 @@
+# -*- coding: utf-8 -*-
+"""
+author : xiaoge
+company: LogInsight
+email_ : duchao@loginsight.cn
+file: project_settings.py
+time   : 16/3/17 下午4:28  
+"""
 from __future__ import absolute_import
 
 from django import forms
@@ -8,7 +16,9 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from uuid import uuid1
 
+from rest_framework.response import Response
 from sentry import features
+from sentry.api.bases import ProjectEndpoint
 from sentry.models import (
     AuditLogEntry, AuditLogEntryEvent, Project, Team
 )
@@ -186,27 +196,25 @@ class EditProjectForm(forms.ModelForm):
         return callsign
 
 
-class ProjectSettingsView(ProjectView):
+class ProjectSettingsEndpoint(ProjectEndpoint):
     required_scope = 'project:write'
 
+    def convert_args(self, request, organization_slug, project_slug, *args, **kwargs):
+        kwargs['organization_slug'] = organization_slug
+        kwargs['project_slug'] = project_slug
+        return (args, kwargs)
+
     def get_form(self, request, project):
-        print type(request),"..................................."
+
         organization = project.organization
-        # team_list = [
-        #     t for t in Team.objects.get_for_user(
-        #         organization=organization,
-        #         user=request.user,
-        #     )
-        #     if request.access.has_team_scope(t, self.required_scope)
-        # ]
-        team_list=[]
-        for t in Team.objects.get_for_user(organization=organization,user=request.user,):
-            print t,type(t)
-            if request.access.has_team_scope(t, self.required_scope):
-                team_list.append(t)
-            else:
-                print "hit !!"
-        print team_list,'..sss.................'
+        team_list = [
+            t for t in Team.objects.get_for_user(
+                organization=organization,
+                user=request.user,
+            )
+            if request.access.has_team_scope(t, self.required_scope)
+        ]
+        print team_list,'...................'
         # TODO(dcramer): this update should happen within a lock
         security_token = project.get_option('sentry:token', None)
         if security_token is None:
@@ -228,11 +236,40 @@ class ProjectSettingsView(ProjectView):
                 'blacklisted_ips': '\n'.join(project.get_option('sentry:blacklisted_ips', [])),
             },
         )
+    def get(self,request, organization_slug,project_slug):
+        print "hhh"
+        project = Project.objects.get(slug=project_slug)
+        print "hhh"
+        form = self.get_form(request, project)
+        print "hhsh"
+        context=form.__dict__["initial"]
+        print form.__dict__["initial"]
+        # # organization = Organization.objects.get(slug=organization_slug)
+        # security_token = project.get_option('sentry:token', None)
+        # if security_token is None:
+        #     security_token = uuid1().hex
+        #     project.update_option('sentry:token', security_token)
+        # initial={
+        #         'origins': '\n'.join(project.get_option('sentry:origins', ['*'])),
+        #         'token': security_token,
+        #         'resolve_age': int(project.get_option('sentry:resolve_age', 0)),
+        #         'scrub_data': bool(project.get_option('sentry:scrub_data', True)),
+        #         'scrub_defaults': bool(project.get_option('sentry:scrub_defaults', True)),
+        #         'sensitive_fields': '\n'.join(project.get_option('sentry:sensitive_fields', None) or []),
+        #         'scrub_ip_address': bool(project.get_option('sentry:scrub_ip_address', False)),
+        #         'scrape_javascript': bool(project.get_option('sentry:scrape_javascript', True)),
+        #         'blacklisted_ips': '\n'.join(project.get_option('sentry:blacklisted_ips', [])),
+        #     }
+        # for x in initial:
+        #     print x,initial[x]
 
+        return Response(data=context,status=200)
+    def post(self):
+        pass
     def handle(self, request, organization, team, project):
         form = self.get_form(request, project)
+
         if form.is_valid():
-            print "get yes"
             project = form.save()
             for opt in (
                     'origins',
@@ -271,13 +308,10 @@ class ProjectSettingsView(ProjectView):
             redirect = reverse('sentry-manage-project', args=[project.organization.slug, project.slug])
 
             return HttpResponseRedirect(redirect)
-        # print form.__dict__
-        # for item in form.__dict__:
-        #     print item,form.__dict__[item]
-        print len(form.__dict__['initial']),form.__dict__['initial']
+
         context = {
             'form': form,
             'page': 'details',
         }
-        print "get?"
+
         return self.respond('sentry/projects/manage.html', context)

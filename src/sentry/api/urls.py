@@ -1,6 +1,7 @@
 from __future__ import absolute_import, print_function
 
 from django.conf.urls import patterns, url
+from sentry.api.endpoints.project_settings import ProjectSettingsEndpoint
 
 from .endpoints.auth_index import AuthIndexEndpoint
 from .endpoints.broadcast_index import BroadcastIndexEndpoint
@@ -101,6 +102,8 @@ from .endpoints.upload_index import UploadIndexEndpoint
 from .endpoints.settings_rules import SettingsRulesEndpoint
 from .endpoints.user_organizations import UserOrganizationsEndpoint
 from .endpoints.project_notifications import ProjectNotificationsEndpoint
+from .endpoints.project_plugins import ProjectPluginsEndpoint
+
 urlpatterns = patterns(
     '',
     #  loginsight
@@ -129,6 +132,15 @@ urlpatterns = patterns(
     url(r'^indexes/(?P<index_id>[^\/]+)/fields/$', IndexesFieldsIndexEndpoint.as_view(), name='sentry-api-0-log-index-fields'),
     url(r'^upload/$', UploadIndexEndpoint.as_view(), name='sentry-api-0-log-index-fields'),
 
+
+
+    url(r'^(?P<organization_slug>[\w_-]+)/(?P<project_slug>[\w_-]+)/settings/$',
+        ProjectSettingsEndpoint.as_view(),
+        name='sentry-api-0-manage-project'),
+
+
+
+
     # Auth
     url(r'^auth/$',
         AuthIndexEndpoint.as_view(),
@@ -138,9 +150,13 @@ urlpatterns = patterns(
         SettingsRulesEndpoint.as_view(),
         name='sentry-api-0-project-rules'),
 
-    url(r'^(?P<organization_slug>[\w_-]+)/(?P<project_slug>[\w_-]+)/settings/notifications/$',
-        ProjectNotificationsEndpoint.as_view(),
-        name='sentry-api-0-project-notifications'),
+    # url(r'^(?P<organization_slug>[\w_-]+)/(?P<project_slug>[\w_-]+)/settings/notifications/$',
+    #     ProjectNotificationsEndpoint.as_view(),
+    #     name='sentry-api-0-project-notifications'),
+
+    url(r'^(?P<organization_slug>[\w_-]+)/(?P<project_slug>[\w_-]+)/settings/plugins/$',
+        ProjectPluginsEndpoint.as_view(),
+        name='sentry-api-0-manage-project-plugins'),
 
     # Broadcasts
     url(r'^broadcasts/$',
@@ -391,6 +407,9 @@ urlpatterns = patterns(
         CatchallEndpoint.as_view(),
         name='sentry-api-catchall'),
 
+    url(r'^(?P<organization_slug>[\w_-]+)/(?P<project_slug>[\w_-]+)/settings/plugins/$',
+        ProjectPluginsEndpoint.as_view(),
+        name='sentry-api-0-manage-project-plugins'),
 
     #settings/rules
 
