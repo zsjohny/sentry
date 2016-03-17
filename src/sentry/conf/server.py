@@ -722,6 +722,7 @@ SENTRY_ALLOW_ORIGIN = None
 ALLOWED_HOSTS = [
     'li.io',  # Allow domain and subdomains
     # '.example.com.',  # Also allow FQDN and subdomains
+    'loginsight.io',
     'localhost',
     '127.0.0.1',
     '192.168.200.120',
