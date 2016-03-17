@@ -231,10 +231,6 @@ class ProjectSettingsView(ProjectView):
 
     def handle(self, request, organization, team, project):
         form = self.get_form(request, project)
-<<<<<<< HEAD
-=======
-        print 'form ==== ', form
->>>>>>> caea66a61996ad73308bb685e1e513ff8b6b6e53
         if form.is_valid():
             print "get yes"
             project = form.save()
