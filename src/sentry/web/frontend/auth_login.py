@@ -54,7 +54,6 @@ class AuthLoginView(BaseView):
 
     def handle_basic_auth(self, request):
         can_register = features.has('auth:register') or request.session.get('can_register')
-
         op = request.POST.get('op')
 
         # Detect that we are on the register page by url /register/ and
@@ -73,7 +72,6 @@ class AuthLoginView(BaseView):
 
             # HACK: grab whatever the first backend is and assume it works
             user.backend = settings.AUTHENTICATION_BACKENDS[0]
-
             auth.login(request, user)
 
             # can_register should only allow a single registration
@@ -84,10 +82,11 @@ class AuthLoginView(BaseView):
             return self.redirect(auth.get_login_redirect(request))
 
         elif login_form.is_valid():
+
             auth.login(request, login_form.get_user())
-
             request.session.pop('needs_captcha', None)
-
+            # if len(request.META.get('HTTP_ORIGIN_HOST', '')) != 0:
+            #     return self.redirect(request.META['HTTP_ORIGIN_HOST'])
             return self.redirect(auth.get_login_redirect(request))
 
         elif request.POST and not request.session.get('needs_captcha'):
@@ -135,6 +134,7 @@ class AuthLoginView(BaseView):
             return HttpResponseRedirect(next_uri)
 
         op = request.POST.get('op')
+        print 'op === ', op
         if op == 'sso' and request.POST.get('organization'):
             auth_provider = self.get_auth_provider(request.POST['organization'])
             if auth_provider:

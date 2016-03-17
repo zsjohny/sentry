@@ -14,4 +14,6 @@ class AuthLogoutView(BaseView):
         rv = get_login_redirect(request)
         logout(request)
         request.user = AnonymousUser()
+        # if len(request.META.get('HTTP_ORIGIN_HOST', '')) != 0:
+        #     return self.redirect(request.META.get('HTTP_ORIGIN_HOST')+'/auth/login')
         return self.redirect(rv)

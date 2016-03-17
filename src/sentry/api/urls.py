@@ -1,7 +1,6 @@
 from __future__ import absolute_import, print_function
 
 from django.conf.urls import patterns, url
-from sentry.api.endpoints.project_settings import ProjectSettingsEndpoint
 
 from .endpoints.auth_index import AuthIndexEndpoint
 from .endpoints.broadcast_index import BroadcastIndexEndpoint
@@ -104,6 +103,8 @@ from .endpoints.user_organizations import UserOrganizationsEndpoint
 from .endpoints.project_notifications import ProjectNotificationsEndpoint
 from .endpoints.project_plugins import ProjectPluginsEndpoint
 
+from .endpoints.project_settings import ProjectSettingsEndpoint
+from .endpoints.react import ReactEnpoint
 urlpatterns = patterns(
     '',
     #  loginsight
@@ -131,15 +132,11 @@ urlpatterns = patterns(
     url(r'^indexes/(?P<index_id>[^\/]+)/$', IndexesDetailsEndpoint.as_view(), name='sentry-api-0-log-index-details'),
     url(r'^indexes/(?P<index_id>[^\/]+)/fields/$', IndexesFieldsIndexEndpoint.as_view(), name='sentry-api-0-log-index-fields'),
     url(r'^upload/$', UploadIndexEndpoint.as_view(), name='sentry-api-0-log-index-fields'),
-
-
-
+    url(r'^react/$', ReactEnpoint.as_view(), name='sentry-api-0-react'),
+    # settings
     url(r'^(?P<organization_slug>[\w_-]+)/(?P<project_slug>[\w_-]+)/settings/$',
         ProjectSettingsEndpoint.as_view(),
-        name='sentry-api-0-manage-project'),
-
-
-
+        name='sentry-manage-project'),
 
     # Auth
     url(r'^auth/$',
