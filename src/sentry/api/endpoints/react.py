@@ -138,15 +138,17 @@ class ReactEnpoint(Endpoint):
     def get(self, request):
         # if 'request' in context:
         user = request.user
+        print 'user....', user
         messages = get_messages(request)
         try:
             is_superuser = request.is_superuser()
         except AttributeError:
             is_superuser = False
-        else:
-            user = None
-            messages = []
-            is_superuser = False
+        # else:
+        #     user = None
+        #     messages = []
+        #     print 'None ....'
+        #     is_superuser = False
 
         if user:
             user = extract_lazy_object(user)
