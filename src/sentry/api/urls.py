@@ -1,6 +1,7 @@
 from __future__ import absolute_import, print_function
 
 from django.conf.urls import patterns, url
+from sentry.api.endpoints.project_lssue_tracking import ProjectIssueTrackingEndpoint
 
 from .endpoints.auth_index import AuthIndexEndpoint
 from .endpoints.broadcast_index import BroadcastIndexEndpoint
@@ -141,6 +142,10 @@ urlpatterns = patterns(
     url(r'^(?P<organization_slug>[\w_-]+)/(?P<project_slug>[\w_-]+)/settings/quotas/$',
         ProjectQuotasEndpoint.as_view(),
         name='sentry-api-0-manage-project-quotas'),
+
+    url(r'^(?P<organization_slug>[\w_-]+)/(?P<project_slug>[\w_-]+)/settings/issue-tracking/$',
+        ProjectIssueTrackingEndpoint.as_view(),
+        name='sentry-api-0-project-issue-tracking'),
     # Auth
     url(r'^auth/$',
         AuthIndexEndpoint.as_view(),
