@@ -1,7 +1,7 @@
 from __future__ import absolute_import, print_function
 
 from django.conf.urls import patterns, url
-from sentry.api.endpoints.project_lssue_tracking import ProjectIssueTrackingEndpoint
+from sentry.api.endpoints.project_issue_tracking import ProjectIssueTrackingEndpoint
 
 from .endpoints.auth_index import AuthIndexEndpoint
 from .endpoints.broadcast_index import BroadcastIndexEndpoint
