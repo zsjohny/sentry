@@ -190,23 +190,15 @@ class ProjectSettingsView(ProjectView):
     required_scope = 'project:write'
 
     def get_form(self, request, project):
-        print type(request),"..................................."
         organization = project.organization
-        # team_list = [
-        #     t for t in Team.objects.get_for_user(
-        #         organization=organization,
-        #         user=request.user,
-        #     )
-        #     if request.access.has_team_scope(t, self.required_scope)
-        # ]
-        team_list=[]
-        for t in Team.objects.get_for_user(organization=organization,user=request.user,):
-            print t,type(t)
-            if request.access.has_team_scope(t, self.required_scope):
-                team_list.append(t)
-            else:
-                print "hit !!"
-        print team_list,'..sss.................'
+        team_list = [
+            t for t in Team.objects.get_for_user(
+                organization=organization,
+                user=request.user,
+            )
+            if request.access.has_team_scope(t, self.required_scope)
+        ]
+
         # TODO(dcramer): this update should happen within a lock
         security_token = project.get_option('sentry:token', None)
         if security_token is None:
@@ -232,9 +224,7 @@ class ProjectSettingsView(ProjectView):
     def handle(self, request, organization, team, project):
         form = self.get_form(request, project)
         if form.is_valid():
-            print "get yes"
             project = form.save()
-            print 'project ==== ', project
             for opt in (
                     'origins',
                     'token',
@@ -272,13 +262,8 @@ class ProjectSettingsView(ProjectView):
             redirect = reverse('sentry-manage-project', args=[project.organization.slug, project.slug])
 
             return HttpResponseRedirect(redirect)
-        # print form.__dict__
-        # for item in form.__dict__:
-        #     print item,form.__dict__[item]
-        print len(form.__dict__['initial']),form.__dict__['initial']
         context = {
             'form': form,
             'page': 'details',
         }
-        print "get?"
         return self.respond('sentry/projects/manage.html', context)

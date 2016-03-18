@@ -1,37 +1,29 @@
-# -*- coding: utf-8 -*-
 """
-<<<<<<< HEAD
-author : xiaoge
+author : wanghe
 company: LogInsight
-email_ : duchao@loginsight.cn
-file: project_settings.py
-time   : 16/3/17 下午4:28  
+email_ : wangh@loginsight.cn
 """
 from __future__ import absolute_import
 
-from django import forms
-from django.contrib import messages
-from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
-from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _
 from uuid import uuid1
 
+from django import forms
+from django.core.exceptions import ObjectDoesNotExist
+from django.utils.safestring import mark_safe
+from django.utils.translation import ugettext_lazy as _
 from rest_framework.response import Response
 from sentry import features
-from sentry.api.bases import ProjectEndpoint
-from sentry.models import (
-    AuditLogEntry, AuditLogEntryEvent, Project, Team
-)
+from sentry.api.bases.project import ProjectEndpoint
+from sentry.models.organization import Organization
+from sentry.models.project import Project
+from sentry.models.team import Team
+from sentry.utils.strings import validate_callsign
 from sentry.web.forms.fields import (
     CustomTypedChoiceField, RangeField, OriginsField, IPNetworksField,
 )
-from sentry.web.frontend.base import ProjectView
-from sentry.utils.strings import validate_callsign
-
-
-BLANK_CHOICE = [("", "")]
-
+from sentry.models import (
+    AuditLogEntry, AuditLogEntryEvent, Project, Team
+)
 
 class EditProjectForm(forms.ModelForm):
     name = forms.CharField(label=_('Project Name'), max_length=200,
@@ -196,32 +188,32 @@ class EditProjectForm(forms.ModelForm):
                                           'using that callsign') % other.name)
         return callsign
 
-
+'''
+input sample(from chrome console):
+$.post("/api/0/loginsight/myproject/settings/" ,{'resolve_age': '72', 'scrub_defaults': 'on', 'name': 'myprojecthaha', 'origins': '*www.baidu.com\r\nswww.google.com', 'blacklisted_ips': '1.1.1.2\r\n3.3.3.3', 'token': '77a29307eb5411e595afe0accb9b608e', 'scrape_javascript': 'on', 'scrub_ip_address': 'on', 'team': '2', 'sensitive_fields': 'duchao@yahoo.com', 'csrfmiddlewaretoken': 's12DBcRHCLGgUXMT8TLswnzgaHccnQ6m', 'slug': 'myproject'})
+'''
 class ProjectSettingsEndpoint(ProjectEndpoint):
     required_scope = 'project:write'
 
-    def convert_args(self, request, organization_slug, project_slug, *args, **kwargs):
-        kwargs['organization_slug'] = organization_slug
-        kwargs['project_slug'] = project_slug
-        return (args, kwargs)
-
     def get_form(self, request, project):
-
         organization = project.organization
-        team_list = [
-            t for t in Team.objects.get_for_user(
-                organization=organization,
-                user=request.user,
-            )
-            if request.access.has_team_scope(t, self.required_scope)
-        ]
-        print team_list,'...................'
+        team_list=[]
+        for t in Team.objects.get_for_user(organization=organization,user=request.user,):
+
+            team_list.append(t)
+        # print type(request._request)
+        # team_list = [
+        #     t for t in Team.objects.get_for_user(
+        #         organization=organization,
+        #         user=request.user,
+        #     )
+        #     if request._request.access.has_team_scope(t, self.required_scope)
+        # ]
         # TODO(dcramer): this update should happen within a lock
         security_token = project.get_option('sentry:token', None)
         if security_token is None:
             security_token = uuid1().hex
             project.update_option('sentry:token', security_token)
-
         return EditProjectForm(
             request, organization, team_list, request.POST or None,
             instance=project,
@@ -237,59 +229,6 @@ class ProjectSettingsEndpoint(ProjectEndpoint):
                 'blacklisted_ips': '\n'.join(project.get_option('sentry:blacklisted_ips', [])),
             },
         )
-    def get(self,request, organization_slug,project_slug):
-        print "hhh"
-        project = Project.objects.get(slug=project_slug)
-        print "hhh"
-        form = self.get_form(request, project)
-        print "hhsh"
-        context=form.__dict__["initial"]
-        print form.__dict__["initial"]
-        # # organization = Organization.objects.get(slug=organization_slug)
-        # security_token = project.get_option('sentry:token', None)
-        # if security_token is None:
-        #     security_token = uuid1().hex
-        #     project.update_option('sentry:token', security_token)
-        # initial={
-        #         'origins': '\n'.join(project.get_option('sentry:origins', ['*'])),
-        #         'token': security_token,
-        #         'resolve_age': int(project.get_option('sentry:resolve_age', 0)),
-        #         'scrub_data': bool(project.get_option('sentry:scrub_data', True)),
-        #         'scrub_defaults': bool(project.get_option('sentry:scrub_defaults', True)),
-        #         'sensitive_fields': '\n'.join(project.get_option('sentry:sensitive_fields', None) or []),
-        #         'scrub_ip_address': bool(project.get_option('sentry:scrub_ip_address', False)),
-        #         'scrape_javascript': bool(project.get_option('sentry:scrape_javascript', True)),
-        #         'blacklisted_ips': '\n'.join(project.get_option('sentry:blacklisted_ips', [])),
-        #     }
-        # for x in initial:
-        #     print x,initial[x]
-
-        return Response(data=context,status=200)
-    def post(self):
-        pass
-    def handle(self, request, organization, team, project):
-        form = self.get_form(request, project)
-
-        if form.is_valid():
-            project = form.save()
-            for opt in (
-=======
-author : wanghe
-company: LogInsight
-email_ : wangh@loginsight.cn
-"""
-
-from __future__ import absolute_import
-from sentry.api.bases.project import ProjectEndpoint
-from sentry.models.project import Project
-from sentry.models.team import Team
-from sentry.models.organization import Organization
-from django.core.exceptions import ObjectDoesNotExist
-from rest_framework.response import Response
-from uuid import uuid1
-
-
-class ProjectSettingsEndpoint(ProjectEndpoint):
     def convert_args(self, request, organization_slug, project_slug, *args, **kwargs):
         kwargs['organization_slug'] = organization_slug,
         kwargs['project_slug'] = project_slug
@@ -297,22 +236,31 @@ class ProjectSettingsEndpoint(ProjectEndpoint):
 
     def get(self, request, organization_slug, project_slug,  *args, **kwargs):
         try:
-            organization = Organization.objects.get(slug=organization_slug)
+            org_slug, =  organization_slug
+            organization = Organization.objects.get(slug=org_slug)
             project = Project.objects.get(slug=project_slug)
             team_list = [
                 t for t in Team.objects.get_for_user(
                     organization=organization,
                     user=request.user,
                 )
-                if request.access.has_team_scope(t, self.required_scope)
+                # if request.access.has_team_scope(t, self.required_scope)
             ]
+            for t in Team.objects.get_for_user(organization=organization,user=request.user,):
+                team_list.append(t)
 
             # TODO(dcramer): this update should happen within a lock
             security_token = project.get_option('sentry:token', None)
+            teams=[]
+            for t in team_list:
+                obj = {}
+                obj['id'] = t.id
+                obj['name'] = t.name
+                obj['slug'] = t.slug
+                teams.append(obj)
             if security_token is None:
                 security_token = uuid1().hex
                 project.update_option('sentry:token', security_token)
-
                 content = {
                     'origins': '\n'.join(project.get_option('sentry:origins', ['*'])),
                     'token': security_token,
@@ -328,14 +276,76 @@ class ProjectSettingsEndpoint(ProjectEndpoint):
                         'slug': project.slug,
                         'team_list': team_list,
                     },
-                },
+                }
                 return Response(data=content, status=200)
+
+            content = {
+                    'origins': '\n'.join(project.get_option('sentry:origins', ['*'])),
+                    'token': security_token,
+                    'resolve_age': int(project.get_option('sentry:resolve_age', 0)),
+                    'scrub_data': bool(project.get_option('sentry:scrub_data', True)),
+                    'scrub_defaults': bool(project.get_option('sentry:scrub_defaults', True)),
+                    'sensitive_fields': '\n'.join(project.get_option('sentry:sensitive_fields', None) or []),
+                    'scrub_ip_address': bool(project.get_option('sentry:scrub_ip_address', False)),
+                    'scrape_javascript': bool(project.get_option('sentry:scrape_javascript', True)),
+                    'blacklisted_ips': '\n'.join(project.get_option('sentry:blacklisted_ips', [])),
+                    'project_details': {
+                        'name': project.name,
+                        'slug': project.slug,
+                        'team_list': teams,
+                    }
+            }
+            return Response(data=content, status=200)
         except ObjectDoesNotExist:
             return Response(data={'error': 'cannot find organization or project ', 'code': '4000'}, status=400)
 
+    def post(self, request, organization_slug, project_slug,  *args, **kwargs):
 
-    def post(self, request, *args, **kwargs):
-        pass
+
+        project = Project.objects.get(slug=project_slug)
+        org_slug,=organization_slug
+        organization = Organization.objects.get(slug=org_slug)
+        form = self.get_form(request, project)
+
+
+
+        if form.is_valid():
+            project = form.save()
+            for opt in (
+                    'origins',
+                    'token',
+                    'resolve_age',
+                    'scrub_data',
+                    'scrub_defaults',
+                    'sensitive_fields',
+                    'scrub_ip_address',
+                    'scrape_javascript',
+                    'blacklisted_ips'):
+                # Value can't be overridden if set on the org level
+                if opt in form.org_overrides and organization.get_option('sentry:%s' % (opt,), False):
+                    continue
+                value = form.cleaned_data.get(opt)
+                if value is None:
+                    project.delete_option('sentry:%s' % (opt,))
+                else:
+                    project.update_option('sentry:%s' % (opt,), value)
+
+            project.update_option('sentry:reviewed-callsign', True)
+
+            AuditLogEntry.objects.create(
+                    organization=organization,
+                    actor=request.user,
+                    ip_address=request.META['REMOTE_ADDR'],
+                    target_object=project.id,
+                    event=AuditLogEntryEvent.PROJECT_EDIT,
+                    data=project.get_audit_log_data(),
+            )
+
+
+            # redirect = reverse('sentry-manage-project', args=[project.organization.slug, project.slug])
+            # return HttpResponseRedirect(redirect)
+            return Response({"msg":"ok"},status=200)
+        return Response({"error":"input invalid"},status=4008)
 
     def put(self, request):
         pass
