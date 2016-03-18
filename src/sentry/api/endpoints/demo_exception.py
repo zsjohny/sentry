@@ -14,8 +14,6 @@ class DemoExceptionEndpoint(Endpoint):
     """
       POST /demo_exception
     """
-    # serializer_class = HostSerializer
-    # queryset = Host.objects.all()
 
     permission_classes = ()
     PROCESS_PERCENT = 0
