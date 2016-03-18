@@ -261,6 +261,8 @@ class BuildJavascriptCommand(Command):
                      sentry.__file__))
             version = VERSION
             build = sentry.__build__
+            print('version-',version)
+            print('build-',build)
         finally:
             sys.path.pop(0)
 
@@ -298,7 +300,8 @@ class BuildJavascriptCommand(Command):
     def run(self):
         need_integration_docs = not os.path.isdir(INTEGRATION_DOC_FOLDER)
         version_info = self._get_package_version()
-
+        #print 'version_info===', version_info
+        #print '_needs_static(version_info)====', self._needs_static(version_info)
         if not (self.force or self._needs_static(version_info)):
             log.info("skipped asset build (version already built)")
         else:
@@ -308,7 +311,7 @@ class BuildJavascriptCommand(Command):
             ))
             if not version_info['version'] or not version_info['build']:
                 log.fatal('Could not determine sentry version or build')
-                sys.exit(1)
+                #sys.exit(1)
 
             try:
                 self._build_static()
