@@ -102,7 +102,7 @@ from .endpoints.settings_rules import SettingsRulesEndpoint
 from .endpoints.user_organizations import UserOrganizationsEndpoint
 from .endpoints.project_notifications import ProjectNotificationsEndpoint
 from .endpoints.project_plugins import ProjectPluginsEndpoint
-
+from .endpoints.project_quotas import ProjectQuotasEndpoint
 from .endpoints.project_settings import ProjectSettingsEndpoint
 from .endpoints.react import ReactEnpoint
 urlpatterns = patterns(
@@ -133,11 +133,14 @@ urlpatterns = patterns(
     url(r'^indexes/(?P<index_id>[^\/]+)/fields/$', IndexesFieldsIndexEndpoint.as_view(), name='sentry-api-0-log-index-fields'),
     url(r'^upload/$', UploadIndexEndpoint.as_view(), name='sentry-api-0-log-index-fields'),
     url(r'^react/$', ReactEnpoint.as_view(), name='sentry-api-0-react'),
+
     # settings
     url(r'^(?P<organization_slug>[\w_-]+)/(?P<project_slug>[\w_-]+)/settings/$',
         ProjectSettingsEndpoint.as_view(),
         name='sentry-manage-project'),
-
+    url(r'^(?P<organization_slug>[\w_-]+)/(?P<project_slug>[\w_-]+)/settings/quotas/$',
+        ProjectQuotasEndpoint.as_view(),
+        name='sentry-api-0-manage-project-quotas'),
     # Auth
     url(r'^auth/$',
         AuthIndexEndpoint.as_view(),
