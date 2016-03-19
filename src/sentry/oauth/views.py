@@ -49,7 +49,6 @@ class ConsumerExchangeView(FormView):
                                  data=data,
                                  headers=headers
                                  )
-            print 'resp === ', resp
             data = resp.json()
             token = data['access_token']
             token_type = data['token_type']
