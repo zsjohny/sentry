@@ -123,12 +123,12 @@ def create_demo_sample(num_events=1, user_name="dummy@example.com", org_name='de
             'email': user_name,
         }
     )
-    dummy_user.set_password('123')
-    dummy_user.save()
+    # dummy_user.set_password('123')
+    # dummy_user.save()
 
     mocks = (
-        ('Massive Dynamic' + str(datetime.now()), ('Ludic Science',)),
-        ('Captain Planet' + str(datetime.now()), ('Earth',)),
+        ('Massive Dynamic', ('Ludic Science',)),
+        ('Captain Planet', ('Earth',)),
     )
     Broadcast.objects.create(
         title="Learn about Source Maps",

@@ -66,6 +66,9 @@ from sentry.web.frontend.remove_organization import RemoveOrganizationView
 from sentry.web.frontend.remove_project import RemoveProjectView
 from sentry.web.frontend.remove_team import RemoveTeamView
 from sentry.web.frontend.replay_event import ReplayEventView
+from sentry.oauth.views import ConsumerExchangeView
+# import sentry.oauth.api_v1
+from django.views.generic import TemplateView
 
 
 def init_all_applications():
@@ -116,6 +119,16 @@ if settings.DEBUG:
         url(r'^debug/trigger-error/$',
             DebugTriggerErrorView.as_view()),
     )
+urlpatterns += patterns(
+    '',
+    url(
+        regex=r'^accounts/login/$',
+        view='django.contrib.auth.views.login',
+        kwargs={'template_name': 'example/login.html'}
+    ),
+    url(r'^oauth/consumer/exchange/$', ConsumerExchangeView.as_view(), name='oauth-consumer-exchange'),
+
+)
 
 urlpatterns += patterns(
     '',

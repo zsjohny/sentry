@@ -36,8 +36,8 @@ class ConsumerExchangeView(FormView):
             self.initial = {
                 'code': request.GET['code'],
                 'state': request.GET['state'],
-                'client_id': settings.LOGINSIGHT_CLIENT_ID,
-                'client_secret': settings.LOGINSIGHT_CLIENT_SECRET,
+                'client_id': settings.DEFALUT_SENTRY_CLIENT_ID,
+                'client_secret': settings.DEFALUT_SENTRY_CLIENT_ID,
                 'token_url': settings.TOKEN_URL,
                 'redirect_url': request.build_absolute_uri(reverse('oauth-consumer-exchange'))
             }
@@ -49,6 +49,7 @@ class ConsumerExchangeView(FormView):
                                  data=data,
                                  headers=headers
                                  )
+            print 'resp === ', resp
             data = resp.json()
             token = data['access_token']
             token_type = data['token_type']
@@ -72,7 +73,7 @@ class ConsumerExchangeView(FormView):
             org_name = data['org_name']
             # create organization
 
-            if len( Organization.objects.filter(name=org_name)) == 0:
+            if len(Organization.objects.filter(slug=org_name)) == 0:
                 org = Organization.objects.create(
                     name=org_name,
                     slug=org_name,
@@ -86,12 +87,12 @@ class ConsumerExchangeView(FormView):
 
             if request.user.is_authenticated():
                 # Do something for authenticated users.
-                return redirect('sentry-organization-home')
+                uri = reverse('sentry-organization-home', args=[org_name])
+                return redirect(uri)
             else:
                 # Do something for anonymous users.
 
                 user = authenticate(username=data['name'], password=data['password'])
-
                 if user is None:
                     return redirect('sentry-login')
                 login(request, user)
