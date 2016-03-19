@@ -37,11 +37,11 @@ class ConsumerExchangeView(FormView):
                 'code': request.GET['code'],
                 'state': request.GET['state'],
                 'client_id': settings.DEFALUT_SENTRY_CLIENT_ID,
-                'client_secret': settings.DEFALUT_SENTRY_CLIENT_ID,
+                'client_secret': settings.DEFALUT_SENTRY_CLIENT_SECRET,
                 'token_url': settings.TOKEN_URL,
                 'redirect_url': request.build_absolute_uri(reverse('oauth-consumer-exchange'))
             }
-            headers = {"Authorization": "Basic " + base64.b64encode(settings.LOGINSIGHT_CLIENT_ID + ":" + settings.LOGINSIGHT_CLIENT_SECRET)}
+            headers = {"Authorization": "Basic " + base64.b64encode(settings.DEFALUT_SENTRY_CLIENT_ID + ":" + settings.DEFALUT_SENTRY_CLIENT_SECRET)}
             data = {'code': request.GET['code'],
                     'redirect_uri': request.build_absolute_uri(reverse('oauth-consumer-exchange')),
                     'grant_type': 'authorization_code'}
