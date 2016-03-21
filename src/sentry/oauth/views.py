@@ -90,7 +90,6 @@ class ConsumerExchangeView(FormView):
                 return redirect(uri)
             else:
                 # Do something for anonymous users.
-
                 user = authenticate(username=data['name'], password=data['password'])
                 login(request, user)
                 if user is None:
