@@ -11,6 +11,9 @@ import os
 
 import click
 
+from sentry.utils import warnings
+from sentry.utils.warnings import DeprecatedSettingWarning
+
 
 def install_plugin_apps(settings):
     # entry_points={
@@ -127,7 +130,6 @@ def initialize_app(config, skip_backend_validation=False):
     # Commonly setups don't correctly configure themselves for production envs
     # so lets try to provide a bit more guidance
     if settings.CELERY_ALWAYS_EAGER and not settings.DEBUG:
-        import warnings
         warnings.warn('Sentry is configured to run asynchronous tasks in-process. '
                       'This is not recommended within production environments. '
                       'See https://docs.getsentry.com/on-premise/server/queue/ for more information.')
@@ -223,35 +225,38 @@ def show_big_error(message):
 def apply_legacy_settings(settings):
     # SENTRY_USE_QUEUE used to determine if Celery was eager or not
     if hasattr(settings, 'SENTRY_USE_QUEUE'):
-        import warnings
-        warnings.warn('SENTRY_USE_QUEUE is deprecated. Please use CELERY_ALWAYS_EAGER instead. '
-                      'See https://docs.getsentry.com/on-premise/server/queue/ for more information.', DeprecationWarning)
+        warnings.warn(
+            DeprecatedSettingWarning(
+                'SENTRY_USE_QUEUE',
+                'CELERY_ALWAYS_EAGER',
+                'https://docs.getsentry.com/on-premise/server/queue/',
+            )
+        )
         settings.CELERY_ALWAYS_EAGER = (not settings.SENTRY_USE_QUEUE)
 
     if not settings.SENTRY_OPTIONS.get('system.admin-email') and hasattr(settings, 'SENTRY_ADMIN_EMAIL'):
-        import warnings
-        warnings.warn('SENTRY_ADMIN_EMAIL is deprecated. '
-                      "Use SENTRY_OPTIONS instead, key 'system.admin-email'", DeprecationWarning)
+        warnings.warn(DeprecatedSettingWarning('SENTRY_ADMIN_EMAIL', 'SENTRY_OPTIONS["system.admin-email"]'))
         settings.SENTRY_OPTIONS['system.admin-email'] = settings.SENTRY_ADMIN_EMAIL
 
     if not settings.SENTRY_OPTIONS.get('system.url-prefix') and hasattr(settings, 'SENTRY_URL_PREFIX'):
-        import warnings
-        warnings.warn('SENTRY_URL_PREFIX is deprecated. '
-                      "Use SENTRY_OPTIONS instead, key 'system.url-prefix'", DeprecationWarning)
+        warnings.warn(DeprecatedSettingWarning('SENTRY_URL_PREFIX', 'SENTRY_OPTIONS["system.url-prefix"]'))
         settings.SENTRY_OPTIONS['system.url-prefix'] = settings.SENTRY_URL_PREFIX
 
     if not settings.SENTRY_OPTIONS.get('system.rate-limit') and hasattr(settings, 'SENTRY_SYSTEM_MAX_EVENTS_PER_MINUTE'):
-        import warnings
-        warnings.warn('SENTRY_SYSTEM_MAX_EVENTS_PER_MINUTE is deprecated. '
-                      "Use SENTRY_OPTIONS instead, key 'system.rate-limit'", DeprecationWarning)
+        warnings.warn(DeprecatedSettingWarning('SENTRY_SYSTEM_MAX_EVENTS_PER_MINUTE', 'SENTRY_OPTIONS["system.rate-limit"]'))
         settings.SENTRY_OPTIONS['system.rate-limit'] = settings.SENTRY_SYSTEM_MAX_EVENTS_PER_MINUTE
 
     if hasattr(settings, 'SENTRY_REDIS_OPTIONS'):
         if 'redis.clusters' in settings.SENTRY_OPTIONS:
             raise Exception("Cannot specify both SENTRY_OPTIONS['redis.clusters'] option and SENTRY_REDIS_OPTIONS setting.")
         else:
-            import warnings
-            warnings.warn("SENTRY_REDIS_OPTIONS is deprecated. Use SENTRY_OPTIONS instead, key 'redis.clusters'", DeprecationWarning)
+            warnings.warn(
+                DeprecatedSettingWarning(
+                    'SENTRY_REDIS_OPTIONS',
+                    'SENTRY_OPTIONS["redis.clusters"]',
+                    removed_in_version='8.5',
+                )
+            )
             settings.SENTRY_OPTIONS['redis.clusters'] = {
                 'default': settings.SENTRY_REDIS_OPTIONS,
             }
@@ -282,8 +287,7 @@ def apply_legacy_settings(settings):
         settings.ALLOWED_HOSTS = AllowedHosts()
 
     if hasattr(settings, 'SENTRY_ALLOW_REGISTRATION'):
-        import warnings
-        warnings.warn('SENTRY_ALLOW_REGISTRATION is deprecated. Use SENTRY_FEATURES instead.', DeprecationWarning)
+        warnings.warn(DeprecatedSettingWarning('SENTRY_ALLOW_REGISTRATION', 'SENTRY_FEATURES["auth:register"]'))
         settings.SENTRY_FEATURES['auth:register'] = settings.SENTRY_ALLOW_REGISTRATION
 
 

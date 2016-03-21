@@ -10,22 +10,20 @@ from __future__ import absolute_import
 import logging
 import os
 import time
-import toronado
+from email.utils import parseaddr
 from random import randrange
 
 from django.conf import settings
-from django.core.mail import get_connection, EmailMultiAlternatives
-from django.core.signing import Signer, BadSignature
+from django.core.mail import EmailMultiAlternatives, get_connection
+from django.core.signing import BadSignature, Signer
 from django.utils.crypto import constant_time_compare
 from django.utils.encoding import force_bytes, force_str, force_text
-from django.utils.functional import cached_property
-from email.utils import parseaddr
+from toronado import from_string as inline_css
 
-from sentry.models import GroupEmailThread, Group
-from sentry.web.helpers import render_to_string
+from sentry.models import Group, GroupEmailThread, User, UserOption
 from sentry.utils import metrics
 from sentry.utils.safe import safe_execute
-
+from sentry.web.helpers import render_to_string
 
 logger = logging.getLogger(__name__)
 
@@ -112,6 +110,42 @@ def make_msgid(domain):
 FROM_EMAIL_DOMAIN = domain_from_email(settings.DEFAULT_FROM_EMAIL)
 
 
+def get_email_addresses(user_ids, project=None):
+    pending = set(user_ids)
+    results = {}
+
+    if project:
+        queryset = UserOption.objects.filter(
+            project=project,
+            user__in=pending,
+            key='mail:email',
+        )
+        for option in (o for o in queryset if o.value):
+            results[option.user_id] = option.value
+            pending.discard(option.user_id)
+
+    if pending:
+        queryset = UserOption.objects.filter(
+            user__in=pending,
+            key='alert_email',
+        )
+        for option in (o for o in queryset if o.value):
+            results[option.user_id] = option.value
+            pending.discard(option.user_id)
+
+    if pending:
+        queryset = User.objects.filter(pk__in=pending, is_active=True)
+        for (user_id, email) in queryset.values_list('id', 'email'):
+            if email:
+                results[user_id] = email
+                pending.discard(user_id)
+
+    if pending:
+        logger.warning('Could not resolve email addresses for user IDs in %r, discarding...', pending)
+
+    return results
+
+
 class MessageBuilder(object):
     def __init__(self, subject, context=None, template=None, html_template=None,
                  body=None, html_body=None, headers=None, reference=None,
@@ -132,8 +166,7 @@ class MessageBuilder(object):
         self.from_email = from_email or settings.SERVER_EMAIL
         self._send_to = set()
 
-    @cached_property
-    def html_body(self):
+    def __render_html_body(self):
         html_body = None
         if self.html_template:
             html_body = render_to_string(self.html_template, self.context)
@@ -143,48 +176,15 @@ class MessageBuilder(object):
         if html_body is not None:
             return inline_css(html_body)
 
-    @cached_property
-    def txt_body(self):
+    def __render_text_body(self):
         if self.template:
             return render_to_string(self.template, self.context)
         return self._txt_body
 
     def add_users(self, user_ids, project=None):
-        from sentry.models import User, UserOption
-
-        email_list = set()
-        user_ids = set(user_ids)
-
-        # XXX: It's possible that options have been set to an empty value
-        if project:
-            queryset = UserOption.objects.filter(
-                project=project,
-                user__in=user_ids,
-                key='mail:email',
-            )
-            for option in (o for o in queryset if o.value):
-                user_ids.remove(option.user_id)
-                email_list.add(option.value)
-
-        if user_ids:
-            queryset = UserOption.objects.filter(
-                user__in=user_ids,
-                key='alert_email',
-            )
-            for option in (o for o in queryset if o.value):
-                try:
-                    user_ids.remove(option.user_id)
-                    email_list.add(option.value)
-                except KeyError:
-                    # options.user_id might not exist in user_ids set
-                    pass
-
-        if user_ids:
-            email_list |= set(filter(bool, User.objects.filter(
-                pk__in=user_ids, is_active=True,
-            ).values_list('email', flat=True)))
-
-        self._send_to.update(email_list)
+        self._send_to.update(
+            get_email_addresses(user_ids, project).values()
+        )
 
     def build(self, to, reply_to=None, cc=None, bcc=None):
         if self.headers is None:
@@ -229,15 +229,17 @@ class MessageBuilder(object):
 
         msg = EmailMultiAlternatives(
             subject=subject,
-            body=self.txt_body,
+            body=self.__render_text_body(),
             from_email=self.from_email,
             to=(to,),
             cc=cc or (),
             bcc=bcc or (),
             headers=headers,
         )
-        if self.html_body:
-            msg.attach_alternative(self.html_body, 'text/html')
+
+        html_body = self.__render_html_body()
+        if html_body:
+            msg.attach_alternative(html_body, 'text/html')
 
         return msg
 
@@ -250,13 +252,10 @@ class MessageBuilder(object):
         return results
 
     def send(self, to=None, bcc=None, fail_silently=False):
-        messages = self.get_built_messages(to, bcc=bcc)
-        self.send_all(messages, fail_silently=fail_silently)
-
-    def send_all(self, messages, fail_silently=False):
-        connection = get_connection(fail_silently=fail_silently)
-        metrics.incr('email.sent', len(messages))
-        return connection.send_messages(messages)
+        return send_messages(
+            self.get_built_messages(to, bcc=bcc),
+            fail_silently=fail_silently,
+        )
 
     def send_async(self, to=None, bcc=None):
         from sentry.tasks.email import send_email
@@ -265,5 +264,7 @@ class MessageBuilder(object):
             safe_execute(send_email.delay, message=message)
 
 
-def inline_css(html):
-    return toronado.from_string(html)
+def send_messages(messages, fail_silently=False):
+    connection = get_connection(fail_silently=fail_silently)
+    metrics.incr('email.sent', len(messages))
+    return connection.send_messages(messages)

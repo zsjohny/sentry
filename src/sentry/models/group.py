@@ -63,6 +63,11 @@ class GroupManager(BaseManager):
         callsign = callsign.upper()
         try:
             short_id = base32_decode(id)
+            # We need to make sure the short id is not overflowing the
+            # field's max or the lookup will fail with an assertion error.
+            max_id = Group._meta.get_field_by_name('short_id')[0].MAX_VALUE
+            if short_id > max_id:
+                raise ValueError()
         except ValueError:
             raise Group.DoesNotExist()
         return Group.objects.get(
@@ -180,9 +185,10 @@ class Group(Model):
             self.first_seen = self.last_seen
         if not self.active_at:
             self.active_at = self.first_seen
+        # We limit what we store for the message body
+        self.message = strip(self.message)
         if self.message:
-            # We limit what we store for the message body
-            self.message = self.message.splitlines()[0][:255]
+            self.message = truncatechars(self.message.splitlines()[0], 255)
         super(Group, self).save(*args, **kwargs)
 
     def get_absolute_url(self):

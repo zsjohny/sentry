@@ -17,6 +17,10 @@ from django.utils.encoding import smart_unicode, force_unicode
 import six
 
 
+# Callsigns we do not want to generate automatically because they might
+# overlap with something else that is popular (like GH for GitHub)
+CALLSIGN_BLACKLIST = ['GH']
+
 _callsign_re = re.compile(r'^[A-Z]{2,6}$')
 _word_sep_re = re.compile(r'[\s.;,_-]+(?u)')
 _camelcase_re = re.compile(
@@ -108,7 +112,7 @@ def validate_callsign(value):
     return callsign
 
 
-def iter_callsign_choices(project_name, team_name=None):
+def iter_callsign_choices(project_name):
     words = list(x.upper() for x in tokens_from_name(
         project_name, remove_digits=True))
     bits = []
@@ -117,32 +121,27 @@ def iter_callsign_choices(project_name, team_name=None):
         bits.append(words[0][:1] + words[1][:1])
     elif len(words) == 3:
         bits.append(words[0][:1] + words[1][:1] + words[2][:1])
-    bit = words[0][:2]
-    if len(bit) == 2:
-        bits.append(bit)
-    bit = words[0][:3]
-    if len(bit) == 3:
-        bits.append(bit)
-
-    for bit in bits:
-        yield bit
+    elif words:
+        bit = words[0][:2]
+        if len(bit) == 2:
+            bits.append(bit)
+        bit = words[0][:3]
+        if len(bit) == 3:
+            bits.append(bit)
 
     # Fallback if nothing else works, use PR for project
     if not bits:
         bits.append('PR')
 
-    if team_name is not None:
-        try:
-            team_bit = _letters_re.findall(team_name.upper())[0][:1]
-            if team_bit:
-                for bit in bits:
-                    yield team_bit + bit
-        except IndexError:
-            pass
+    for bit in bits:
+        if bit not in CALLSIGN_BLACKLIST:
+            yield bit
 
     for idx in count(2):
         for bit in bits:
-            yield '%s%d' % (bit, idx)
+            bit = '%s%d' % (bit, idx)
+            if bit not in CALLSIGN_BLACKLIST:
+                yield bit
 
 
 def split_camelcase(word):

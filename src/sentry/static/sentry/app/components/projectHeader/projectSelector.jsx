@@ -4,14 +4,19 @@ import {Link} from 'react-router';
 import jQuery from 'jquery';
 
 import ConfigStore from '../../stores/configStore';
+import {update as projectUpdate} from '../../actionCreators/projects';
+import ApiMixin from '../../mixins/apiMixin';
+
 import ProjectLabel from '../../components/projectLabel';
 import DropdownLink from '../dropdownLink';
-import PropTypes from '../../proptypes';
 import MenuItem from '../menuItem';
+import {sortArray} from '../../utils';
 import {t} from '../../locale';
 
 const ProjectSelector = React.createClass({
   propTypes: {
+    // Accepts a project id (slug) and not a project *object* because ProjectSelector
+    // is created from Django templates, and only organization is serialized
     projectId: React.PropTypes.string,
     organization: React.PropTypes.object.isRequired
   },
@@ -20,28 +25,17 @@ const ProjectSelector = React.createClass({
     location: React.PropTypes.object
   },
 
-  // this is necessary so that the project selector stays functional
-  // in non react pages.  Without this the organization state mixin
-  // will not be functional on old layout based pages.
-  childContextTypes: {
-    organization: PropTypes.Organization
-  },
+  mixins: [ApiMixin],
 
   getDefaultProps() {
     return {
-      projectId: null,
+      projectId: null
     };
   },
 
   getInitialState() {
     return {
       filter: ''
-    };
-  },
-
-  getChildContext() {
-    return {
-      organization: this.props.organization
     };
   },
 
@@ -89,10 +83,60 @@ const ProjectSelector = React.createClass({
     this.refs.dropdownLink && this.refs.dropdownLink.close();
   },
 
-  highlight(text, highlightText) {
-    if (!highlightText) {
-      return text;
+  handleBookmarkClick(project) {
+    projectUpdate(this.api, {
+      orgId: this.props.organization.slug,
+      projectId: project.slug,
+      data: {
+        isBookmarked: !project.isBookmarked
+      }
+    });
+  },
+
+  getProjectNode(team, project, highlightText, hasSingleTeam) {
+    let projectId = project.slug;
+    let label = this.getProjectLabel(team, project, hasSingleTeam,
+                                     highlightText);
+
+    let menuItemProps = {
+      key: projectId, // TODO: what if two projects w/ same name under diff orgs?
+      linkClassName: projectId == this.props.projectId ? 'active' : '',
+
+      // When router is available, use `to` property. Otherwise, use href
+      // property. For example - when project selector is loaded on
+      // Django-powered Settings pages.
+
+      ...this.getProjectUrlProps(project)
+    };
+
+    return (
+      <MenuItem {...menuItemProps}>
+        {project.isBookmarked && <span className="icon-star-solid bookmark "></span>}
+        {label}
+      </MenuItem>
+    );
+  },
+
+  getProjectLabel(team, project, hasSingleTeam, highlightText) {
+    let label, text;
+    if (!hasSingleTeam && project.name.indexOf(team.name) === -1) {
+      label = (
+        <span>{team.name} / <ProjectLabel
+            project={project} organization={this.props.organization}/></span>
+      );
+      text = team.name + ' / ' + project.name;
+    } else {
+      label = <span>{project.name}</span>;
+      text = project.name;
     }
+
+    if (!highlightText) {
+      return label;
+    }
+
+    // in case we have something to highlight we just render a replacement
+    // selector without the callsigns.
+    // TODO(mitsuhiko): make this work with the project label.
     highlightText = highlightText.toLowerCase();
     let idx = text.toLowerCase().indexOf(highlightText);
     if (idx === -1) {
@@ -107,34 +151,6 @@ const ProjectSelector = React.createClass({
         {text.substr(idx + highlightText.length)}
       </span>
     );
-  },
-
-  getProjectNode(team, project, highlightText, hasSingleTeam) {
-    let projectId = project.slug;
-    let label = this.getProjectLabel(team, project, hasSingleTeam);
-
-    let menuItemProps = {
-      key: projectId, // TODO: what if two projects w/ same name under diff orgs?
-      linkClassName: projectId == this.props.projectId ? 'active' : '',
-
-      // When router is available, use `to` property. Otherwise, use href
-      // property. For example - when project selector is loaded on
-      // Django-powered Settings pages.
-
-      ...this.getProjectUrlProps(project)
-    };
-
-    return <MenuItem {...menuItemProps}>{this.highlight(label, highlightText)}</MenuItem>;
-  },
-
-  getProjectLabel(team, project, hasSingleTeam) {
-    let label;
-    if (!hasSingleTeam && project.name.indexOf(team.name) === -1) {
-      label = <span>{team.name} / <ProjectLabel project={project}/></span>;
-    } else {
-      label = <span>{project.name}</span>;
-    }
-    return label;
   },
 
   /**
@@ -164,8 +180,14 @@ const ProjectSelector = React.createClass({
     let orgId = org.slug;
     let projectId = project.slug;
 
+    let className = 'bookmark ' + (project.isBookmarked ? 'icon-star-solid' : 'icon-star-outline');
     return (
-      <Link to={`/${orgId}/${projectId}/`}>{label}</Link>
+      <span>
+        <a className={className} onClick={this.handleBookmarkClick.bind(this, project)}></a>
+        <Link to={`/${orgId}/${projectId}/`}>
+          {label}
+        </Link>
+      </span>
     );
   },
 
@@ -182,26 +204,34 @@ const ProjectSelector = React.createClass({
   render() {
     let org = this.props.organization;
     let filter = this.state.filter.toLowerCase();
-    let children = [];
     let activeTeam;
     let activeProject;
     let hasSingleTeam = org.teams.length === 1;
 
+    let projectList = [];
     org.teams.forEach((team) => {
       if (!team.isMember) {
         return;
       }
       team.projects.forEach((project) => {
         if (project.slug == this.props.projectId) {
-          activeTeam = team;
           activeProject = project;
+          activeTeam = team;
         }
         let fullName = [team.name, project.name, team.slug, project.slug].join(' ').toLowerCase();
         if (filter && fullName.indexOf(filter) === -1) {
           return;
         }
-        children.push(this.getProjectNode(team, project, this.state.filter, hasSingleTeam));
+        projectList.push([team, project]);
       });
+    });
+
+    projectList = sortArray(projectList, ([team, project]) => {
+      return [!project.isBookmarked, team.name, project.name];
+    });
+
+    let children = projectList.map(([team, project]) => {
+      return this.getProjectNode(team, project, this.state.filter, hasSingleTeam);
     });
 
     return (

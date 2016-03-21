@@ -17,23 +17,20 @@
     white-space: nowrap;
     overflow: hidden;
     line-height: 1.1;
+  }
 
-    .short-id {
-      margin-right: 6px;
-      color: @blue;
-      font-weight: bold;
-      &:after {
-        content: ":";
-        color: @gray-dark;
-      }
-    }
+  .short-id {
+    color: @blue;
+    font-weight: bold;
+    margin-right: 8px;
   }
 
   .event-message, .event-meta {
     line-height: 1.2;
   }
 
-  .error-level {
+  .error-level,
+  .event-type {
     padding: 0;
     border-radius: 2px;
     margin-right: 8px;
@@ -108,26 +105,36 @@
       margin-left: 5px;
     }
 
+    .group-resolve .icon-checkmark {
+      font-size: 13px;
+    }
+
     .group-resolve.active {
       background: @green;
       color: #fff;
       border-color: @green-dark;
       text-shadow: 0 1px 0 rgba(0,0,0, .15);
-      box-shadow: none;
+    }
+
+    .group-bookmark .icon-star-solid {
+      position: relative;
+      top: 1px;
+      margin-left: -1px;
+      margin-right: -1px;
     }
 
     .group-bookmark.active {
-      background: @purple-light;
+      background: @yellow-orange;
       color: #fff;
-      border-color: @purple-dark;
+      border-color: darken(@yellow-orange, 15);
       text-shadow: 0 1px 0 rgba(0,0,0, .15);
-      box-shadow: none;
     }
 
     .group-remove:hover {
       color: #fff;
       background: @red;
       border-color: @red-dark;
+      text-shadow: 0 1px 0 rgba(0,0,0, .15);
     }
 
     .clearfix;

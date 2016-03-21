@@ -37,14 +37,14 @@ const StreamGroupHeader = React.createClass({
         return (
           <span>
             <span style={{marginRight: 10}}>{metadata.type}</span>
-            <em style={{fontSize: '80%', color: '#666', fontWeight: 'normal'}}>{data.culprit}</em><br/>
+            <em style={{fontSize: '80%', color: '#6F7E94', fontWeight: 'normal'}}>{data.culprit}</em><br/>
           </span>
         );
       case 'csp':
         return (
           <span>
             <span style={{marginRight: 10}}>{metadata.directive}</span>
-            <em style={{fontSize: '80%', color: '#666', fontWeight: 'normal'}}>{metadata.uri}</em><br/>
+            <em style={{fontSize: '80%', color: '#6F7E94', fontWeight: 'normal'}}>{metadata.uri}</em><br/>
           </span>
         );
       case 'default':
@@ -82,9 +82,8 @@ const StreamGroupHeader = React.createClass({
             :
               <span className="error-level truncate">{data.level}</span>
             }
-            <span className="icon icon-soundoff"></span>
-            <span className="icon icon-bookmark"></span>
-            <ShortId shortId={data.shortId} />
+            <span className="icon icon-soundoff" />
+            <span className="icon icon-star-solid" />
             {this.getTitle()}
           </Link>
         </h3>
@@ -203,6 +202,11 @@ const StreamGroup = React.createClass({
             hasEventTypes={features.has('event-types')} />
           <div className="event-extra">
             <ul>
+              {this.getFeatures().has('callsigns') && data.shortId &&
+                <li>
+                  <ShortId shortId={data.shortId} />
+                </li>
+              }
               <li>
                 <span className="icon icon-clock"></span>
                 <TimeSince date={data.lastSeen} />
