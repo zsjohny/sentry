@@ -263,6 +263,7 @@ class BuildJavascriptCommand(Command):
             print 'sentry.__file__', sentry.__file__
             version = VERSION
             build = sentry.__build__
+            build = 'd91edd7f4d6a30d8c4db2d4db432026188e64527'
             print('version-',version)
             print('build-',build)
         finally:
