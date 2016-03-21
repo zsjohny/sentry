@@ -311,7 +311,7 @@ class BuildJavascriptCommand(Command):
             ))
             if not version_info['version'] or not version_info['build']:
                 log.fatal('Could not determine sentry version or build')
-                sys.exit(1)
+                #sys.exit(1)
 
             try:
                 self._build_static()
@@ -319,7 +319,7 @@ class BuildJavascriptCommand(Command):
                 traceback.print_exc()
                 log.fatal("unable to build Sentry's static assets!\n"
                           "Hint: You might be running an invalid version of NPM.")
-                sys.exit(1)
+                #sys.exit(1)
 
             log.info("writing version manifest")
             manifest = self._write_version_file(version_info)
