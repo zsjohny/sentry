@@ -254,11 +254,13 @@ class BuildJavascriptCommand(Command):
         try:
             import sentry
         except Exception:
+            print 'import sentry error .....'
             version = None
             build = None
         else:
             log.info("pulled version information from 'sentry' module".format(
                      sentry.__file__))
+            print 'sentry.__file__', sentry.__file__
             version = VERSION
             build = sentry.__build__
             print('version-',version)
@@ -393,6 +395,7 @@ class BuildJavascriptCommand(Command):
             'version': version_info['version'],
             'build': version_info['build'],
         }
+        print 'manifest == ', manifest
         with open(self.sentry_package_json_path, 'w') as fp:
             json.dump(manifest, fp)
         with open(self.sentry_static_version_path, 'w') as fp:
