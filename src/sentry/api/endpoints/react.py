@@ -144,12 +144,6 @@ class ReactEnpoint(Endpoint):
             is_superuser = request.is_superuser()
         except AttributeError:
             is_superuser = False
-        # else:
-        #     user = None
-        #     messages = []
-        #     print 'None ....'
-        #     is_superuser = False
-
         if user:
             user = extract_lazy_object(user)
 
@@ -179,6 +173,7 @@ class ReactEnpoint(Endpoint):
                 'message': msg.message,
                 'level': msg.tags,
             } for msg in messages],
+            'host': settings.SENTRY_DOMAIN,
         }
         if user and user.is_authenticated():
             context.update({

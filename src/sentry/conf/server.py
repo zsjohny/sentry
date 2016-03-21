@@ -605,10 +605,20 @@ DEBUG_TOOLBAR_PANELS = (
     # 'sentry.debug.panels.redis.RedisPanel',
 )
 
+###########################
+#
+#
+# LOGINSIGHT config options
+#
+#
+##########################
 DEFALUT_SENTRY_CLIENT_ID = 'ZvwRr6t?WkzuHO5htOkCjti-FHL=Ri5DsA!;6qWX'
 DEFALUT_SENTRY_CLIENT_SECRET = 'ASzRYogeWgVasXPXsbpBAPTBYEXHiNjITAQBngM;TMmtH=xj1m7Lx33WNW99E9ozCEi88flhazxupg4Cr?:x=bbfZ=ih9;Fo7J6jjNc6jRZ9Q:CLOqB2dN!zv@lQz!=T'
-TOKEN_URL = "http://localhost:8000/o/token/"
-OAUTH_SERVER = "http://localhost:8000"
+TOKEN_URL = "http://auth.loginsight.cn/o/token/"
+OAUTH_SERVER = "http://auth.loginsight.cn"
+SENTRY_DOMAIN = 'app.loginsight.cn'
+
+
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
 # Sentry and Raven configuration

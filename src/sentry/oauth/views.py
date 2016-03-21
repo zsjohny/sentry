@@ -92,9 +92,9 @@ class ConsumerExchangeView(FormView):
                 # Do something for anonymous users.
 
                 user = authenticate(username=data['name'], password=data['password'])
+                login(request, user)
                 if user is None:
                     return redirect('sentry-login')
-                login(request, user)
                 return HttpResponseRedirect(get_login_redirect(request))
         except KeyError:
             kwargs['noparams'] = True
