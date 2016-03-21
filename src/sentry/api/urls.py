@@ -2,10 +2,14 @@ from __future__ import absolute_import, print_function
 
 from django.conf.urls import patterns, url
 from sentry.api.endpoints.project_issue_tracking import ProjectIssueTrackingEndpoint
-
 from .endpoints.auth_index import AuthIndexEndpoint
 from .endpoints.broadcast_index import BroadcastIndexEndpoint
 from .endpoints.catchall import CatchallEndpoint
+from .endpoints.dashboard_details import DashboardDetailsEndpoint
+from .endpoints.dashboard_index import DashboardIndexEndpoint
+from .endpoints.demo_exception import DemoExceptionEndpoint
+from .endpoints.dsym_files import DSymFilesEndpoint, GlobalDSymFilesEndpoint, \
+    UnknownDSymFilesEndpoint, UnknownGlobalDSymFilesEndpoint
 from .endpoints.event_details import EventDetailsEndpoint
 from .endpoints.group_details import GroupDetailsEndpoint
 from .endpoints.group_events import GroupEventsEndpoint
@@ -15,18 +19,25 @@ from .endpoints.group_hashes import GroupHashesEndpoint
 from .endpoints.group_notes import GroupNotesEndpoint
 from .endpoints.group_notes_details import GroupNotesDetailsEndpoint
 from .endpoints.group_stats import GroupStatsEndpoint
-from .endpoints.group_tags import GroupTagsEndpoint
 from .endpoints.group_tagkey_details import GroupTagKeyDetailsEndpoint
 from .endpoints.group_tagkey_values import GroupTagKeyValuesEndpoint
+from .endpoints.group_tags import GroupTagsEndpoint
 from .endpoints.group_user_reports import GroupUserReportsEndpoint
+from .endpoints.host_index import AccessTokenView
+from .endpoints.host_index import HelloToken
+from .endpoints.host_index import HostIndexEndpoint, LogAgentHostIndexEndpoint
 from .endpoints.index import IndexEndpoint
+from .endpoints.indexes_details import IndexesDetailsEndpoint
+from .endpoints.indexes_fields_index import IndexesFieldsIndexEndpoint
+from .endpoints.indexes_index import IndexesIndexEndpoint
 from .endpoints.internal_stats import InternalStatsEndpoint
 from .endpoints.legacy_project_redirect import LegacyProjectRedirectEndpoint
+from .endpoints.logevents import LogEventIndexEndpoint
+from .endpoints.logfiles_index import LogfileIndexEndpoint
 from .endpoints.organization_access_request_details import OrganizationAccessRequestDetailsEndpoint
 from .endpoints.organization_activity import OrganizationActivityEndpoint
 from .endpoints.organization_details import OrganizationDetailsEndpoint
-from .endpoints.organization_shortid import ShortIdLookupEndpoint
-from .endpoints.organization_shortids import ShortIdsUpdateEndpoint
+from .endpoints.organization_index import OrganizationIndexEndpoint
 from .endpoints.organization_issues_new import OrganizationIssuesNewEndpoint
 from .endpoints.organization_member_details import OrganizationMemberDetailsEndpoint
 from .endpoints.organization_member_index import OrganizationMemberIndexEndpoint
@@ -35,38 +46,46 @@ from .endpoints.organization_member_issues_bookmarked import OrganizationMemberI
 from .endpoints.organization_member_issues_viewed import OrganizationMemberIssuesViewedEndpoint
 from .endpoints.organization_member_team_details import OrganizationMemberTeamDetailsEndpoint
 from .endpoints.organization_onboarding_tasks import OrganizationOnboardingTaskEndpoint
-from .endpoints.organization_index import OrganizationIndexEndpoint
 from .endpoints.organization_projects import OrganizationProjectsEndpoint
+from .endpoints.organization_shortid import ShortIdLookupEndpoint
+from .endpoints.organization_shortids import ShortIdsUpdateEndpoint
 from .endpoints.organization_stats import OrganizationStatsEndpoint
 from .endpoints.organization_teams import OrganizationTeamsEndpoint
 from .endpoints.project_details import ProjectDetailsEndpoint
 from .endpoints.project_docs import ProjectDocsEndpoint
 from .endpoints.project_docs_platform import ProjectDocsPlatformEndpoint
-from .endpoints.project_events import ProjectEventsEndpoint
 from .endpoints.project_event_details import ProjectEventDetailsEndpoint
+from .endpoints.project_events import ProjectEventsEndpoint
 from .endpoints.project_group_index import ProjectGroupIndexEndpoint
 from .endpoints.project_group_stats import ProjectGroupStatsEndpoint
-from .endpoints.project_keys import ProjectKeysEndpoint
 from .endpoints.project_key_details import ProjectKeyDetailsEndpoint
+from .endpoints.project_keys import ProjectKeysEndpoint
 from .endpoints.project_member_index import ProjectMemberIndexEndpoint
+from .endpoints.project_plugins import ProjectPluginsEndpoint
+from .endpoints.project_quotas import ProjectQuotasEndpoint
 from .endpoints.project_releases import ProjectReleasesEndpoint
-from .endpoints.project_rules import ProjectRulesEndpoint
 from .endpoints.project_rule_details import ProjectRuleDetailsEndpoint
-from .endpoints.project_searches import ProjectSearchesEndpoint
+from .endpoints.project_rules import ProjectRulesEndpoint
 from .endpoints.project_search_details import ProjectSearchDetailsEndpoint
+from .endpoints.project_searches import ProjectSearchesEndpoint
+from .endpoints.project_settings import ProjectSettingsEndpoint
 from .endpoints.project_stats import ProjectStatsEndpoint
-from .endpoints.project_tags import ProjectTagsEndpoint
 from .endpoints.project_tagkey_details import ProjectTagKeyDetailsEndpoint
 from .endpoints.project_tagkey_values import ProjectTagKeyValuesEndpoint
-from .endpoints.project_users import ProjectUsersEndpoint
+from .endpoints.project_tags import ProjectTagsEndpoint
 from .endpoints.project_user_reports import ProjectUserReportsEndpoint
+from .endpoints.project_users import ProjectUsersEndpoint
+from .endpoints.react import ReactEnpoint
 from .endpoints.release_details import ReleaseDetailsEndpoint
-from .endpoints.release_files import ReleaseFilesEndpoint
 from .endpoints.release_file_details import ReleaseFileDetailsEndpoint
-from .endpoints.user_organizations import UserEndpoint
-from .endpoints.dsym_files import DSymFilesEndpoint, GlobalDSymFilesEndpoint, \
-    UnknownDSymFilesEndpoint, UnknownGlobalDSymFilesEndpoint
+from .endpoints.release_files import ReleaseFilesEndpoint
+from .endpoints.search_details import SearchDetailsEndpoint
+from .endpoints.search_index import SearchIndexEndpoint
+from .endpoints.search_index import SearchResultEndpoint
+from .endpoints.settings_rules import SettingsRulesEndpoint
 from .endpoints.shared_group_details import SharedGroupDetailsEndpoint
+from .endpoints.stream_index import StreamIndexEndpoint, LogAgentStreamEndpoint
+from .endpoints.stream_timeseries_index import StreamTimeSeriesIndexEndpoint
 from .endpoints.system_health import SystemHealthEndpoint
 from .endpoints.system_options import SystemOptionsEndpoint
 from .endpoints.team_details import TeamDetailsEndpoint
@@ -75,37 +94,31 @@ from .endpoints.team_groups_trending import TeamGroupsTrendingEndpoint
 from .endpoints.team_members import TeamMembersEndpoint
 from .endpoints.team_project_index import TeamProjectIndexEndpoint
 from .endpoints.team_stats import TeamStatsEndpoint
-from .endpoints.user_index import UserIndexEndpoint
-from .endpoints.user_details import UserDetailsEndpoint
-from .endpoints.stream_index import StreamIndexEndpoint, LogAgentStreamEndpoint
-from .endpoints.demo_exception import DemoExceptionEndpoint
-from .endpoints.user_key import UserkeyEndpoint
-from .endpoints.host_index import HostIndexEndpoint, LogAgentHostIndexEndpoint
-from .endpoints.logfiles_index import LogfileIndexEndpoint
-from .endpoints.logevents import LogEventIndexEndpoint
-from .endpoints.host_index import HelloToken
-from .endpoints.host_index import AccessTokenView
-from .endpoints.stream_timeseries_index import StreamTimeSeriesIndexEndpoint
-from .endpoints.dashboard_index import DashboardIndexEndpoint
-from .endpoints.visualization_index import VisualizationIndexEndpoint
-from .endpoints.visualization_details import VisualizationDetailsEndpoint
-from .endpoints.widget_index import WidgetIndexEndpoint
-from .endpoints.widget_details import WidgetDetailsEndpoint
-from .endpoints.search_index import SearchIndexEndpoint
-from .endpoints.search_details import SearchDetailsEndpoint
-from .endpoints.search_index import SearchResultEndpoint
-from .endpoints.dashboard_details import DashboardDetailsEndpoint
-from .endpoints.indexes_index import IndexesIndexEndpoint
-from .endpoints.indexes_details import IndexesDetailsEndpoint
-from .endpoints.indexes_fields_index import IndexesFieldsIndexEndpoint
 from .endpoints.upload_index import UploadIndexEndpoint
-from .endpoints.settings_rules import SettingsRulesEndpoint
+from .endpoints.user_details import UserDetailsEndpoint
+from .endpoints.user_index import UserIndexEndpoint
+from .endpoints.user_key import UserkeyEndpoint
 from .endpoints.user_organizations import UserOrganizationsEndpoint
-from .endpoints.project_notifications import ProjectNotificationsEndpoint
-from .endpoints.project_plugins import ProjectPluginsEndpoint
-from .endpoints.project_quotas import ProjectQuotasEndpoint
-from .endpoints.project_settings import ProjectSettingsEndpoint
-from .endpoints.react import ReactEnpoint
+from .endpoints.visualization_details import VisualizationDetailsEndpoint
+from .endpoints.visualization_index import VisualizationIndexEndpoint
+from .endpoints.widget_details import WidgetDetailsEndpoint
+from .endpoints.widget_index import WidgetIndexEndpoint
+from .endpoints.user_info import LogAgentUserInfoEndpoint
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 urlpatterns = patterns(
     '',
     #  loginsight
@@ -134,6 +147,8 @@ urlpatterns = patterns(
     url(r'^indexes/(?P<index_id>[^\/]+)/fields/$', IndexesFieldsIndexEndpoint.as_view(), name='sentry-api-0-log-index-fields'),
     url(r'^upload/$', UploadIndexEndpoint.as_view(), name='sentry-api-0-log-index-fields'),
     url(r'^react/$', ReactEnpoint.as_view(), name='sentry-api-0-react'),
+
+    url(r'^userinfo/$',LogAgentUserInfoEndpoint.as_view(),name='sentry-api-0-agent-configuration'),
 
     # settings
     url(r'^(?P<organization_slug>[\w_-]+)/(?P<project_slug>[\w_-]+)/settings/$',
@@ -427,10 +442,3 @@ urlpatterns = patterns(
     #     name='sentry-api-0-project-notifications'),
     # url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 )
-from .endpoints.indexes_details import IndexesDetailsEndpoint
-from .endpoints.indexes_fields_index import IndexesFieldsIndexEndpoint
-from .endpoints.upload_index import UploadIndexEndpoint
-from .endpoints.user_organizations import UserOrganizationsEndpoint
-
-from .endpoints.settings_rules import SettingsRulesEndpoint
-
