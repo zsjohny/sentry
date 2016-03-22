@@ -23,18 +23,18 @@ class LogEventIndexEndpoint(LogEventEndpoint):
         Return a list of hosts bound to a organization.
         :pparam string  file_id : the file id for Log file
         :pparam string  event_offset : the offset of log
-        :pparam string : event_count : count of events num
+        :pparam string : event_size : count of events num
         :auth: required
         """
 
         result = request.GET
         stream_id = result.get('stream_id', '0')
         host_id = result.get('host_id', '0')
-        event_count = result.get('event_count', '0')
+        event_size = result.get('event_size', '0')
         event_offset = result.get('event_offset', '0')
         file_id = result.get('file_id', '0')
         url = "%s/u/%s/nodes/%s/streams/%s/files/%s/content/?fid=%s&offset=%s&len=%s" \
-            % (settings.STORAGE_API_BASE_URL, request.user.id, host_id, stream_id, file_id, file_id, event_offset, event_count)
+            % (settings.STORAGE_API_BASE_URL, request.user.id, host_id, stream_id, file_id, file_id, event_offset, event_size)
         r = requests.get(url)
         if r.status_code == 200:
             resp = r.json()
