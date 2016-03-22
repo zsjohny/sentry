@@ -174,6 +174,8 @@ class ReactEnpoint(Endpoint):
                 'level': msg.tags,
             } for msg in messages],
             'host': settings.SENTRY_DOMAIN,
+            'proto': settings.PROTO,
+            'port': settings.PORT
         }
         if user and user.is_authenticated():
             context.update({

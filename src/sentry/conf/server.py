@@ -617,7 +617,8 @@ DEFALUT_SENTRY_CLIENT_SECRET = 'ASzRYogeWgVasXPXsbpBAPTBYEXHiNjITAQBngM;TMmtH=xj
 TOKEN_URL = "http://auth.loginsight.cn/o/token/"
 OAUTH_SERVER = "http://auth.loginsight.cn"
 SENTRY_DOMAIN = 'app.loginsight.cn'
-
+PROTO = 'HTTP'
+PORT = 8080
 
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
