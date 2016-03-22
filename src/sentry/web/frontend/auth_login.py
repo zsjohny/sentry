@@ -134,7 +134,6 @@ class AuthLoginView(BaseView):
             return HttpResponseRedirect(next_uri)
 
         op = request.POST.get('op')
-        print 'op === ', op
         if op == 'sso' and request.POST.get('organization'):
             auth_provider = self.get_auth_provider(request.POST['organization'])
             if auth_provider:

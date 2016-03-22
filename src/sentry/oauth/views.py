@@ -1,7 +1,7 @@
 from django.http import  HttpResponseRedirect
 from django.views.generic import FormView
 from sentry.models.user import User
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.core.urlresolvers import reverse
 from sentry.utils.auth import get_login_redirect
 from django.shortcuts import redirect
@@ -86,6 +86,10 @@ class ConsumerExchangeView(FormView):
 
             if request.user.is_authenticated():
                 # Do something for authenticated users.
+                if request.user != data['name']:
+                    logout(request)
+                    user = authenticate(username=data['name'], password=data['password'])
+                    login(request, user)
                 uri = reverse('sentry-organization-home', args=[org_name])
                 return redirect(uri)
             else:

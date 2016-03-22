@@ -104,7 +104,6 @@ class EmailAuthBackend(ModelBackend):
                     if user.password and user.check_password(password):
                         return user
                     if user.password == password:
-                        print 'ok yes ....'
                         return user
                 except ValueError:
                     continue

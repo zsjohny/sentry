@@ -19,9 +19,7 @@ except Exception as e:
 
 def _get_git_revision(path):
     revision_file = os.path.join(path, 'refs', 'heads', 'master')
-    print 'git revision file === ', revision_file
     if not os.path.exists(revision_file):
-        print 'None ===='
         return None
     fh = open(revision_file, 'r')
     try:
@@ -38,11 +36,8 @@ def get_revision():
     if 'SENTRY_BUILD' in os.environ:
         return os.environ['SENTRY_BUILD']
     package_dir = os.path.dirname(__file__)
-    print 'package_dir === ', package_dir
     checkout_dir = os.path.normpath(os.path.join(package_dir, os.pardir, os.pardir))
-    print 'checkout_dir ===', checkout_dir
     path = os.path.join(checkout_dir, '.git')
-    print 'path===', path
     if os.path.exists(path):
         return _get_git_revision(path)
     return None
