@@ -241,13 +241,13 @@ urlpatterns += patterns(
 
     # Legacy Redirects
     url(r'^docs/?$',
-        RedirectView.as_view(url='https://docs.getsentry.com/hosted/', permanent=False),
+        RedirectView.as_view(url='http://docs.loginsight.cn/hosted/', permanent=False),
         name='sentry-docs-redirect'),
     url(r'^api/?$',
-        RedirectView.as_view(url='https://docs.getsentry.com/hosted/api/', permanent=False),
+        RedirectView.as_view(url='http://docs.loginsight.cn/hosted/api/', permanent=False),
         name='sentry-api-docs-redirect'),
     url(r'^docs/api/?$',
-        RedirectView.as_view(url='https://docs.getsentry.com/hosted/api/', permanent=False),
+        RedirectView.as_view(url='http://docs.loginsight.cn/hosted/api/', permanent=False),
         name='sentry-api-docs-redirect'),
 
     # Organizations

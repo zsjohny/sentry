@@ -10,12 +10,11 @@ import logging
 import sentry
 
 
-BASE_URL = 'https://docs.getsentry.com/hosted/_platforms/{}'
+BASE_URL = 'http://docs.loginsight.cn/hosted/_platforms/{}'
 
 # Also see INTEGRATION_DOC_FOLDER in setup.py
 DOC_FOLDER = os.path.abspath(os.path.join(os.path.dirname(sentry.__file__),
                                           'integration-docs'))
-
 
 logger = logging.getLogger('sentry')
 
@@ -36,6 +35,7 @@ def load_doc(path):
     if '/' in path:
         return None
     fn = os.path.join(DOC_FOLDER, path + '.json')
+
     try:
         with open(fn, 'rb') as f:
             return json.load(f)

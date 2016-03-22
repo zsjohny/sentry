@@ -376,19 +376,19 @@ class BuildJavascriptCommand(Command):
             check_output(['git', 'submodule', 'init'], cwd=work_path)
             check_output(['git', 'submodule', 'update'], cwd=work_path)
 
-        log.info("running [cnpm install --quiet]")
-        check_output(['cnpm', 'install', '--quiet'], cwd=work_path)
-
-        # By setting NODE_ENV=production, a few things happen
-        #   * React optimizes out certain code paths
-        #   * Webpack will add version strings to built/referenced assets
-
-        log.info("running [webpack]")
-        env = dict(os.environ)
-        env['SENTRY_STATIC_DIST_PATH'] = self.sentry_static_dist_path
-        env['NODE_ENV'] = 'production'
-        check_output(['node_modules/.bin/webpack', '-p', '--bail'],
-                      cwd=work_path, env=env)
+        # log.info("running [cnpm install --quiet]")
+        # check_output(['cnpm', 'install', '--quiet'], cwd=work_path)
+        #
+        # # By setting NODE_ENV=production, a few things happen
+        # #   * React optimizes out certain code paths
+        # #   * Webpack will add version strings to built/referenced assets
+        #
+        # log.info("running [webpack]")
+        # env = dict(os.environ)
+        # env['SENTRY_STATIC_DIST_PATH'] = self.sentry_static_dist_path
+        # env['NODE_ENV'] = 'production'
+        # check_output(['node_modules/.bin/webpack', '-p', '--bail'],
+        #               cwd=work_path, env=env)
 
     def _write_version_file(self, version_info):
         manifest = {
