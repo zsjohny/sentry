@@ -174,6 +174,10 @@ class ReactEnpoint(Endpoint):
                 'level': msg.tags,
             } for msg in messages],
             'liveLogPrefix': settings.LIVELOG_PREFIX,
+            'liveLogConfig': {
+              'host': settings.HOST,
+              'port': settings.PORT,
+            },
         }
         if user and user.is_authenticated():
             context.update({
