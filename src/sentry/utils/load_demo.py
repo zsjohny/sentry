@@ -127,8 +127,8 @@ def create_demo_sample(num_events=1, user_name="dummy@example.com", org_name='de
     # dummy_user.save()
 
     mocks = (
-        ('Massive Dynamic-' + datetime.now(), ('Ludic Science-' + datetime.now(),)),
-        ('Captain Planet-' + datetime.now(), ('Earth-' + datetime.now(),)),
+        ('Massive Dynamic-' + str(datetime.now()), ('Ludic Science-' + str(datetime.now()),)),
+        ('Captain Planet-' + str(datetime.now()), ('Earth-' + str(datetime.now()),)),
     )
     Broadcast.objects.create(
         title="Learn about Source Maps",

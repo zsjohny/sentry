@@ -23,16 +23,17 @@ import requests
 class IndexesFieldsIndexEndpoint(Endpoint):
     permission_classes = []
 
-    def convert_args(self, request, index_id, *args, **kwargs):
-        kwargs['index_id'] = index_id
+    def convert_args(self, request, index_name, *args, **kwargs):
+        kwargs['index_name'] = index_name
         return (args, kwargs)
 
-    def get(self, request, index_id, *args, **kwargs):
-        if index_id is not None:
+    def get(self, request, index_name, *args, **kwargs):
+        if index_name is not None:
             try:
-                index = Indexes.objects.get(id=index_id)
+                index = Indexes.objects.get(id=index_name)
             except ObjectDoesNotExist:
                 return Response(status=400, data={'msg': 'Object does not exist!'})
-            url = "%s/%s/%s/" % (settings.STORAGE_SERVER, request.user.id, index_id)
+            space_id = request.user.id
+            url = "%s/%s/%s/%s/" % (settings.STORAGE_SERVER, request.user.id, index_name, space_id)
             response = requests.get(url)
             return Response(response.json(), status=response.status_code)
