@@ -36,10 +36,16 @@ class IndexesIndexEndpoint(Endpoint):
         resp = requests.get(url)
         if resp.status_code == 200:
             index_list = resp.json().get('index_info', None)
-            if not index_list:
-                for k in index_list.keys():
-                    o = {}
-                    print 'k=', k
+            idx_list = []
+            print resp.json()
+            for k in index_list.keys():
+	        o = {}
+                o['name'] = k
+                o['id'] = index_list.get(k,'').get('id',0)
+                print 'o.id==', o['id']
+                idx_list.append(o)
+                	    
+            return Response(index_list)
 
     def post(self, request, *args, **kwargs):
         data = request.DATA
