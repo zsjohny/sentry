@@ -34,6 +34,6 @@ class IndexesFieldsIndexEndpoint(Endpoint):
             except ObjectDoesNotExist:
                 return Response(status=400, data={'msg': 'Object does not exist!'})
             space_id = request.user.id
-            url = "%s/%s/%s/%s/" % (settings.STORAGE_SERVER, request.user.id, index_name, space_id)
+            url = "%s/%s/%s/%s/" % (settings.STORAGE_SERVER, request.user.id, index_name)
             response = requests.get(url)
             return Response(response.json(), status=response.status_code)
