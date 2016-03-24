@@ -29,11 +29,12 @@ class IndexesFieldsIndexEndpoint(Endpoint):
 
     def get(self, request, index_name, *args, **kwargs):
         if index_name is not None:
-            try:
-                index = Indexes.objects.get(id=index_name)
-            except ObjectDoesNotExist:
-                return Response(status=400, data={'msg': 'Object does not exist!'})
-            space_id = request.user.id
-            url = "%s/%s/%s/%s/" % (settings.STORAGE_SERVER, request.user.id, index_name)
+            # try:
+            #     index = Indexes.objects.get(user_id=request.user.id, name=index_name)
+            # except ObjectDoesNotExist:
+            #     return Response(status=400, data={'msg': 'Object does not exist!'})
+            url = "%s/tenant/%s/%s/fields/" % (settings.SEARCH_SERVER_API, request.user.username, index_name)
+            print 'url=', url
             response = requests.get(url)
-            return Response(response.json(), status=response.status_code)
+            print response.status_code
+            return Response(data=response.json(), status=response.status_code)

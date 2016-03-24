@@ -75,6 +75,7 @@ class SearchResultEndpoint(Endpoint):
         offset = request.DATA.get('offset', 0)
         query_json = parse_query(str(q))
         if len(query_json) == 0:
+
             return Response(status=200, data={"msg": "Invalid query statement"})
         query = str(query_json).replace("'", "\"")
         url = "%s/tenant/test/%s/search?q=%s&offset=%s&count=%s" % (settings.SEARCH_SERVER_API,
