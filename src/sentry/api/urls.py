@@ -104,19 +104,8 @@ from .endpoints.visualization_index import VisualizationIndexEndpoint
 from .endpoints.widget_details import WidgetDetailsEndpoint
 from .endpoints.widget_index import WidgetIndexEndpoint
 from .endpoints.user_info import LogAgentUserInfoEndpoint
-
-
-
-
-
-
-
-
-
-
-
-
-
+from .endpoints.account_appearance import AppearanceSettingsEndpoint
+from .endpoints.notification_settings import NotificationSettingsEndpoint
 
 
 urlpatterns = patterns(
@@ -149,6 +138,14 @@ urlpatterns = patterns(
     url(r'^react/$', ReactEnpoint.as_view(), name='sentry-api-0-react'),
 
     url(r'^userinfo/$',LogAgentUserInfoEndpoint.as_view(),name='sentry-api-0-agent-configuration'),
+
+
+
+    url(r'^account/settings/appearance/$', AppearanceSettingsEndpoint.as_view(),
+        name='sentry-api-0-account-settings-appearance'),
+
+    url(r'^account/settings/notifications/$', NotificationSettingsEndpoint.as_view(),
+        name='sentry-api-0-account-settings-notifications'),
 
     # settings
     url(r'^(?P<organization_slug>[\w_-]+)/(?P<project_slug>[\w_-]+)/settings/$',
