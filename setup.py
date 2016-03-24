@@ -131,7 +131,7 @@ install_requires = [
     'urllib3>=1.14,<1.15',
     'uwsgi>2.0.0,<2.1.0',
     'rb>=1.4.0,<2.0.0',
-    'module',
+    'module==0.2.1',
 ]
 
 postgres_requires = [

@@ -34,7 +34,6 @@ def create_key_scenario(runner):
 class KeySerializer(serializers.Serializer):
     name = serializers.CharField(max_length=200, required=False)
 
-
 class ProjectKeysEndpoint(ProjectEndpoint):
     doc_section = DocSection.PROJECTS
 

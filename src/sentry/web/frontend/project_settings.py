@@ -223,10 +223,8 @@ class ProjectSettingsView(ProjectView):
 
     def handle(self, request, organization, team, project):
         form = self.get_form(request, project)
-        print 'form ==== ', form
         if form.is_valid():
             project = form.save()
-            print 'project ==== ', project
             for opt in (
                     'origins',
                     'token',
@@ -264,10 +262,8 @@ class ProjectSettingsView(ProjectView):
             redirect = reverse('sentry-manage-project', args=[project.organization.slug, project.slug])
 
             return HttpResponseRedirect(redirect)
-
         context = {
             'form': form,
             'page': 'details',
         }
-
         return self.respond('sentry/projects/manage.html', context)
