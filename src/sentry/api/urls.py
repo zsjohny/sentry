@@ -125,7 +125,7 @@ urlpatterns = patterns(
     url(r'^search/(?P<search_id>[^\/]+)/$', SearchDetailsEndpoint.as_view(), name='sentry-api-0-log-search-details'),
     url(r'^query/(?P<index_name>[^\/]+)/$', SearchResultEndpoint.as_view(), name='sentry-api-0-log-search-result'),
     url(r'^indexes/$', IndexesIndexEndpoint.as_view(), name='sentry-log-indexes'),
-    url(r'^indexes/(?P<index_id>[^\/]+)/$', IndexesDetailsEndpoint.as_view(), name='sentry-api-0-log-index-details'),
+    url(r'^indexes/(?P<index_name>[^\/]+)/$', IndexesDetailsEndpoint.as_view(), name='sentry-api-0-log-index-details'),
     url(r'^indexes/(?P<index_name>[^\/]+)/fields/$', IndexesFieldsIndexEndpoint.as_view(), name='sentry-api-0-log-index-fields'),
     url(r'^upload/$', UploadIndexEndpoint.as_view(), name='sentry-api-0-log-index-fields'),
 

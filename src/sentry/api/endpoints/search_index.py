@@ -59,6 +59,8 @@ class SearchIndexEndpoint(Endpoint):
 """
 获取查询结果的接口
 PARAM: index_name
+TEST:  /api/0/query/<index_name>/?q=search:Andorid
+$.get("/api/0/query/idx/?q=search:Andorid")
 """
 
 
@@ -75,13 +77,14 @@ class SearchResultEndpoint(Endpoint):
         offset = request.DATA.get('offset', 0)
         query_json = parse_query(str(q))
         if len(query_json) == 0:
-
             return Response(status=200, data={"msg": "Invalid query statement"})
         query = str(query_json).replace("'", "\"")
-        url = "%s/tenant/test/%s/search?q=%s&offset=%s&count=%s" % (settings.SEARCH_SERVER_API,
-                                                   index_name,
-                                                   query,
-                                                   offset,
-                                                   count)
+        url = "%s/tenant/%s/%s/search?q=%s&offset=%s&count=%s" % (settings.SEARCH_SERVER_API,
+                                                                  request.user.username,
+                                                                  index_name,
+                                                                  query,
+                                                                  offset,
+                                                                  count)
+        print 'url===', url
         resp = requests.get(str(url))
         return Response(status=resp.status_code, data=resp.json())

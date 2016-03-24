@@ -16,13 +16,13 @@ import datetime
 class IndexesDetailsEndpoint(Endpoint):
     permission_classes = []
 
-    def convert_args(self, request, index_id, *args, **kwargs):
-        kwargs['index_id'] = index_id
+    def convert_args(self, request, index_name, *args, **kwargs):
+        kwargs['index_name'] = index_name
         return (args, kwargs)
 
-    def get(self, request, index_id, *args, **kwargs):
+    def get(self, request, index_name, *args, **kwargs):
         try:
-            index = Indexes.objects.get(id=index_id, user=request.user)
+            index = Indexes.objects.get(name=index_name, user=request.user)
         except ObjectDoesNotExist:
             return Response(status=400, data={'msg': 'object does not exist!'})
         if index:
