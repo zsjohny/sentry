@@ -46,13 +46,21 @@ class SearchIndexEndpoint(Endpoint):
         search_list = Search.objects.filter(name=data.get('name', ''))
         if search_list:
             return Response({'msg': 'existed!'}, status=404)
-        Search.objects.create(name=data['name'],
+        search = Search.objects.create(name=data['name'],
                               query=data.get('query', None),
                               config=data.get('config', None),
                               time_range=data.get('time_range', None),
                               desc=data.get('desc', None),
                               user=request.user)
-        return Response(status=200, data={'msg': 'ok'})
+        resp_data = {
+            'id': search.id,
+            'name': search.name,
+            'query': search.query,
+            'config': search.config,
+            'time_range': search.time_range,
+            'desc': search.desc,
+        }
+        return Response(status=200, data=resp_data)
 
 
 
