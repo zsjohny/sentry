@@ -51,7 +51,7 @@ class WidgetDetailsEndpoint(Endpoint):
                     'search_id': w.search_id,
                     'x_axis': w.x_axis,
                     'y_axis': w.y_axis,
-                    'desc': w.desc
+                    'chart_type': w.chart_type
                 }
                 return Response(data=resp_data, status=200)
             except ObjectDoesNotExist:

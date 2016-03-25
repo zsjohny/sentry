@@ -38,18 +38,18 @@ class WidgetIndexEndpoint(Endpoint):
         if len(data) == 0:
             return Response(status=400)
         widget = LogWidget.objects.create(title=data.get('title', None),
-                                 search_id=data.get('search_id', None),
-                                 x_axis=data.get('x_axis', None),
-                                 y_axis=data.get('y_axis', None),
-                                 chart_type=data.get('chart_type', None),
-                                 desc=data.get('desc', None),
-                                 user=request.user)
+                                         search_id=data.get('search_id', None),
+                                         x_axis=data.get('x_axis', None),
+                                         y_axis=data.get('y_axis', None),
+                                         chart_type=data.get('chart_type', None),
+                                         desc=data.get('desc', None),
+                                         user=request.user)
         resp_data = {
             'id': widget.id,
             'title': widget.title,
             'search_id': widget.search_id,
             'x_axis': widget.x_axis,
             'y_axis': widget.y_axis,
-            'desc': widget.desc
+            'chart_type': widget.chart_type
         }
         return Response(resp_data, status=200)

@@ -62,8 +62,6 @@ class SearchIndexEndpoint(Endpoint):
         }
         return Response(status=200, data=resp_data)
 
-
-
 """
 获取查询结果的接口
 PARAM: index_name
