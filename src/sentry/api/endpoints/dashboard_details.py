@@ -53,8 +53,9 @@ class DashboardDetailsEndpoint(Endpoint):
                              updated_at=datetime.datetime.now(),
                              is_fav=data.get('is_fav', False),
                              layout=data.get('layout', None))
+
             return Response(status=200, data={'msg': 'ok'})
-        return Response(status=400, data={'msg': 'failed'})
+        return Response(status=400, data=data)
 
     def delete(self, request, dashboard_id, *args, **kwargs):
         dashboard = LogInsightDashboard.objects.get(id=dashboard_id, user=request.user)
