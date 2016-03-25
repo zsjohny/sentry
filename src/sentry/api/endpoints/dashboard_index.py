@@ -48,8 +48,14 @@ class DashboardIndexEndpoint(Endpoint):
 
         if dashboard:
             resp_data = {
-                'id': dashboard.id
+                'id': dashboard.id,
+                'name': dashboard.name,
+                'created_at': dashboard.created_at,
+                'updated_at': dashboard.updated_at,
+                'desc': dashboard.desc, 
+                'layout': ast.literal_eval(dashboard.layout),
+                'is_fav': dashboard.is_fav
             }
-            return Response(resp_data, status=200)
+            return Response(data=resp_data, status=200)
         else:
             return Response(status=500)
