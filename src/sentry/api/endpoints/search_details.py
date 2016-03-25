@@ -53,6 +53,13 @@ class SearchDetailsEndpoint(Endpoint):
                           query=data.get('query', None),
                           time_range=data.get('time_range', None),
                           config=data.get('config', None))
+            resp_data = {
+                'id': search.id,
+                'last_timestamp': search.last_timestamp,
+                'query': search.query,
+                'time_range': search.time_range,
+                'config': search.config,
+            }
             return Response(data, status=200)
 
     def delete(self, request, search_id, *args, **kwargs):

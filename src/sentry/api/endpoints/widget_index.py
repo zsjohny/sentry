@@ -45,6 +45,7 @@ class WidgetIndexEndpoint(Endpoint):
                                  desc=data.get('desc', None),
                                  user=request.user)
         resp_data = {
+            'id': widget.id,
             'title': widget.title,
             'search_id': widget.search_id,
             'x_axis': widget.x_axis,

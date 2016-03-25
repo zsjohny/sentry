@@ -39,14 +39,23 @@ class WidgetDetailsEndpoint(Endpoint):
         if widget_id:
             try:
                 widget = LogWidget.objects.filter(id=widget_id, user=request.user)
+                widget.update(title=data.get('title', ''),
+                              search=data.get('search_id', None),
+                              x_axis=data.get('x_axis', None),
+                              y_axis=data.get('y_axis', None),
+                              chart_type=data.get('chart_type', None))
+                w = LogWidget.objects.get(id=widget_id, user=request.user)
+                resp_data = {
+                    'id': w.id,
+                    'title': w.title,
+                    'search_id': w.search_id,
+                    'x_axis': w.x_axis,
+                    'y_axis': w.y_axis,
+                    'desc': w.desc
+                }
+                return Response(data=resp_data, status=200)
             except ObjectDoesNotExist:
                 return Response(status=400, data={'msg': 'widget does not exist!'})
-            widget.update(title=data.get('title', ''),
-                          search=data.get('search_id', None),
-                          x_axis=data.get('x_axis', None),
-                          y_axis=data.get('y_axis', None),
-                          chart_type=data.get('chart_type', None))
-            return Response(data, status=200)
         return Response(status=400, data={'msg': 'failed'})
 
     def delete(self, request, widget_id, *args, **kwargs):
