@@ -41,7 +41,6 @@ class DashboardDetailsEndpoint(Endpoint):
 
     def put(self, request, dashboard_id, *args, **kwargs):
         data = request.DATA
-        print(request.DATA)
         if len(data) == 0:
             return Response(status=400, data={'msg': 'no request parameters'})
         if dashboard_id:
