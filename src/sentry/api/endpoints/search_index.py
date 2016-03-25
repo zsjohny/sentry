@@ -60,7 +60,7 @@ class SearchIndexEndpoint(Endpoint):
 获取查询结果的接口
 PARAM: index_name
 TEST:  /api/0/query/<index_name>/?q=search:Andorid
-$.get("/api/0/query/idx/?q=search:Andorid")
+$.get("/api/0/query/idx/?q=search:Andorid?count=50&offset=0")
 """
 
 
@@ -85,5 +85,7 @@ class SearchResultEndpoint(Endpoint):
                                                                   query,
                                                                   offset,
                                                                   count)
+        print 'url===', url
         resp = requests.get(str(url))
+        print 'resp=', resp.text
         return Response(status=resp.status_code, data=resp.json())
