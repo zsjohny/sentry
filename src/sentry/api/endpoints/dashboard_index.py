@@ -47,6 +47,7 @@ class DashboardIndexEndpoint(Endpoint):
                                                        user_id=request.user.id)
 
         if dashboard:
+            data['id'] = dashboard.id
             return Response(data, status=200)
         else:
             return Response(status=500)
