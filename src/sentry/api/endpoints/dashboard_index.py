@@ -47,13 +47,18 @@ class DashboardIndexEndpoint(Endpoint):
                                                        user_id=request.user.id)
 
         if dashboard:
+            layout = dashboard.layout
+            if len(layout) == 0:
+                layout = None
+            else:
+                layout = ast.literal_eval(dashboard.layout)
             resp_data = {
                 'id': dashboard.id,
                 'name': dashboard.name,
                 'created_at': dashboard.created_at,
                 'updated_at': dashboard.updated_at,
                 'desc': dashboard.desc, 
-                'layout': ast.literal_eval(dashboard.layout),
+                'layout': layout,
                 'is_fav': dashboard.is_fav
             }
             return Response(data=resp_data, status=200)
