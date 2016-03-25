@@ -48,6 +48,14 @@ class VisualizationIndexEndpoint(Endpoint):
                                                      desc=data.get('desc', None),
                                                      user=request.user)
         if visualization:
-            return Response(data, status=200)
+            resp = {'id': visualization.id,
+                    'name': visualization.name,
+                    'created_at': visualization.created_at,
+                    'updated_at': visualization.updated_at,
+                    'is_fav': visualization.is_fav,
+                    'layout': ast.literal_eval(visualization.layout),
+                    'desc': visualization.desc
+                    }
+            return Response(data=resp, status=200)
         else:
             return Response(status=400, data={'msg': 'failed to add visualization'})
