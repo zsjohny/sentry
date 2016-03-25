@@ -40,21 +40,19 @@ class DashboardIndexEndpoint(Endpoint):
         if len(data) == 0:
             return Response(status=400, data={'msg': 'no request parameters'})
         try:
-            dashboard = LogInsightDashboard.objects.create(name=data['name'],
-                                                           created_at=datetime.datetime.now(),
-                                                           updated_at=datetime.datetime.now(),
-                                                           desc=data.get('desc', ''),
-                                                           layout=data.get('layout', None),
-                                                           is_fav=data.get('is_fav', False),
-                                                           user_id=request.user.id)
-        except not ObjectDoesNotExist:
-            Response(data={'msg': 'dashboard has existed!'}, status=400)
-
+            LogInsightDashboard.objects.filter(name=data['name'], user_id=request.user.id)
+        except ObjectDoesNotExist:
+            return Response(status=400, data={'msg': 'dashboard object does not exists!'})
+        dashboard = LogInsightDashboard.objects.create(name=data['name'],
+                                                       created_at=datetime.datetime.now(),
+                                                       updated_at=datetime.datetime.now(),
+                                                       desc=data.get('desc', ''),
+                                                       layout=data.get('layout', None),
+                                                       is_fav=data.get('is_fav', False),
+                                                       user_id=request.user.id)
         if dashboard:
             layout = dashboard.layout
-            if len(layout) == 0:
-                layout = None
-            else:
+            if layout is not None:
                 layout = ast.literal_eval(dashboard.layout)
             resp_data = {
                 'id': dashboard.id,
