@@ -85,6 +85,5 @@ class SearchResultEndpoint(Endpoint):
                                                                   query,
                                                                   offset,
                                                                   count)
-        print 'url===', url
         resp = requests.get(str(url))
         return Response(status=resp.status_code, data=resp.json())
