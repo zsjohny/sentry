@@ -29,7 +29,8 @@ class SearchDetailsEndpoint(Endpoint):
                 time_range = None
             else:
                 time_range = ast.literal_eval(search.time_range)
-            return Response({'name': search.name,
+            return Response({'id': search.id,
+                             'name': search.name,
                              'create_timestamp': search.create_timestamp,
                              'last_timestamp': search.last_timestamp,
                              'query': search.query,
@@ -47,8 +48,7 @@ class SearchDetailsEndpoint(Endpoint):
             except ObjectDoesNotExist:
                 return Response(status=400)
 
-            search.update(id=int(search_id),
-                          name=data.get('name'),
+            search.update(name=data.get('name'),
                           last_timestamp=datetime.datetime.now(),
                           query=data.get('query', None),
                           time_range=data.get('time_range', None),
