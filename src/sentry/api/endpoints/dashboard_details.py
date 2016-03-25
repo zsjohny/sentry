@@ -53,7 +53,7 @@ class DashboardDetailsEndpoint(Endpoint):
                              is_fav=data.get('is_fav', False),
                              layout=data.get('layout', None))
 
-            return Response(status=200, data={'msg': 'ok'})
+            return Response(status=200, data=data)
         return Response(status=400, data=data)
 
     def delete(self, request, dashboard_id, *args, **kwargs):
