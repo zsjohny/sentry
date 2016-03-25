@@ -9,6 +9,7 @@ from __future__ import absolute_import
 from sentry.api.base import Endpoint
 from sentry.models.LogInsightDashboard import LogInsightDashboard
 from rest_framework.response import Response
+from django.core.exceptions import ObjectDoesNotExist
 import datetime
 import ast
 
@@ -38,13 +39,16 @@ class DashboardIndexEndpoint(Endpoint):
         data = request.DATA
         if len(data) == 0:
             return Response(status=400, data={'msg': 'no request parameters'})
-        dashboard = LogInsightDashboard.objects.create(name=data['name'],
-                                                       created_at=datetime.datetime.now(),
-                                                       updated_at=datetime.datetime.now(),
-                                                       desc=data.get('desc', ''),
-                                                       layout=data.get('layout', None),
-                                                       is_fav=data.get('is_fav', False),
-                                                       user_id=request.user.id)
+        try:
+            dashboard = LogInsightDashboard.objects.create(name=data['name'],
+                                                           created_at=datetime.datetime.now(),
+                                                           updated_at=datetime.datetime.now(),
+                                                           desc=data.get('desc', ''),
+                                                           layout=data.get('layout', None),
+                                                           is_fav=data.get('is_fav', False),
+                                                           user_id=request.user.id)
+        except not ObjectDoesNotExist:
+            Response(data={'msg': 'dashboard has existed!'}, status=400)
 
         if dashboard:
             layout = dashboard.layout
