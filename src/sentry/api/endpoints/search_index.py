@@ -40,7 +40,6 @@ class SearchIndexEndpoint(Endpoint):
 
     def post(self, request):
         data = request.DATA
-        print 'data = ', data
         if len(data) == 0:
             return Response(status=400)
         search_list = Search.objects.filter(name=data.get('name', ''))

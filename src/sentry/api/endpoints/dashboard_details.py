@@ -44,16 +44,18 @@ class DashboardDetailsEndpoint(Endpoint):
         if len(data) == 0:
             return Response(status=400, data={'msg': 'no request parameters'})
         if dashboard_id:
-            dashboard = LogInsightDashboard.objects.filter(id=dashboard_id, user=request.user)
-            if not dashboard:
-                return Response(data, status=200)
-            dashboard.update(name=data['name'],
-                             desc=data.get('desc', None),
-                             updated_at=datetime.datetime.now(),
-                             is_fav=data.get('is_fav', False),
-                             layout=data.get('layout', None))
-
-            return Response(status=200, data=data)
+            dashboard = LogInsightDashboard(id=dashboard_id, user=request.user, **data)
+            dashboard.save()
+            layout = dashboard.layout
+            resp_data = {
+                'name': dashboard.name,
+                'layout': layout,
+                'desc': dashboard.desc,
+                'updated_at': dashboard.updated_at,
+                'created_at': dashboard.created_at,
+                'is_fav': dashboard.is_fav,
+            }
+            return Response(resp_data, status=200)
         return Response(status=400, data=data)
 
     def delete(self, request, dashboard_id, *args, **kwargs):

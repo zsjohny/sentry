@@ -44,23 +44,25 @@ class SearchDetailsEndpoint(Endpoint):
             return Response(status=400)
         if search_id:
             try:
-                search = Search.objects.filter(id=search_id, user=request.user)
+                search = Search(id=search_id, user=request.user, **data)
+                search.save()
+                resp_data = {
+                    'id': search.id,
+                    'name': search.name,
+                    'last_timestamp': search.last_timestamp,
+                    'query': search.query,
+                    'time_range': search.time_range,
+                    'config': search.config,
+                }
+                return Response(resp_data, status=200)
             except ObjectDoesNotExist:
                 return Response(status=400)
-
-            search.update(name=data.get('name'),
-                          last_timestamp=datetime.datetime.now(),
-                          query=data.get('query', None),
-                          time_range=data.get('time_range', None),
-                          config=data.get('config', None))
-            resp_data = {
-                'id': search.id,
-                'last_timestamp': search.last_timestamp,
-                'query': search.query,
-                'time_range': search.time_range,
-                'config': search.config,
-            }
-            return Response(data, status=200)
+            #
+            # search.update(name=data.get('name'),
+            #               last_timestamp=datetime.datetime.now(),
+            #               query=data.get('query', None),
+            #               time_range=data.get('time_range', None),
+            #               config=data.get('config', None))
 
     def delete(self, request, search_id, *args, **kwargs):
         search = Search.objects.get(id=search_id, user=request.user)

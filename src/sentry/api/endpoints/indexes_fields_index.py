@@ -34,7 +34,6 @@ class IndexesFieldsIndexEndpoint(Endpoint):
             # except ObjectDoesNotExist:
             #     return Response(status=400, data={'msg': 'Object does not exist!'})
             url = "%s/tenant/%s/%s/fields/" % (settings.SEARCH_SERVER_API, request.user.username, index_name)
-            print 'url=', url
             response = requests.get(url)
             print response.status_code
             return Response(data=response.json(), status=response.status_code)

@@ -45,17 +45,11 @@ class IndexesIndexEndpoint(Endpoint):
             resp = requests.get(url)
             if resp.status_code != 200:
                 return Response(status=resp.status_code, data={'msg': 'failed'})
-            if Indexes.objects.filter(user=request.user, name=data['name']):
-                return Response(status=400, data={'msg': 'failed, Indexname has existed!'})
-            indexes = Indexes.objects.create(name=data['name'],
-                                             created_at=datetime.datetime.now(),
-                                             updated_at=datetime.datetime.now(),
-                                             type=data.get('type', None),
-                                             dsn=data.get('dsn', None),
-                                             desc=data.get('desc', None),
-                                             user=request.user)
-            if indexes:
+            try:
+                index = Indexes(user=request.user, **data)
+                index.save()
+                data['id'] = index.id
                 return Response(data, status=200)
-            else:
+            except Exception:
                 return Response(status=400, data={'msg': 'failed'})
         return Response(status=400, data={'msg': 'index name has existed!'})

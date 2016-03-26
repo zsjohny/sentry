@@ -38,20 +38,22 @@ class WidgetDetailsEndpoint(Endpoint):
             return Response(status=400)
         if widget_id:
             try:
-                widget = LogWidget.objects.filter(id=widget_id, user=request.user)
-                widget.update(title=data.get('title', ''),
-                              search=data.get('search_id', None),
-                              x_axis=data.get('x_axis', None),
-                              y_axis=data.get('y_axis', None),
-                              chart_type=data.get('chart_type', None))
-                w = LogWidget.objects.get(id=widget_id, user=request.user)
+                # widget = LogWidget.objects.get(id=widget_id, user=request.user)
+                # widget.update(title=data.get('title', ''),
+                #               search=data.get('search_id', None),
+                #               x_axis=data.get('x_axis', None),
+                #               y_axis=data.get('y_axis', None),
+                #               chart_type=data.get('chart_type', None))
+                # w = LogWidget.objects.get(id=widget_id, user=request.user)
+                widget = LogWidget(id=widget_id, user=request.user, **data)
+                widget.save()
                 resp_data = {
-                    'id': w.id,
-                    'title': w.title,
-                    'search_id': w.search_id,
-                    'x_axis': w.x_axis,
-                    'y_axis': w.y_axis,
-                    'chart_type': w.chart_type
+                    'id': widget.id,
+                    'title': widget.title,
+                    'search_id': widget.search_id,
+                    'x_axis': widget.x_axis,
+                    'y_axis': widget.y_axis,
+                    'chart_type': widget.chart_type
                 }
                 return Response(data=resp_data, status=200)
             except ObjectDoesNotExist:

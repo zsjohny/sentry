@@ -45,16 +45,20 @@ class VisualizationDetailsEndpoint(Endpoint):
         data = request.DATA
         if len(data) == 0:
             return Response(status=400, data={'msg': 'no request parameters'})
-        if visualization_id:
-            visualization = Visaulization.objects.filter(id=visualization_id, user=request.user)
-            if not visualization:
-                return Response(data, status=200)
-            visualization.update(name=data['name'],
-                                 desc=data.get('desc', None),
-                                 updated_at=datetime.datetime.now(),
-                                 is_fav=data.get('is_fav', None),
-                                 layout=data.get('layout', None))
-            return Response(status=200, data=data)
+        try:
+            visualization = Visaulization(id=visualization_id, user_id=request.user.id, **data)
+            visualization.save()
+            resp_data = {
+                'id': visualization.id,
+                'name': visualization.name,
+                'layout': visualization.layout,
+                'is_fav': visualization.is_fav,
+                'updated_at': visualization.updated_at,
+                'created_at': visualization.created_at
+            }
+            return Response(status=200, data=resp_data)
+        except ObjectDoesNotExist:
+            return Response(status=400, data={'msg': 'visualization objects does not exist!'})
         return Response(status=400, data={'msg': 'failed'})
 
     def delete(self, request, visualization_id, *args, **kwargs):
