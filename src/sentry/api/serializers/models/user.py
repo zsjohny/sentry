@@ -42,3 +42,18 @@ class UserSerializer(Serializer):
                 'clock24Hours': options.get('clock_24_hours') or False,
             }
         return d
+
+from django.contrib.auth.models import User, Group
+from rest_framework import serializers
+
+
+class UserDemoSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        fields = ('url', 'username', 'email', 'groups')
+
+
+class GroupDemoSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Group
+        fields = ('url', 'name')

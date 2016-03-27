@@ -127,6 +127,9 @@ if settings.DEBUG:
         url(r'^debug/trigger-error/$',
             DebugTriggerErrorView.as_view()),
     )
+
+
+
 urlpatterns += patterns(
     '',
     url(

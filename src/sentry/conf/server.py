@@ -264,7 +264,9 @@ INSTALLED_APPS = (
     'social_auth',
     'south',
     'sudo',
+    'rest_framework_swagger',
 )
+
 
 STATIC_ROOT = os.path.realpath(os.path.join(PROJECT_ROOT, 'static'))
 STATIC_URL = '/_static/{version}/'
@@ -581,6 +583,8 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'sentry.api.permissions.NoPermission',
     ),
+    # 'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
+
 }
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
@@ -619,6 +623,43 @@ OAUTH_SERVER = "http://auth.loginsight.cn"
 LIVELOG_PREFIX = 'http://app.loginsight.cn:8080'
 HOST = "app.loginsight.cn"
 PORT = 8080
+
+# API DOCUMENT
+SWAGGER_SETTINGS = {
+    'exclude_namespaces': [],
+    'api_version': '0.1',
+    'api_path': '/api/0/',
+    'enabled_methods': [
+        'get',
+        'post',
+        'put',
+        'patch',
+        'delete'
+    ],
+    'api_key': '',
+    'is_authenticated': False,
+    'is_superuser': False,
+    'unauthenticated_user': 'django.contrib.auth.models.AnonymousUser',
+    'permission_denied_handler': None,
+    'resource_access_handler': None,
+    'base_path': 'localhost:9000/api/0/',
+    'info': {
+        'contact': 'apiteam@wordnik.com',
+        'description': 'This is a sample server Petstore server. '
+                       'You can find out more about Swagger at '
+                       '<a href="http://swagger.wordnik.com">'
+                       'http://swagger.wordnik.com</a> '
+                       'or on irc.freenode.net, #swagger. '
+                       'For this sample, you can use the api key '
+                       '"special-key" to test '
+                       'the authorization filters',
+        'license': 'Apache 2.0',
+        'licenseUrl': 'http://www.apache.org/licenses/LICENSE-2.0.html',
+        'termsOfServiceUrl': 'http://helloreverb.com/terms/',
+        'title': 'Swagger Sample App',
+    },
+    'doc_expansion': 'none',
+}
 
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
 

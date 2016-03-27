@@ -132,6 +132,7 @@ install_requires = [
     'uwsgi>2.0.0,<2.1.0',
     'rb>=1.4.0,<2.0.0',
     'module==0.2.1',
+    'django-rest-swagger',
 ]
 
 postgres_requires = [

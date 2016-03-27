@@ -19,6 +19,7 @@ from sentry.models import (
     AuditLogEntryEvent, Host, User
 )
 from django.core.exceptions import ObjectDoesNotExist
+from rest_framework.viewsets import ViewSet
 from sentry.api.base import Endpoint
 from sentry.utils.apidocs import scenario, attach_scenarios
 from django.conf import settings

@@ -1,6 +1,6 @@
 from __future__ import absolute_import, print_function
 
-from django.conf.urls import patterns, url
+from django.conf.urls import patterns, url, include
 from sentry.api.endpoints.project_issue_tracking import ProjectIssueTrackingEndpoint
 from .endpoints.auth_index import AuthIndexEndpoint
 from .endpoints.broadcast_index import BroadcastIndexEndpoint
@@ -107,10 +107,28 @@ from .endpoints.user_info import LogAgentUserInfoEndpoint
 from .endpoints.account_appearance import AppearanceSettingsEndpoint
 from .endpoints.notification_settings import NotificationSettingsEndpoint
 
+from django.conf.urls import url, include
+from rest_framework import routers
+from sentry.api.endpoints.user_info import UserViewSet, GroupViewSet
 
-urlpatterns = patterns(
+router = routers.DefaultRouter()
+router.register(r'users/$', UserViewSet)
+router.register(r'groups/$', GroupViewSet)
+# router.register(r'^user_key', UserkeyEndpoint.as_view(), base_name='sentry-api-0-user-key')
+# routers.register(r'user_key', Use)
+
+# Wire up our API using automatic URL routing.
+# Additionally, we include login URLs for the browsable API.
+urlpatterns = [
+    url(r'^', include(router.urls)),
+    url(r'^auth/', include('rest_framework.urls', namespace='rest_framework'))
+]
+
+urlpatterns += patterns(
     '',
     #  loginsight
+    url(r'^docs/$', include('rest_framework_swagger.urls')),
+
     url(r'^user_key', UserkeyEndpoint.as_view(), name='sentry-api-0-user-key'),
     url(r'^streams', StreamIndexEndpoint.as_view(), name='sentry-api-0-streams'),
     url(r'^logfiles', LogfileIndexEndpoint.as_view(), name='sentry-api-0-logfiles'),

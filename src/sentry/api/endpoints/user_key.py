@@ -10,6 +10,7 @@ from sentry.api.base import Endpoint
 from sentry.models.user import User
 from rest_framework import mixins
 from rest_framework import generics
+from rest_framework.decorators import api_view
 import hashlib
 import datetime
 
@@ -20,10 +21,7 @@ def generate_user_key(user):
     return hash_md5.hexdigest()
 
 
-class UserkeyEndpoint(Endpoint,
-                      mixins.ListModelMixin,
-                      mixins.CreateModelMixin,
-                      generics.GenericAPIView):
+class UserkeyEndpoint(Endpoint):
     """
      GET /api/0/user_key
      授权方式 : basic auth (username/password)
@@ -36,9 +34,6 @@ class UserkeyEndpoint(Endpoint,
     # authentication_classes = [QuietBasicAuthentication]
     permission_classes = ()
 
-    # XXX: it's not quite clear if this should be documented or not at
-    # this time.
-    # doc_section = DocSection.ACCOUNTS
     queryset = User.objects.all()
 
     def get(self, request):
@@ -47,16 +42,8 @@ class UserkeyEndpoint(Endpoint,
         return Response(resp)
 
     def post(self, request):
-        # user = User.objects.get(username=request.user.username)
-        # user_key = generate_user_key(user)
-        # if User.objects.filter(username=request.user.username).update(userkey=user_key):
-        #     return Response({'msg': 'ok'})
-        # return Response({'msg': 'failed'})
         print 'request.data ', request.DATA
         result = request.DATA
-        print 'username = ', result['username']
-        print 'password= ', result['password']
         user = User.objects.get(username=result['username'])
         resp = {'user_key': user.userkey}
-        print 'resp=', resp
         return Response(resp)
