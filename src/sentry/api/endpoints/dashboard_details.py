@@ -44,8 +44,8 @@ class DashboardDetailsEndpoint(Endpoint):
         if len(data) == 0:
             return Response(status=400, data={'msg': 'no request parameters'})
         if dashboard_id:
-            dashboard = LogInsightDashboard(id=dashboard_id, user=request.user, **data)
-            dashboard.save()
+            dashboard = LogInsightDashboard(id=dashboard_id, user_id=request.user.id,  **data)
+            dashboard.save(force_update=True)
             layout = dashboard.layout
             resp_data = {
                 'name': dashboard.name,

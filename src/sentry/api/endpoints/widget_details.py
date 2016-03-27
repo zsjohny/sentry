@@ -45,8 +45,9 @@ class WidgetDetailsEndpoint(Endpoint):
                 #               y_axis=data.get('y_axis', None),
                 #               chart_type=data.get('chart_type', None))
                 # w = LogWidget.objects.get(id=widget_id, user=request.user)
+                print 'data == ', data
                 widget = LogWidget(id=widget_id, user=request.user, **data)
-                widget.save()
+                widget.save(force_update=True)
                 resp_data = {
                     'id': widget.id,
                     'title': widget.title,
