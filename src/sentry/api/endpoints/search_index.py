@@ -65,7 +65,7 @@ class SearchIndexEndpoint(Endpoint):
 获取查询结果的接口
 PARAM: index_name
 TEST:  /api/0/query/<index_name>/?q=search:Andorid
-$.get("/api/0/query/idx/?q=search:Andorid?count=50&offset=0")
+$.get("/api/0/query/idx/?q=search:Android?count=50&offset=0")
 """
 
 
@@ -80,6 +80,7 @@ class SearchResultEndpoint(Endpoint):
         q = request.GET.get('q', '')
         count = request.DATA.get('count', 50)
         offset = request.DATA.get('offset', 0)
+        print 'q=', q
         query_json = parse_query(str(q))
         if len(query_json) == 0:
             return Response(status=200, data={"msg": "Invalid query statement"})
@@ -90,7 +91,5 @@ class SearchResultEndpoint(Endpoint):
                                                                   query,
                                                                   offset,
                                                                   count)
-        print 'url===', url
         resp = requests.get(str(url))
-        print 'resp=', resp.text
         return Response(status=resp.status_code, data=resp.json())
