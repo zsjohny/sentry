@@ -46,8 +46,10 @@ class VisualizationDetailsEndpoint(Endpoint):
         if len(data) == 0:
             return Response(status=400, data={'msg': 'no request parameters'})
         try:
-            visualization = Visaulization(id=visualization_id, user_id=request.user.id, **data)
-            visualization.save()
+            # visualization = Visaulization(id=visualization_id, user_id=request.user.id, **data)
+            # visualization.save()
+            Visaulization.objects.filter(id=visualization_id, user_id=request.user.id).update(**data)
+            visualization = Visaulization.objects.get(id=visualization_id)
             resp_data = {
                 'id': visualization.id,
                 'name': visualization.name,
