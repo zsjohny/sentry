@@ -79,8 +79,10 @@ class SearchResultEndpoint(Endpoint):
     def get(self, request, index_name):
         if True:
             from sentry.api.endpoints.mock_data import *
-            return Response(mock_data)
-
+            count = int(request.GET.get('count', 20))
+            offset = int(request.GET.get('offset', 0))
+            print 'count=', count, 'offset=', offset
+            return Response(fetch_data(offset, count))
         else:
             q = request.GET.get('q', '')
             count = request.DATA.get('count', 50)
