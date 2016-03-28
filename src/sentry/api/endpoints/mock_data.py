@@ -34,7 +34,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:08:22 +0800] \"GET /sockjs-node/info?t=1450440502937 HTTP/1.1\" 404 570 \"http://localhost:8080/\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:08:22+0800]",
+      "time_local": "18/Dec/2015:20:08:22+0800",
       "method": "\"GET"
     },
     {
@@ -48,7 +48,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:08:24 +0800] \"GET /sockjs-node/info?t=1450440504952 HTTP/1.1\" 404 570 \"http://localhost:8080/\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:08:24+0800]",
+      "time_local": "18/Dec/2015:20:08:24+0800",
       "method": "\"GET"
     },
     {
@@ -62,7 +62,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:08:26 +0800] \"GET /sockjs-node/info?t=1450440506166 HTTP/1.1\" 404 570 \"http://localhost:8080/system/roles\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:08:26+0800]",
+      "time_local": "18/Dec/2015:20:08:26+0800",
       "method": "\"GET"
     },
     {
@@ -76,7 +76,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:08:32 +0800] \"GET /sockjs-node/info?t=1450440512142 HTTP/1.1\" 404 570 \"http://localhost:8080/system/roles\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:08:32+0800]",
+      "time_local": "18/Dec/2015:20:08:32+0800",
       "method": "\"GET"
     },
     {
@@ -90,7 +90,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:08:37 +0800] \"GET /sockjs-node/info?t=1450440517940 HTTP/1.1\" 404 570 \"http://localhost:8080/system/roles\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:08:37+0800]",
+      "time_local": "18/Dec/2015:20:08:37+0800",
       "method": "\"GET"
     },
     {
@@ -104,7 +104,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:08:45 +0800] \"GET /sockjs-node/info?t=1450440525136 HTTP/1.1\" 404 570 \"http://localhost:8080/system/roles\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:08:45+0800]",
+      "time_local": "18/Dec/2015:20:08:45+0800",
       "method": "\"GET"
     },
     {
@@ -118,7 +118,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:08:51 +0800] \"GET /sockjs-node/info?t=1450440531980 HTTP/1.1\" 404 570 \"http://localhost:8080/system/roles\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:08:51+0800]",
+      "time_local": "18/Dec/2015:20:08:51+0800",
       "method": "\"GET"
     },
     {
@@ -132,7 +132,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:08:53 +0800] \"GET / HTTP/1.1\" 200 395 \"-\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:08:53+0800]",
+      "time_local": "18/Dec/2015:20:08:53+0800",
       "method": "\"GET"
     },
     {
@@ -146,7 +146,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:08:53 +0800] \"GET /translations.9d15ad145512a2325cd4.js HTTP/1.1\" 200 236178 \"http://localhost:8080/\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:08:53+0800]",
+      "time_local": "18/Dec/2015:20:08:53+0800",
       "method": "\"GET"
     },
     {
@@ -160,7 +160,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:08:53 +0800] \"GET /config.9d15ad145512a2325cd4.js HTTP/1.1\" 200 1530 \"http://localhost:8080/\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:08:53+0800]",
+      "time_local": "18/Dec/2015:20:08:53+0800",
       "method": "\"GET"
     },
     {
@@ -174,7 +174,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:08:53 +0800] \"GET /app.9d15ad145512a2325cd4.js HTTP/1.1\" 200 1168359 \"http://localhost:8080/\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:08:53+0800]",
+      "time_local": "18/Dec/2015:20:08:53+0800",
       "method": "\"GET"
     },
     {
@@ -188,7 +188,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:08:53 +0800] \"GET /OpenSans-Regular-webfont.woff HTTP/1.1\" 200 22660 \"http://localhost:8080/\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:08:53+0800]",
+      "time_local": "18/Dec/2015:20:08:53+0800",
       "method": "\"GET"
     },
     {
@@ -202,7 +202,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:08:53 +0800] \"GET /2.LoggedInPage.9d15ad145512a2325cd4.js HTTP/1.1\" 200 5538638 \"http://localhost:8080/\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:08:53+0800]",
+      "time_local": "18/Dec/2015:20:08:53+0800",
       "method": "\"GET"
     },
     {
@@ -216,7 +216,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:08:56 +0800] \"GET /OpenSans-Bold-webfont.woff HTTP/1.1\" 200 22432 \"http://localhost:8080/\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:08:56+0800]",
+      "time_local": "18/Dec/2015:20:08:56+0800",
       "method": "\"GET"
     },
     {
@@ -230,7 +230,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:08:57 +0800] \"GET /sockjs-node/info?t=1450440537978 HTTP/1.1\" 404 570 \"http://localhost:8080/system/roles\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:08:57+0800]",
+      "time_local": "18/Dec/2015:20:08:57+0800",
       "method": "\"GET"
     },
     {
@@ -244,7 +244,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:08:59 +0800] \"GET /dc.js.map HTTP/1.1\" 404 570 \"-\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:08:59+0800]",
+      "time_local": "18/Dec/2015:20:08:59+0800",
       "method": "\"GET"
     },
     {
@@ -258,7 +258,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:09:02 +0800] \"GET / HTTP/1.1\" 304 0 \"-\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:09:02+0800]",
+      "time_local": "18/Dec/2015:20:09:02+0800",
       "method": "\"GET"
     },
     {
@@ -272,7 +272,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:09:02 +0800] \"GET /translations.9d15ad145512a2325cd4.js HTTP/1.1\" 304 0 \"http://localhost:8080/\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:09:02+0800]",
+      "time_local": "18/Dec/2015:20:09:02+0800",
       "method": "\"GET"
     },
     {
@@ -286,7 +286,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:09:02 +0800] \"GET /config.9d15ad145512a2325cd4.js HTTP/1.1\" 304 0 \"http://localhost:8080/\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:09:02+0800]",
+      "time_local": "18/Dec/2015:20:09:02+0800",
       "method": "\"GET"
     },
     {
@@ -300,7 +300,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:09:02 +0800] \"GET /app.9d15ad145512a2325cd4.js HTTP/1.1\" 304 0 \"http://localhost:8080/\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:09:02+0800]",
+      "time_local": "18/Dec/2015:20:09:02+0800",
       "method": "\"GET"
     },
     {
@@ -314,7 +314,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:09:02 +0800] \"GET /2.LoggedInPage.9d15ad145512a2325cd4.js HTTP/1.1\" 304 0 \"http://localhost:8080/\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:09:02+0800]",
+      "time_local": "18/Dec/2015:20:09:02+0800",
       "method": "\"GET"
     },
     {
@@ -328,7 +328,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:09:02 +0800] \"GET /OpenSans-Regular-webfont.woff HTTP/1.1\" 304 0 \"http://localhost:8080/\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:09:02+0800]",
+      "time_local": "18/Dec/2015:20:09:02+0800",
       "method": "\"GET"
     },
     {
@@ -342,7 +342,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:09:03 +0800] \"GET /dc.js.map HTTP/1.1\" 404 570 \"-\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:09:03+0800]",
+      "time_local": "18/Dec/2015:20:09:03+0800",
       "method": "\"GET"
     },
     {
@@ -356,7 +356,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:09:04 +0800] \"GET /sockjs-node/info?t=1450440544385 HTTP/1.1\" 404 570 \"http://localhost:8080/system/roles\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:09:04+0800]",
+      "time_local": "18/Dec/2015:20:09:04+0800",
       "method": "\"GET"
     },
     {
@@ -370,7 +370,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:09:11 +0800] \"GET /sockjs-node/info?t=1450440551135 HTTP/1.1\" 404 570 \"http://localhost:8080/system/roles\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:09:11+0800]",
+      "time_local": "18/Dec/2015:20:09:11+0800",
       "method": "\"GET"
     },
     {
@@ -384,7 +384,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:09:16 +0800] \"GET /sockjs-node/info?t=1450440556038 HTTP/1.1\" 404 570 \"http://localhost:8080/system/roles\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:09:16+0800]",
+      "time_local": "18/Dec/2015:20:09:16+0800",
       "method": "\"GET"
     },
     {
@@ -398,7 +398,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:09:23 +0800] \"GET /sockjs-node/info?t=1450440563221 HTTP/1.1\" 404 570 \"http://localhost:8080/system/roles\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:09:23+0800]",
+      "time_local": "18/Dec/2015:20:09:23+0800",
       "method": "\"GET"
     },
     {
@@ -412,7 +412,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:09:29 +0800] \"GET /sockjs-node/info?t=1450440569284 HTTP/1.1\" 404 570 \"http://localhost:8080/system/roles\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:09:29+0800]",
+      "time_local": "18/Dec/2015:20:09:29+0800",
       "method": "\"GET"
     },
     {
@@ -426,7 +426,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:09:35 +0800] \"GET /sockjs-node/info?t=1450440575612 HTTP/1.1\" 404 570 \"http://localhost:8080/system/roles\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:09:35+0800]",
+      "time_local": "18/Dec/2015:20:09:35+0800",
       "method": "\"GET"
     },
     {
@@ -440,7 +440,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:09:40 +0800] \"GET /sockjs-node/info?t=1450440580748 HTTP/1.1\" 404 570 \"http://localhost:8080/system/roles\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:09:40+0800]",
+      "time_local": "18/Dec/2015:20:09:40+0800",
       "method": "\"GET"
     },
     {
@@ -454,7 +454,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:09:45 +0800] \"GET /sockjs-node/info?t=1450440585934 HTTP/1.1\" 404 570 \"http://localhost:8080/system/roles\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:09:45+0800]",
+      "time_local": "18/Dec/2015:20:09:45+0800",
       "method": "\"GET"
     },
     {
@@ -468,7 +468,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:09:51 +0800] \"GET /sockjs-node/info?t=1450440591953 HTTP/1.1\" 404 570 \"http://localhost:8080/system/roles\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:09:51+0800]",
+      "time_local": "18/Dec/2015:20:09:51+0800",
       "method": "\"GET"
     },
     {
@@ -482,7 +482,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:09:58 +0800] \"GET /sockjs-node/info?t=1450440598638 HTTP/1.1\" 404 570 \"http://localhost:8080/system/roles\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:09:58+0800]",
+      "time_local": "18/Dec/2015:20:09:58+0800",
       "method": "\"GET"
     },
     {
@@ -496,7 +496,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:10:03 +0800] \"GET /sockjs-node/info?t=1450440603987 HTTP/1.1\" 404 570 \"http://localhost:8080/system/roles\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:10:03+0800]",
+      "time_local": "18/Dec/2015:20:10:03+0800",
       "method": "\"GET"
     },
     {
@@ -510,7 +510,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:10:10 +0800] \"GET /sockjs-node/info?t=1450440610306 HTTP/1.1\" 404 570 \"http://localhost:8080/system/roles\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:10:10+0800]",
+      "time_local": "18/Dec/2015:20:10:10+0800",
       "method": "\"GET"
     },
     {
@@ -524,7 +524,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:10:16 +0800] \"GET /sockjs-node/info?t=1450440616675 HTTP/1.1\" 404 570 \"http://localhost:8080/system/roles\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:10:16+0800]",
+      "time_local": "18/Dec/2015:20:10:16+0800",
       "method": "\"GET"
     },
     {
@@ -538,7 +538,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:10:22 +0800] \"GET /sockjs-node/info?t=1450440622017 HTTP/1.1\" 404 570 \"http://localhost:8080/system/roles\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:10:22+0800]",
+      "time_local": "18/Dec/2015:20:10:22+0800",
       "method": "\"GET"
     },
     {
@@ -552,7 +552,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:10:28 +0800] \"GET /sockjs-node/info?t=1450440628293 HTTP/1.1\" 404 570 \"http://localhost:8080/system/roles\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:10:28+0800]",
+      "time_local": "18/Dec/2015:20:10:28+0800",
       "method": "\"GET"
     },
     {
@@ -566,7 +566,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:10:34 +0800] \"GET /sockjs-node/info?t=1450440634713 HTTP/1.1\" 404 570 \"http://localhost:8080/system/roles\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:10:34+0800]",
+      "time_local": "18/Dec/2015:20:10:34+0800",
       "method": "\"GET"
     },
     {
@@ -580,7 +580,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:10:40 +0800] \"GET /sockjs-node/info?t=1450440640062 HTTP/1.1\" 404 570 \"http://localhost:8080/system/roles\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:10:40+0800]",
+      "time_local": "18/Dec/2015:20:10:40+0800",
       "method": "\"GET"
     },
     {
@@ -594,7 +594,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:10:47 +0800] \"GET /sockjs-node/info?t=1450440647746 HTTP/1.1\" 404 570 \"http://localhost:8080/system/roles\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:10:47+0800]",
+      "time_local": "18/Dec/2015:20:10:47+0800",
       "method": "\"GET"
     },
     {
@@ -608,7 +608,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:10:54 +0800] \"GET /sockjs-node/info?t=1450440654949 HTTP/1.1\" 404 570 \"http://localhost:8080/system/roles\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:10:54+0800]",
+      "time_local": "18/Dec/2015:20:10:54+0800",
       "method": "\"GET"
     },
     {
@@ -622,7 +622,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:11:00 +0800] \"GET /sockjs-node/info?t=1450440660973 HTTP/1.1\" 404 570 \"http://localhost:8080/system/roles\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:11:00+0800]",
+      "time_local": "18/Dec/2015:20:11:00+0800",
       "method": "\"GET"
     },
     {
@@ -636,7 +636,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:11:07 +0800] \"GET /sockjs-node/info?t=1450440667068 HTTP/1.1\" 404 570 \"http://localhost:8080/system/roles\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:11:07+0800]",
+      "time_local": "18/Dec/2015:20:11:07+0800",
       "method": "\"GET"
     },
     {
@@ -650,7 +650,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:11:13 +0800] \"GET /sockjs-node/info?t=1450440673022 HTTP/1.1\" 404 570 \"http://localhost:8080/system/roles\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:11:13+0800]",
+      "time_local": "18/Dec/2015:20:11:13+0800",
       "method": "\"GET"
     },
     {
@@ -664,7 +664,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:21:59 +0800] \"GET /sockjs-node/info?t=1450441319237 HTTP/1.1\" 404 570 \"http://localhost:8080/\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:21:59+0800]",
+      "time_local": "18/Dec/2015:20:21:59+0800",
       "method": "\"GET"
     },
     {
@@ -678,7 +678,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:22:04 +0800] \"GET / HTTP/1.1\" 200 425 \"-\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:22:04+0800]",
+      "time_local": "18/Dec/2015:20:22:04+0800",
       "method": "\"GET"
     },
     {
@@ -692,7 +692,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:22:04 +0800] \"GET /translations.c62633ed2706bc89c199.js HTTP/1.1\" 200 190059 \"http://localhost:8080/\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:22:04+0800]",
+      "time_local": "18/Dec/2015:20:22:04+0800",
       "method": "\"GET"
     },
     {
@@ -706,7 +706,7 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:22:04 +0800] \"GET /app.c62633ed2706bc89c199.js HTTP/1.1\" 200 484349 \"http://localhost:8080/\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:22:04+0800]",
+      "time_local": "18/Dec/2015:20:22:04+0800",
       "method": "\"GET"
     },
     {
@@ -720,22 +720,22 @@ mock_data = {
       "http_x_forwarded_for": "['(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_11_2)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/47.0.2526.106', 'Safari/537.36\"\\n']",
       "http_user_agent": "\"Mozilla/5.0",
       "_raw": "127.0.0.1 - - [18/Dec/2015:20:22:04 +0800] \"GET /vendor.bundle.js HTTP/1.1\" 200 1558 \"http://localhost:8080/\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\"\n",
-      "time_local": "[18/Dec/2015:20:22:04+0800]",
+      "time_local": "18/Dec/2015:20:22:04+0800",
       "method": "\"GET"
     }
   ],
   "meta": {
     "count": 20,
-    "shard_count": 66,
+    "shard_count": 72,
     "matches_total": 100,
-    "last_event": "2016-03-28 19:22:10.480455",
-    "process_time": 0.048377,
+    "last_event": "2016-03-28 19:39:02.763850",
+    "process_time": 0.058818,
     "offset": 20,
-    "first_event": "2016-03-28 19:22:10.480446",
+    "first_event": "2016-03-28 19:39:02.763827",
     "warning": [],
     "error": [],
-    "time": 0.048374,
-    "search_time": 0.048376,
+    "time": 0.058814,
+    "search_time": 0.058817,
     "search_id": 1,
     "match": 50
   },
