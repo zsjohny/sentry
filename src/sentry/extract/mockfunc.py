@@ -19,7 +19,7 @@ big_map={}
 def mock_data(filename,stype='access_common'):
     with open(filename) as f:
         for line in f:
-	    stype=stype
+
             temp = {'sourcetype':stype,'_raw':line}
             final_event = core.extract_event(temp)
             for field in final_event:
@@ -39,7 +39,26 @@ def mock_data(filename,stype='access_common'):
                             new_map['values'][final_event[field]]=1
 
                         big_map[field]=new_map
-    return big_map
+    return_data=[]
+    return_data= [{'key':'aa','values':{}}]
+    for key in big_map:
+        if key=='_raw':
+            pass
+        else:
+            return_data.append[big_map[key]]
+    data=[]
+    for key_dict in return_data:
+
+        sub_value=[]
+        temp_dict={}
+        for key in key_dict:
+            temp_dict[key]=key_dict[key]
+        for sub_v in key_dict['values']:
+            sub_value.append({sub_v:key_dict['values'][sub_v]})
+        temp_dict['values']=sub_value
+        data.append(temp_dict)
+    return data
+    # return return_data
 if __name__=='__main__':
    s= mock_data(filename)
    print s.keys(),s['domain'],s['domain']['values']
