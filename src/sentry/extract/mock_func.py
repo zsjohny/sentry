@@ -24,21 +24,22 @@ def mock_data(filename):
             final_event = core.extract_event(temp)
 
             for field in final_event:
-                if big_map.has_key(field):
-                    big_map[field]['count']+=1
-                    if big_map[field]['values'].has_key(final_event[field]):
-                        big_map[field]['values'][final_event[field]]+=1
-                    else:
-                        big_map[field]['values'][final_event[field]]=1
+                if final_event[field]!=None:
+                    if big_map.has_key(field):
+                        big_map[field]['count']+=1
+                        if big_map[field]['values'].has_key(final_event[field]):
+                            big_map[field]['values'][final_event[field]]+=1
+                        else:
+                            big_map[field]['values'][final_event[field]]=1
 
-                else:
-                    new_map={'key':field,'count':1,'values':{}}
-                    if new_map['values'].has_key(final_event[field]):
-                        new_map['values'][final_event[field]]+=1
                     else:
-                        new_map['values'][final_event[field]]=1
+                        new_map={'key':field,'count':1,'values':{}}
+                        if new_map['values'].has_key(final_event[field]):
+                            new_map['values'][final_event[field]]+=1
+                        else:
+                            new_map['values'][final_event[field]]=1
 
-                    big_map[field]=new_map
+                        big_map[field]=new_map
     return big_map
 if __name__=='__main__':
    s= mock_data(filename)

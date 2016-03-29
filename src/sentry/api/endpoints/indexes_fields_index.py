@@ -51,5 +51,8 @@ class IndexesFieldsCountIndexEndpoint(Endpoint):
     def get(self, request, index_name, *args, **kwargs):
 
         data = mock_func()
+
+        for key in data:
+            if
         data ="hello"
         return Response(data, status=200)
