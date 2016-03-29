@@ -59,7 +59,24 @@ def fetch_data(offset, count, key, sort, query):
         meta['query'] = query,
 
         fields = hits[0].keys()
-        words = fields
+        words = []
+        i = 0
+        for e in fields:
+            o = {}
+            o['name'] = e
+            if i % 2 == 0:
+                o['checked'] = True
+            else:
+                o['checked'] = False
+            if e == 'status':
+                o['type'] = 'Number'
+            elif e == 'body_bytes_sent':
+                o['type'] = 'Number'
+            else:
+                o['type'] = 'string'
+            i = i + 1
+            words.append(o)
+
         sources = [{'source_name': 'nginx',
                     'regex': '',
                     'events': len(lines),
@@ -67,8 +84,8 @@ def fetch_data(offset, count, key, sort, query):
                     'last_event': str(datetime.now())}]
 
         result['meta'] = meta
-        result['fields'] = fields
-        result['words'] = words
+        result['fields'] = words
+        result['words'] = fields
         if sort == 'desc':
             result['hits'] = sorted(hits, reverse=True)
             i = offset
