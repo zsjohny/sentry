@@ -13,6 +13,7 @@ from rest_framework.response import Response
 from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings
 import requests
+import json
 from sentry.extract import mock_func
 
 """
@@ -52,7 +53,6 @@ class IndexesFieldsCountIndexEndpoint(Endpoint):
 
         data = mock_func()
 
-        for key in data:
-            if
-        data ="hello"
-        return Response(data, status=200)
+
+
+        return Response(data=json.dumps(data), status=200)
