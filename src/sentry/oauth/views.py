@@ -14,6 +14,7 @@ from .forms import ConsumerExchangeForm
 from django.conf import settings
 from collections import namedtuple
 import hashlib
+from datetime import datetime
 
 ApiUrl = namedtuple('ApiUrl', 'name, url')
 
@@ -72,7 +73,7 @@ class ConsumerExchangeView(FormView):
             org_name = data['org_name']
             # create organization
             m = hashlib.md5()
-            m.update(org_name)
+            m.update(str(datetime.now()))
             slug = m.hexdigest()
             if len(Organization.objects.filter(slug=slug)) == 0:
                 org = Organization.objects.create(
