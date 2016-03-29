@@ -14,8 +14,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings
 import requests
 import json
-# from sentry.extract.mockfunc import mock_data
-
+import pickle
 """
     URI /api/0/indexes/<index_id>/fields/
 
@@ -53,8 +52,9 @@ class IndexesFieldsCountIndexEndpoint(Endpoint):
         return (args, kwargs)
 
     def get(self, request, index_name, *args, **kwargs):
-        # filename= settings.MOCK_CONF+'/access.log'
-        # data = mock_data(filename)
+        mockdata ={}
         # print 'data type == ', type(data)
-        # return Response(data=data, status=200)
-        return Response(data=[], status=200)
+        with open('/Volumes/Transcend/sentry/mock.dat','rb') as f:
+            mockdata=pickle.load(f)
+
+        return Response(data=mockdata, status=200)
