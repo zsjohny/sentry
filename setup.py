@@ -133,6 +133,7 @@ install_requires = [
     'rb>=1.4.0,<2.0.0',
     'module==0.2.1',
     'django-rest-swagger',
+    'tarantool==0.5.4',
 ]
 
 postgres_requires = [
