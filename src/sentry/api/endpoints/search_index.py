@@ -82,7 +82,7 @@ class SearchResultEndpoint(Endpoint):
             count = int(request.GET.get('count', 20))
             offset = int(request.GET.get('offset', 0))
             sort = request.GET.get('sort', 'asc')
-            key = request.GET.get('key', 'time_local')
+            key = request.GET.get('key', '_timestamp')
             query = request.GET.get('q', '*')
             print 'count=', count, 'offset=', offset
             return Response(fetch_data(offset, count, key, sort, query))

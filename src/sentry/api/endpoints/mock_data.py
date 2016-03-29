@@ -26,7 +26,7 @@ def fetch_data(offset, count, key, sort, query):
             t_arr = line.split(' ')
             ro['remote_addr'] = t_arr[0]
             ro['remote_user'] = t_arr[2]
-            ro['time_local'] = t_arr[3][1:] + t_arr[4][0:len(t_arr[4])-1]
+            ro['_timestamp'] = t_arr[3][1:] + t_arr[4][0:len(t_arr[4])-1]
             ro['method'] = t_arr[5]
             ro['url'] = t_arr[6]
             ro['protocol'] = t_arr[7]
@@ -77,6 +77,7 @@ def fetch_data(offset, count, key, sort, query):
                 i = i + 1
         else:
             i = offset
+            result['hits'] = sorted(hits, reverse=True)
             for row in result['hits']:
                 row['id'] = i
                 i = i+1
