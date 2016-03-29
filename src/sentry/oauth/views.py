@@ -72,20 +72,20 @@ class ConsumerExchangeView(FormView):
             data = resp.json()[1]['fields']
             org_name = data['org_name']
             # create organization
-            # m = hashlib.md5()
-            # m.update(str(datetime.now()))
-            # slug = m.hexdigest()
-            # if len(Organization.objects.filter(slug=slug)) == 0:
-            #     org = Organization.objects.create(
-            #         name=org_name,
-            #         slug=slug,
-            #     )
-            #
-            #     OrganizationMember.objects.create(
-            #         organization=org,
-            #         user=user,
-            #         role=roles.get_top_dog().id,
-            #     )
+            m = hashlib.md5()
+            m.update(str(datetime.now()))
+            slug = m.hexdigest()
+            if len(Organization.objects.filter(slug=slug[:10])) == 0:
+                org = Organization.objects.create(
+                    name=org_name,
+                    slug=slug,
+                )
+
+                OrganizationMember.objects.create(
+                    organization=org,
+                    user=user,
+                    role=roles.get_top_dog().id,
+                )
 
             if request.user.is_authenticated():
                 # Do something for authenticated users.
