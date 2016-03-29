@@ -42,10 +42,9 @@ def mock_data(filename,stype='access_common'):
     return_data=[]
     # return_data= [{'key':'aa','values':{}}]
     for key in big_map:
-        if key=='_raw':
-            pass
-        else:
-            return_data.append[big_map[key]]
+        if key!='_raw':
+            return_data.append(big_map[key])
+
     data=[]
     for key_dict in return_data:
 
