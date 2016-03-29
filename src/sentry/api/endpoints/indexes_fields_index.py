@@ -13,6 +13,7 @@ from rest_framework.response import Response
 from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings
 import requests
+from sentry.extract import mock_func
 
 """
     URI /api/0/indexes/<index_id>/fields/
@@ -37,3 +38,18 @@ class IndexesFieldsIndexEndpoint(Endpoint):
             response = requests.get(url)
             print response.status_code
             return Response(data=response.json(), status=response.status_code)
+
+'''
+uee for mock data
+'''
+class IndexesFieldsCountIndexEndpoint(Endpoint):
+    permission_classes = []
+    def convert_args(self, request, index_name, *args, **kwargs):
+        kwargs['index_name'] = index_name
+        return (args, kwargs)
+
+    def get(self, request, index_name, *args, **kwargs):
+
+        data = mock_func()
+        data ="hello"
+        return Response(data, status=200)

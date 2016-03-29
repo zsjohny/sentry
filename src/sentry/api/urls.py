@@ -106,7 +106,7 @@ from .endpoints.widget_index import WidgetIndexEndpoint
 from .endpoints.user_info import LogAgentUserInfoEndpoint
 from .endpoints.account_appearance import AppearanceSettingsEndpoint
 from .endpoints.notification_settings import NotificationSettingsEndpoint
-
+from .endpoints.indexes_fields_index import IndexesFieldsCountIndexEndpoint
 from django.conf.urls import url, include
 from rest_framework import routers
 from sentry.api.endpoints.user_info import UserViewSet, GroupViewSet
@@ -152,9 +152,9 @@ urlpatterns += patterns(
     url(r'^indexes/$', IndexesIndexEndpoint.as_view(), name='sentry-log-indexes'),
     url(r'^indexes/(?P<index_id>[^\/]+)/$', IndexesDetailsEndpoint.as_view(), name='sentry-api-0-log-index-details'),
     url(r'^indexes/(?P<index_name>[^\/]+)/fields/$', IndexesFieldsIndexEndpoint.as_view(), name='sentry-api-0-log-index-fields'),
+    url(r'^indexes/(?P<index_name>[^\/]+)/fields/count/$', IndexesFieldsCountIndexEndpoint.as_view(), name='sentry-api-0-log-index-fields-count'),
     url(r'^upload/$', UploadIndexEndpoint.as_view(), name='sentry-api-0-log-index-fields'),
     url(r'^react/$', ReactEnpoint.as_view(), name='sentry-api-0-react'),
-
     url(r'^userinfo/$',LogAgentUserInfoEndpoint.as_view(),name='sentry-api-0-agent-configuration'),
 
 
