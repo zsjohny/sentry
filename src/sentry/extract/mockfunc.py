@@ -19,10 +19,10 @@ big_map={}
 def mock_data(filename,stype='access_common'):
     with open(filename) as f:
         for line in f:
-
+	    stype=stype
             temp = {'sourcetype':stype,'_raw':line}
             final_event = core.extract_event(temp)
-
+	    print final_event
             for field in final_event:
                 if final_event[field]!=None:
                     if big_map.has_key(field):

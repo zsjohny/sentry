@@ -14,7 +14,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings
 import requests
 import json
-from sentry.extract import mockfunc 
+from sentry.extract.mockfunc import mock_data 
 
 """
     URI /api/0/indexes/<index_id>/fields/
@@ -52,9 +52,7 @@ class IndexesFieldsCountIndexEndpoint(Endpoint):
     def get(self, request, index_name, *args, **kwargs):
 	
 	filename= settings.MOCK_CONF+'/access.log'
-        print filename,'}}}}}}}}}}}}}}}}}'
-	data = mockfunc(filename)
-	data={'a':'1'}
+	data = mock_data(filename)
 
 
 

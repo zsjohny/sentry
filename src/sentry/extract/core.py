@@ -1,7 +1,7 @@
 #coding:utf-8
 import post
 import re,sys,pcre,msgpack,pygrok,json,os,time,threading
-
+from django.conf import settings
 def bom_aware_readline(fileobj):
     atstart = (fileobj.tell() == 0)
     line = ""
@@ -86,8 +86,8 @@ def readConfLines(lines) :
     return settings
 
 
-sourceTypes = readConfFile('etc/system/default/props.conf')
-transforms = readConfFile('etc/transforms.conf')
+sourceTypes = readConfFile(settings.MOCK_CONF+'/etc/system/default/props.conf')
+transforms = readConfFile(settings.MOCK_CONF+'/etc/transforms.conf')
 
 def spl_match(line='',pattern=''):
 	if re.search('(?:\?P\<(.*?)\>|\%\{(.*?)\})',pattern):
