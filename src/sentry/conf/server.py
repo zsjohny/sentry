@@ -623,6 +623,7 @@ OAUTH_SERVER = "http://auth.loginsight.cn"
 LIVELOG_PREFIX = 'http://app.loginsight.cn:8080'
 HOST = "app.loginsight.cn"
 PORT = 8080
+MOCK_LOG_FILE = '/Users/wanghe/LogSample/nginx/access.log'
 
 # API DOCUMENT
 SWAGGER_SETTINGS = {

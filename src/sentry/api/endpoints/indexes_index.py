@@ -18,12 +18,16 @@ class IndexesIndexEndpoint(Endpoint):
     permission_classes = []
 
     def get(self, request, *args, **kwargs):
+        print 'username = ', request.user.username
         url = "%s/tenant/%s/list" % (settings.SEARCH_SERVER_API,  request.user.username)
+        print 'url=', url
         resp = requests.get(url)
         if resp.status_code == 200:
+            print resp.json()
             index_list = resp.json().get('index_info', None)
             idx_list = []
-            print resp.status_code
+
+            print resp.status_code, index_list
             for k in index_list.keys():
                 o = {}
                 o['name'] = k

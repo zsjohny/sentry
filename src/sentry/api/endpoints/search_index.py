@@ -65,7 +65,7 @@ class SearchIndexEndpoint(Endpoint):
 获取查询结果的接口
 PARAM: index_name
 TEST:  /api/0/query/<index_name>/?q=search:Andorid
-$.get("/api/0/query/idx/?q=search:Andorid?count=50&offset=0")
+$.get("/api/0/query/idx/?q=search:Android?count=50&offset=0")
 """
 
 
@@ -77,20 +77,26 @@ class SearchResultEndpoint(Endpoint):
         return (args, kwargs)
 
     def get(self, request, index_name):
-        q = request.GET.get('q', '')
-        count = request.DATA.get('count', 50)
-        offset = request.DATA.get('offset', 0)
-        query_json = parse_query(str(q))
-        if len(query_json) == 0:
-            return Response(status=200, data={"msg": "Invalid query statement"})
-        query = str(query_json).replace("'", "\"")
-        url = "%s/tenant/%s/%s/search?q=%s&offset=%s&count=%s" % (settings.SEARCH_SERVER_API,
-                                                                  request.user.username,
-                                                                  index_name,
-                                                                  query,
-                                                                  offset,
-                                                                  count)
-        print 'url===', url
-        resp = requests.get(str(url))
-        print 'resp=', resp.text
-        return Response(status=resp.status_code, data=resp.json())
+        if True:
+            from sentry.api.endpoints.mock_data import *
+            count = int(request.GET.get('count', 20))
+            offset = int(request.GET.get('offset', 0))
+            print 'count=', count, 'offset=', offset
+            return Response(fetch_data(offset, count))
+        else:
+            q = request.GET.get('q', '')
+            count = request.DATA.get('count', 50)
+            offset = request.DATA.get('offset', 0)
+            print 'q=', q
+            query_json = parse_query(str(q))
+            if len(query_json) == 0:
+                return Response(status=200, data={"msg": "Invalid query statement"})
+            query = str(query_json).replace("'", "\"")
+            url = "%s/tenant/%s/%s/search?q=%s&offset=%s&count=%s" % (settings.SEARCH_SERVER_API,
+                                                                      request.user.username,
+                                                                      index_name,
+                                                                      query,
+                                                                      offset,
+                                                                      count)
+            resp = requests.get(str(url))
+            return Response(status=resp.status_code, data=resp.json())
