@@ -53,7 +53,8 @@ def mock_data(filename,stype='access_common'):
         for key in key_dict:
             temp_dict[key]=key_dict[key]
         for sub_v in key_dict['values']:
-            sub_value.append({sub_v:key_dict['values'][sub_v]})
+            # sub_value.append({sub_v:key_dict['values'][sub_v]})
+            sub_value.append({'key':sub_v,'value':key_dict['values'][sub_v]})
         temp_dict['values']=sub_value
         data.append(temp_dict)
     return data
