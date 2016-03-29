@@ -50,10 +50,7 @@ class IndexesFieldsCountIndexEndpoint(Endpoint):
         return (args, kwargs)
 
     def get(self, request, index_name, *args, **kwargs):
-	
 	filename= settings.MOCK_CONF+'/access.log'
 	data = mock_data(filename)
-
-
-
-        return Response(data=json.dumps(data), status=200)
+        print 'data type == ', type(data)
+        return Response(data=data, status=200)
