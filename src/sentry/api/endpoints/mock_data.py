@@ -14,7 +14,7 @@ import json
 from django.conf import settings
 
 
-def fetch_data(offset, count):
+def fetch_data(offset, count, key, sort, query):
     raw_log_path = settings.MOCK_LOG_FILE
     result = {}
     hits = []
@@ -51,6 +51,13 @@ def fetch_data(offset, count):
         meta['error'] = []
         meta['first_event'] = str(datetime.now())
         meta['last_event'] = str(datetime.now())
+        if sort == 'desc':
+            meta['sort'] = {'reverse': True, 'key': key},
+        else:
+            meta['sort'] = {'reverse': False, 'key': key},
+
+        meta['query'] = query,
+
         fields = hits[0].keys()
         words = fields
         sources = [{'source_name': 'nginx',
@@ -62,7 +69,19 @@ def fetch_data(offset, count):
         result['meta'] = meta
         result['fields'] = fields
         result['words'] = words
-        result['hits'] = hits
+        if sort == 'desc':
+            result['hits'] = sorted(hits, reverse=True)
+            i = offset
+            for row in result['hits']:
+                row['id'] = i
+                i = i + 1
+        else:
+            i = offset
+            for row in result['hits']:
+                row['id'] = i
+                i = i+1
+            result['hits'] = sorted(hits, reverse=False)
+
         result['sources'] = sources
         json_str = json.dumps(result)
         with open("mock.data", "w") as wd:

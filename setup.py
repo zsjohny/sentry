@@ -134,6 +134,7 @@ install_requires = [
     'module==0.2.1',
     'django-rest-swagger',
     'tarantool==0.5.4',
+    'python-pcre',
 ]
 
 postgres_requires = [
