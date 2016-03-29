@@ -24,18 +24,18 @@ def fetch_data(offset, count, key, sort, query):
         for line in lines[offset:offset+count]:
             ro = {}
             t_arr = line.split(' ')
-            ro['remote_addr'] = t_arr[0]
-            ro['remote_user'] = t_arr[2]
-            ro['_timestamp'] = t_arr[3][1:] + t_arr[4][0:len(t_arr[4])-1]
-            ro['method'] = t_arr[5]
-            ro['url'] = t_arr[6]
-            ro['protocol'] = t_arr[7]
-            ro['status'] = t_arr[8]
-            ro['body_bytes_sent'] = t_arr[9]
-            ro['http_referer'] = t_arr[10]
-            ro['http_user_agent'] = t_arr[11]
-            ro['http_x_forwarded_for'] = str(t_arr[12:])
-            ro['_raw'] = line
+            ro['remote_addr'] = t_arr[0].replace("\"", "" )
+            ro['remote_user'] = t_arr[2].replace("\"", "")
+            ro['_timestamp'] = (t_arr[3][1:] + t_arr[4][0:len(t_arr[4])-1]).replace("\"", "")
+            ro['method'] = t_arr[5].replace("\"", "" )
+            ro['url'] = t_arr[6].replace("\"", "" )
+            ro['protocol'] = t_arr[7].replace("\"", "" )
+            ro['status'] = t_arr[8].replace("\"", "" )
+            ro['body_bytes_sent'] = t_arr[9].replace("\"", "" )
+            ro['http_referer'] = t_arr[10].replace("\"", "" )
+            ro['http_user_agent'] = t_arr[11].replace("\"", "" )
+            ro['http_x_forwarded_for'] = str(t_arr[12:]).replace("\"", "" )
+            ro['_raw'] = line.replace("\"", "")
             hits.append(ro)
         meta = {}
         meta['search_id'] = 1
