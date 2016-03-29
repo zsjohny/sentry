@@ -74,11 +74,11 @@ class ConsumerExchangeView(FormView):
             # create organization
             m = hashlib.md5()
             m.update(str(datetime.now()))
-            slug = m.hexdigest()
-            if len(Organization.objects.filter(slug=slug[:10])) == 0:
+            org_slug = m.hexdigest()
+            if len(Organization.objects.filter(slug=org_slug)) == 0:
                 org = Organization.objects.create(
                     name=org_name,
-                    slug=slug,
+                    slug=org_slug,
                 )
 
                 OrganizationMember.objects.create(
@@ -93,7 +93,7 @@ class ConsumerExchangeView(FormView):
                     logout(request)
                     user = authenticate(username=data['name'], password=data['password'])
                     login(request, user)
-                uri = reverse('sentry-organization-home', args=[org_name])
+                uri = reverse('sentry-organization-home', args=[org_slug])
                 return redirect(uri)
             else:
                 # Do something for anonymous users.
