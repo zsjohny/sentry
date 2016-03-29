@@ -23,7 +23,7 @@ _remove_number=0
 _debug=0
 def read_sourcetype_conf():
     global gloabl_V
-    file_path=r'etc/system/default/sourcetypes.conf'
+    file_path=r'./etc/system/default/sourcetypes.conf'
     f=open(file_path)
     content=f.read()
     f.close()
