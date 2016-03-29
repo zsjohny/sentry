@@ -40,7 +40,7 @@ def mock_data(filename,stype='access_common'):
 
                         big_map[field]=new_map
     return_data=[]
-    return_data= [{'key':'aa','values':{}}]
+    # return_data= [{'key':'aa','values':{}}]
     for key in big_map:
         if key=='_raw':
             pass
