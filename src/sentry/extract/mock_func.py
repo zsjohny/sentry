@@ -7,9 +7,10 @@ file: mock_func.py
 time   : 16/3/28 下午5:40  
 """
 from sentry.extract import sourcetype, core
-from django.conf import settings
+#from django.conf import settings
 
-filename = settings.MOCK_LOG_FILE.join("access_log")
+#filename = settings.MOCK_DATA+r"/"+r"access_log"
+filename = r'/home/ubuntu/sentry/mock'+r"/"+r"access.log"
 
 stype=sourcetype.try_to_detect_file_sourcetype(filename,filename)
 
@@ -40,4 +41,5 @@ def mock_data(filename):
                     big_map[field]=new_map
     return big_map
 if __name__=='__main__':
-    print 'hh'
+   s= mock_data(filename)
+   print s.keys(),s['root'],len(s['root']['values'])
