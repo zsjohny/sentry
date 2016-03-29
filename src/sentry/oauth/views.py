@@ -71,11 +71,13 @@ class ConsumerExchangeView(FormView):
             data = resp.json()[1]['fields']
             org_name = data['org_name']
             # create organization
-
-            if len(Organization.objects.filter(slug=org_name)) == 0:
+            m = hashlib.md5()
+            m.update(org_name)
+            slug = m.hexdigest()
+            if len(Organization.objects.filter(slug=slug)) == 0:
                 org = Organization.objects.create(
                     name=org_name,
-                    slug=org_name,
+                    slug=slug,
                 )
 
                 OrganizationMember.objects.create(
