@@ -75,7 +75,7 @@ def create_sample_time_series(event):
 
     now = datetime.utcnow().replace(tzinfo=utc)
 
-    for _ in xrange(60):
+    for _ in xrange(30):
         count = randint(1, 10)
         tsdb.incr_multi((
             (tsdb.models.project, group.project.id),
@@ -91,7 +91,7 @@ def create_sample_time_series(event):
         ), now, int(count * 0.1))
         now = now - timedelta(seconds=1)
 
-    for _ in xrange(24 * 30):
+    for _ in xrange(10 * 30):
         count = randint(100, 1000)
         tsdb.incr_multi((
             (tsdb.models.project, group.project.id),
@@ -115,7 +115,7 @@ def generate_host_key(result):
     return host_key
 
 
-def create_demo_sample(num_events=1, user_name="dummy@example.com", org_name='default', request=None):
+def create_demo_sample(num_events=1, user_name="dummy@example.com", org_slug='default', request=None):
 
     dummy_user, _ = User.objects.get_or_create(
         username=user_name,
@@ -140,13 +140,13 @@ def create_demo_sample(num_events=1, user_name="dummy@example.com", org_name='de
     else:
         print('Mocking org {}'.format('Default'))
         org, _ = Organization.objects.get_or_create(
-            name=org_name,
+            slug=org_slug,
         )
-    OrganizationMember.objects.get_or_create(
-        user=dummy_user,
-        organization=org,
-        role=roles.get_top_dog().id,
-    )
+    # OrganizationMember.objects.get_or_create(
+    #     user=dummy_user,
+    #     organization=org,
+    #     role=roles.get_top_dog().id,
+    # )
 
     dummy_member, _ = OrganizationMember.objects.get_or_create(
         user=dummy_user,
@@ -197,7 +197,7 @@ def create_demo_sample(num_events=1, user_name="dummy@example.com", org_name='de
             )
 
             # Add a bunch of additional dummy events to support pagination
-            for _ in range(45):
+            for _ in range(20):
                 platform = PLATFORMS.next()
                 create_sample_event(
                     project=project,

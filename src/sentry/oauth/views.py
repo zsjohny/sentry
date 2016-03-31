@@ -66,11 +66,7 @@ class ConsumerExchangeView(FormView):
             user.is_active = True
             user.is_managed = True
             user.is_staff = True
-            print 'data = ', data
-            # if not User.objects.filter(username=data['username']):
-            #     if not User.objects.filter(email=data['email']):
-            #         user.save()
-            try :
+            try:
                 u = User.objects.get(username=data['username'])
                 uliste = User.objects.get(email=data['email'])
                 print 'ulist = ', u
@@ -78,15 +74,15 @@ class ConsumerExchangeView(FormView):
                 user.save()
             user = User.objects.get(username=data['username'])
             data = resp.json()[1]['fields']
-            org_name = data['org_name']
+            org_name = data['org_name'] + str(user.id)
             # create organization
             # m = hashlib.md5()
             # m.update(str(datetime.now()))
             # org_slug = m.hexdigest()
             print 'data == ', data
-            print 'org_name=', org_name, type(org_name)
+            print 'org_name=', org_name
             p = Pinyin()
-            org_slug = p.get_pinyin(org_name).replace('-', '') + str(user.id)
+            org_slug = p.get_pinyin(org_name).replace('-', '')
             if len(Organization.objects.filter(slug=org_slug)) == 0:
                 org = Organization.objects.create(
                     name=org_name,
