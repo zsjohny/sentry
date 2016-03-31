@@ -61,5 +61,4 @@ class UploadIndexEndpoint(Endpoint):
         except ObjectDoesNotExist:
             return Response(status=200, data={'msg': 'Invalid user for organization'})
         ret = self.handle_upload_file(request, org.name, file)
-        print 'ret === ', ret
         return Response(status=200, data={'msg': 'ok', 'source_type': ret})

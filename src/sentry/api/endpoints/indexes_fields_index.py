@@ -44,6 +44,7 @@ uee for mock data
 '''
 
 
+
 class IndexesFieldsCountIndexEndpoint(Endpoint):
     permission_classes = []
 
@@ -54,7 +55,7 @@ class IndexesFieldsCountIndexEndpoint(Endpoint):
     def get(self, request, index_name, *args, **kwargs):
         mockdata ={}
         # print 'data type == ', type(data)
-        with open('/Volumes/Transcend/sentry/mock.dat','rb') as f:
+        with open('/home/sentry/mock.dat','rb') as f:
             mockdata=pickle.load(f)
 
         return Response(data=mockdata, status=200)

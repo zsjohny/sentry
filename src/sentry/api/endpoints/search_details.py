@@ -51,7 +51,8 @@ class SearchDetailsEndpoint(Endpoint):
                 resp_data = {
                     'id': search.id,
                     'name': search.name,
-                    'last_timestamp': search.last_timestamp,
+                    'created_at': search.create_timestamp,
+                    'updated_at': search.last_timestamp,
                     'query': search.query,
                     'time_range': search.time_range,
                     'config': search.config,

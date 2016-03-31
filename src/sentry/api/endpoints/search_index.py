@@ -42,10 +42,15 @@ class SearchIndexEndpoint(Endpoint):
         data = request.DATA
         if len(data) == 0:
             return Response(status=400)
-        search_list = Search.objects.filter(name=data.get('name', ''))
-        if search_list:
-            return Response({'msg': 'existed!'}, status=404)
-        search = Search.objects.create(name=data['name'],
+        print 'data == ',data.get('name', None)
+        if not data.get('name', None):
+            return Response(data={'msg': 'you must specify search name'}, status=400)
+        if not data.get('query', None):
+            return Response(data={'msg': 'you must specify query statement'}, status=400)
+        # search_list = Search.objects.filter(name=data.get('name', None))
+        # if search_list:
+        #     return Response({'msg': 'existed!'}, status=400)
+        search = Search.objects.create(name=data.get('name', None),
                               query=data.get('query', None),
                               config=data.get('config', None),
                               time_range=data.get('time_range', None),
@@ -58,6 +63,8 @@ class SearchIndexEndpoint(Endpoint):
             'config': search.config,
             'time_range': search.time_range,
             'desc': search.desc,
+            'created_at': search.create_timestamp,
+            'updated_at': search.last_timestamp
         }
         return Response(status=200, data=resp_data)
 

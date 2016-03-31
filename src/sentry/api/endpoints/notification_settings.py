@@ -44,9 +44,12 @@ csrfmiddlewaretoken': 's12DBcRHCLGgUXMT8TLswnzgaHccnQ6m',
 subscribe_notes: 0 or 1
 subscribe_by_default: 0 or 1
 '''
+
+
 class NotificationSettingsEndpoint(Endpoint):
     permission_classes = []
-    def get(self,request):
+
+    def get(self, request):
         settings_form = NotificationSettingsForm(request.user, request.POST or None)
 
         project_list = list(Project.objects.filter(
@@ -73,21 +76,21 @@ class NotificationSettingsEndpoint(Endpoint):
                     continue
                 ext_forms.append(form)
             pass
-        content={
+        content = {
             'alert_email':settings_form.fields['alert_email'].initial,
             'subscribe_by_default':settings_form.fields['subscribe_by_default'].initial,
             'subscribe_notes':settings_form.fields['subscribe_notes'].initial,
 
         }
         for x in project_forms:
-            temp_dict={
+            temp_dict = {
                 'project-%s-email' % (x[0].id):x[1].fields['email'].initial,
                 'project-%s-alert' % (x[0].id):x[1].fields['alert'].initial,
             }
             content.update(temp_dict)
         return Response(data=content,status=200)
 
-    def post(self,request):
+    def post(self, request):
 
         settings_form = NotificationSettingsForm(request.user, request.POST or None)
         project_list = list(Project.objects.filter(
@@ -121,5 +124,5 @@ class NotificationSettingsEndpoint(Endpoint):
 
             for form in all_forms:
                 form.save()
-            return Response({"msg":"ok"},status=200)
-        return Response({"msg":"err!"},status=400)
+            return Response({"msg": "ok"}, status=200)
+        return Response({"msg": "err!"}, status=400)

@@ -624,7 +624,7 @@ LIVELOG_PREFIX = 'http://app.loginsight.cn:8080'
 HOST = "app.loginsight.cn"
 PORT = 8080
 MOCK_LOG_FILE = '/Users/wanghe/LogSample/nginx/access.log'
-
+DEMO_MODAL = True
 # API DOCUMENT
 SWAGGER_SETTINGS = {
     'exclude_namespaces': [],

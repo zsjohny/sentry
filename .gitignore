@@ -30,3 +30,5 @@ example/db.sqlite
 /wheelhouse
 /test_cli/
 .idea/
+dump.rdb
+mock.data

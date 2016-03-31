@@ -67,7 +67,9 @@ class HostIndexEndpoint(HostEndpoint):
         host_list = list(Host.objects.filter(
             user=request.user
         ).order_by('host_name', 'system'))
-
+        if settings.DEMO_MODAL:
+            host = Host.objects.get(id=1)
+            host_list.append(host)
         return Response(serialize(
             host_list, request.user, HostSerializer()))
 
@@ -89,39 +91,39 @@ class HostIndexEndpoint(HostEndpoint):
 
         :auth: required
         """
+        if settings.DEMO_MODAL:
+            result = request.DATA
+            org_mem = OrganizationMember.objects.get(user=request.user)
+            org = Organization.objects.get(id=org_mem.organization_id)
+            hk = generate_host_key(result)
+            if not Host.objects.filter(host_key=hk):
+                host = Host.objects.create(
+                    host_name=result['host_name'],
+                    host_key=generate_host_key(result),
+                    host_type=result['host_type'],
+                    system=result['system'],
+                    distver=result['distver'],
+                    last_time=str(datetime.datetime.now()),
+                    create_time=str(datetime.datetime.now()),
+                    user_id=request.user.id,
+                    organization=org,
+                )
+                self.create_audit_entry(
+                    request=request,
+                    organization=org,
+                    target_object=host.id,
+                    event=AuditLogEntryEvent.HOST_ADD,
+                    data=host.get_audit_log_data(),
+                )
 
-        result = request.DATA
-        org_mem = OrganizationMember.objects.get(user=request.user)
-        org = Organization.objects.get(id=org_mem.organization_id)
-        hk = generate_host_key(result)
-        if not Host.objects.filter(host_key=hk):
-            host = Host.objects.create(
-                host_name=result['host_name'],
-                host_key=generate_host_key(result),
-                host_type=result['host_type'],
-                system=result['system'],
-                distver=result['distver'],
-                last_time=str(datetime.datetime.now()),
-                create_time=str(datetime.datetime.now()),
-                user_id=request.user.id,
-                organization=org,
-            )
-            self.create_audit_entry(
-                request=request,
-                organization=org,
-                target_object=host.id,
-                event=AuditLogEntryEvent.HOST_ADD,
-                data=host.get_audit_log_data(),
-            )
+                url = "%s/u/%s/nodes/%s/" % (settings.STORAGE_SERVER, request.user.id, host.id)
+                host_obj = {"host_key": host.host_key, "user_id": request.user.id, "tenant_id": request.user.id}
+                resp = requests.post(url, data=host_obj)
+                if resp.status_code > 300:
+                    return Response({'msg': 'failed to post stoarge server.'}, status=500)
 
-            url = "%s/u/%s/nodes/%s/" % (settings.STORAGE_SERVER, request.user.id, host.id)
-            host_obj = {"host_key": host.host_key, "user_id": request.user.id, "tenant_id": request.user.id}
-            resp = requests.post(url, data=host_obj)
-            if resp.status_code > 300:
-                return Response({'msg': 'failed to post stoarge server.'}, status=500)
-
-            return Response({'msg': 'ok'}, status=201)
-        return Response({'msg': 'fail'}, status=501)
+                return Response({'msg': 'ok'}, status=201)
+            return Response({'msg': 'fail'}, status=501)
 
 
 class LogAgentHostIndexEndpoint(Endpoint):
