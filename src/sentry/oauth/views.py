@@ -15,6 +15,7 @@ from django.conf import settings
 from collections import namedtuple
 import hashlib
 from datetime import datetime
+from django.core.exceptions import ObjectDoesNotExist
 
 ApiUrl = namedtuple('ApiUrl', 'name, url')
 
@@ -64,10 +65,16 @@ class ConsumerExchangeView(FormView):
             user.is_active = True
             user.is_managed = True
             user.is_staff = True
-
-            if not User.objects.filter(username=data['username']):
-                if not User.objects.filter(email=data['email']):
-                    user.save()
+            print 'data = ', data
+            # if not User.objects.filter(username=data['username']):
+            #     if not User.objects.filter(email=data['email']):
+            #         user.save()
+            try :
+                u = User.objects.get(username=data['username'])
+                uliste = User.objects.get(email=data['email'])
+                print 'ulist = ', u
+            except ObjectDoesNotExist:
+                user.save()
             user = User.objects.get(username=data['username'])
             data = resp.json()[1]['fields']
             org_name = data['org_name']
