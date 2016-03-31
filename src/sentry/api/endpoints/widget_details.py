@@ -37,16 +37,6 @@ class WidgetDetailsEndpoint(Endpoint):
         if len(data) == 0:
             return Response(status=400)
         try:
-            # widget = LogWidget.objects.get(id=widget_id, user=request.user)
-            # widget.update(title=data.get('title', ''),
-            #               search=data.get('search_id', None),
-            #               x_axis=data.get('x_axis', None),
-            #               y_axis=data.get('y_axis', None),
-            #               chart_type=data.get('chart_type', None))
-            # w = LogWidget.objects.get(id=widget_id, user=request.user)
-            # print 'data == ', data
-            # widget = LogWidget(id=widget_id, user=request.user, **data)
-            # widget.save(force_update=True)
             LogWidget.objects.filter(pk=widget_id, user_id=request.user.id).update(**data)
             widget = LogWidget.objects.get(id=widget_id)
             resp_data = {
