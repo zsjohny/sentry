@@ -45,10 +45,10 @@ class UploadIndexEndpoint(Endpoint):
             if i != 20:
                 chunks.append(chunks)
         destination.close()
-        with open(dest_path, "r") as fd:
-            lines = fd.readlines(20)
-            a = try_to_detect_file_sourcetype(lines, "")
-            return a
+        # with open(dest_path, "r") as fd:
+        #     lines = fd.readlines(20)
+        #     a = try_to_detect_file_sourcetype(lines, "")
+        #     return a
 
     def get(self, request):
         pass

@@ -212,7 +212,8 @@ ignored_model_keywords = '''sun mon tue tues wed thurs fri sat sunday monday tue
 gloabl_V=set()
 _remove_number=0
 _debug=0
-conf=""
+conf = ""
+
 
 def get_conf_path():
     global conf
@@ -222,6 +223,7 @@ def get_conf_path():
     conf=path+"/sourcetype.conf"
     conf="/Users/wanghe/work/dev/sourcetype/sourcetype.conf"
     return conf
+
 
 def read_sourcetype_conf():
     global gloabl_V

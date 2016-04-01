@@ -25,7 +25,6 @@ class DemoExceptionEndpoint(Endpoint):
         try:
             org_member = OrganizationMember.objects.get(user_id=request.user.id)
             org = Organization.objects.get(id=org_member.organization_id)
-            print 'org.slug == ', org.slug
             load_demo.create_demo_sample(num_events=1, org_slug=org.slug, user_name=request.user.username, request=request)
         except Exception:
             return Response({'msg': 'failed'})
