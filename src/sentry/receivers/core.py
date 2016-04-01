@@ -65,9 +65,9 @@ def create_default_project(id, name, slug, verbosity=2, **kwargs):
         user = None
 
     org, _ = Organization.objects.get_or_create(
-        slug='sentry',
+        slug='loginsight',
         defaults={
-            'name': 'Sentry',
+            'name': 'LogInsight',
         }
     )
 
@@ -80,9 +80,9 @@ def create_default_project(id, name, slug, verbosity=2, **kwargs):
 
     team, _ = Team.objects.get_or_create(
         organization=org,
-        slug='sentry',
+        slug='loginsight',
         defaults={
-            'name': 'Sentry',
+            'name': 'LogInsight',
         }
     )
 
@@ -103,10 +103,10 @@ def create_default_project(id, name, slug, verbosity=2, **kwargs):
         cursor = connection.cursor()
         cursor.execute(PROJECT_SEQUENCE_FIX)
 
-    project.update_option('sentry:origins', ['*'])
+    project.update_option('loginsight:origins', ['*'])
 
     if verbosity > 0:
-        print('Created internal Sentry project (slug=%s, id=%s)' % (project.slug, project.id))
+        print('Created internal LogInsight project (slug=%s, id=%s)' % (project.slug, project.id))
 
     return project
 

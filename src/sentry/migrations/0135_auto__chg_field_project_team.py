@@ -23,25 +23,25 @@ class Migration(SchemaMigration):
             user = User.objects.filter(is_superuser=True)[0]
         except IndexError:
             user, _ = User.objects.get_or_create(
-                username='sentry',
+                username='loginsight',
                 defaults={
-                    'email': 'sentry@localhost',
+                    'email': 'loginsight@localhost',
                 }
             )
 
         org, _ = Organization.objects.get_or_create(
-            name='Sentry',
+            name='LogInsight',
             defaults={
                 'owner': user,
             }
         )
 
         team, _ = Team.objects.get_or_create(
-            name='Sentry',
+            name='LogInsight',
             defaults={
                 'owner': org.owner,
                 'organization': org,
-                'slug': 'sentry',
+                'slug': 'loginsight',
             }
         )
 

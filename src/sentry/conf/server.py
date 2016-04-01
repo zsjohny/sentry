@@ -84,14 +84,14 @@ if 'DATABASE_URL' in os.environ:
     if url.scheme == 'mysql':
         DATABASES['default']['ENGINE'] = 'django.db.backends.mysql'
 
-EMAIL_SUBJECT_PREFIX = '[Sentry] '
+EMAIL_SUBJECT_PREFIX = '[LogInsight] '
 
 # This should always be UTC.
 TIME_ZONE = 'UTC'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-cn'
 
 LANGUAGES = (
     ('af', gettext_noop('Afrikaans')),
@@ -709,7 +709,7 @@ SENTRY_LOGIN_URL = None
 SENTRY_PROJECT = 1
 
 # Project ID for recording frontend (javascript) exceptions
-SENTRY_FRONTEND_PROJECT = None
+SENTRY_FRONTEND_PROJECT = 2
 
 # Only store a portion of all messages per unique group.
 SENTRY_SAMPLE_DATA = True

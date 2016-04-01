@@ -12,7 +12,7 @@ from sentry.models.organization import Organization
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from sentry.utils.sourcetype import *
-
+import logging
 import os
 
 
@@ -51,7 +51,12 @@ class UploadIndexEndpoint(Endpoint):
         #     return a
 
     def get(self, request):
-        pass
+        logger = logging.getLogger('sentry')
+        try:
+            1/0
+        except Exception as e:
+            logger.error(e)
+        return Response([])
 
     def post(self, request):
         file = request.FILES.get('file', None)

@@ -114,3 +114,20 @@ def createuser(email, password, superuser, no_password, no_input):
                 organizationmember=member,
             )
         click.echo('Added to organization: %s' % (org.slug,))
+    else:
+        if user:
+            from sentry.models.organization import Organization
+            from sentry.models.organizationmember import OrganizationMember, OrganizationMemberTeam
+            from sentry.models.team import Team
+            org = Organization.objects.all()[0]
+            member = OrganizationMember.objects.get_or_create(
+                user=user,
+                organization=org,
+                role='owner',
+            )
+            teams = list(Team.objects.filter(organization=org)[0:2])
+            if len(teams) == 2:
+                OrganizationMemberTeam.objects.create(
+                    team=teams[0],
+                    organizationmember=member,
+                )
