@@ -625,6 +625,10 @@ HOST = "app.loginsight.cn"
 PORT = 8080
 MOCK_LOG_FILE = '/Users/wanghe/LogSample/nginx/access.log'
 DEMO_MODAL = True
+
+Q_ACCESS_KEY = 'cceRma0mdDSQ7RSnS0KKhFzR87df9bifjukR5wk2'
+Q_SECRET_KEY = '5cce9PYeUS0bONeESzfLRYSbo33jXAOh5oGcnvF8'
+
 # API DOCUMENT
 SWAGGER_SETTINGS = {
     'exclude_namespaces': [],
