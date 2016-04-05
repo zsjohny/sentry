@@ -2,6 +2,7 @@ from __future__ import absolute_import, print_function
 
 from django.conf.urls import patterns, url, include
 from sentry.api.endpoints.project_issue_tracking import ProjectIssueTrackingEndpoint
+from sentry.api.endpoints.upload_token import UploadTokenEndpoint
 from .endpoints.auth_index import AuthIndexEndpoint
 from .endpoints.broadcast_index import BroadcastIndexEndpoint
 from .endpoints.catchall import CatchallEndpoint
@@ -156,6 +157,7 @@ urlpatterns += patterns(
     url(r'^upload/$', UploadIndexEndpoint.as_view(), name='sentry-api-0-log-index-fields'),
     url(r'^react/$', ReactEnpoint.as_view(), name='sentry-api-0-react'),
     url(r'^userinfo/$',LogAgentUserInfoEndpoint.as_view(),name='sentry-api-0-agent-configuration'),
+    url(r'^upload_token/$',UploadTokenEndpoint.as_view(),name='sentry-api-0-upload-token'),
 
 
 
