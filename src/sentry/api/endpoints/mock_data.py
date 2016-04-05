@@ -12,6 +12,12 @@ import random
 import time
 import json
 from django.conf import settings
+from sentry.models.mock_data import MockData
+from django.core.exceptions import ObjectDoesNotExist
+
+def insert_db_mockdata(*args, **kwargs):
+    mockdata = MockData(*args, **kwargs)
+    mockdata.save()
 
 
 def fetch_data(offset, count, key, sort, query):
@@ -22,21 +28,29 @@ def fetch_data(offset, count, key, sort, query):
         lines = fd.readlines()
 
         for line in lines[offset:offset+count]:
+            i = offset
             ro = {}
             t_arr = line.split(' ')
-            ro['remote_addr'] = t_arr[0].replace("\"", "" )
+            ro['remote_addr'] = t_arr[0].replace("\"", "")
             ro['remote_user'] = t_arr[2].replace("\"", "")
             ro['_timestamp'] = (t_arr[3][1:] + t_arr[4][0:len(t_arr[4])-1]).replace("\"", "")
-            ro['method'] = t_arr[5].replace("\"", "" )
-            ro['url'] = t_arr[6].replace("\"", "" )
-            ro['protocol'] = t_arr[7].replace("\"", "" )
-            ro['status'] = t_arr[8].replace("\"", "" )
-            ro['body_bytes_sent'] = t_arr[9].replace("\"", "" )
-            ro['http_referer'] = t_arr[10].replace("\"", "" )
-            ro['http_user_agent'] = t_arr[11].replace("\"", "" )
-            ro['http_x_forwarded_for'] = str(t_arr[12:]).replace("\"", "" )
+            ro['method'] = t_arr[5].replace("\"", "")
+            ro['url'] = t_arr[6].replace("\"", "")
+            ro['protocol'] = t_arr[7].replace("\"", "")
+            ro['status'] = t_arr[8].replace("\"", "")
+            ro['body_bytes_sent'] = t_arr[9].replace("\"", "")
+            ro['http_referer'] = t_arr[10].replace("\"", "")
+            ro['http_user_agent'] = t_arr[11].replace("\"", "")
+            ro['http_x_forwarded_for'] = str(t_arr[12:]).replace("\"", "")
             ro['_raw'] = line.replace("\"", "")
+            try :
+                o = MockData.objects.get(id=i)
+            except ObjectDoesNotExist as e:
+                insert_db_mockdata(**ro)
+            i = i+1
+
             hits.append(ro)
+
         meta = {}
         meta['search_id'] = 1
         meta['matches_total'] = len(lines)
