@@ -26,10 +26,10 @@ import hashlib
 from datetime import datetime
 from django.core.exceptions import ObjectDoesNotExist
 from xpinyin import Pinyin
-# import sys
-#
-# reload(sys)
-# sys.setdefaultencoding("utf-8")
+import sys
+
+reload(sys)
+sys.setdefaultencoding("utf-8")
 
 ApiUrl = namedtuple('ApiUrl', 'name, url')
 
