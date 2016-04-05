@@ -29,4 +29,5 @@ class MockData(models.Model):
         app_label = 'sentry'
         db_table = 'sentry_mock_data'
 
-    __repr__ = sane_repr('_raw',)
+    __repr__ = sane_repr('remote_addr', 'remote_user', '_timestamp', 'method', 'url', 'protocol',
+                         'status', 'body_bytes_sent', 'http_referer', '_raw',)

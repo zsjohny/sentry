@@ -12,6 +12,8 @@ from sentry.api.base import Endpoint
 from sentry.utils.query_parse import *
 import requests
 import ast
+from django.core import serializers
+from django.db import connection
 
 
 class SearchIndexEndpoint(Endpoint):
@@ -84,15 +86,29 @@ class SearchResultEndpoint(Endpoint):
         return (args, kwargs)
 
     def get(self, request, index_name):
-        if True:
+        if settings.DEMO_MODAL:
             from sentry.api.endpoints.mock_data import *
             count = int(request.GET.get('count', 20))
             offset = int(request.GET.get('offset', 0))
             sort = request.GET.get('sort', 'asc')
             key = request.GET.get('key', '_timestamp')
             query = request.GET.get('q', '*')
-            print 'count=', count, 'offset=', offset
-            return Response(fetch_data(offset, count, key, sort, query))
+            query_json = parse_query(str(query))
+            if not query_json:
+                return Response(data={'msg': 'query statement error'}, status=400)
+            result = fetch_data(offset, count, key, sort, query)
+            # cursor = connection.cursor()
+            # cursor.execute(sql)
+            # rows = cursor.fetchall()
+            # # ls = MockData.objects.raw(sql)
+            # print 'rows = ', rows
+            # data = serializers.serialize("json", rows)
+            # # print 'ls = ', ls.values()
+            # print 'type = ', type(data)
+            # data = ast.literal_eval(data)
+            # return Response(data)
+            return Response(result)
+
         else:
             q = request.GET.get('q', '')
             count = request.DATA.get('count', 50)

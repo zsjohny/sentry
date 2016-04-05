@@ -118,4 +118,27 @@ def fetch_data(offset, count, key, sort, query):
         json_str = json.dumps(result)
         with open("mock.data", "w") as wd:
             wd.write(json_str)
+        if query.find('group') > 0:
+            hits = []
+            for i in range(0, offset+count):
+                o = {}
+                o['method_get_count'] = random.randint(10, 10000)
+                o['method_post_count'] = random.randint(10, 10000)
+                o['method_put_count'] = random.randint(10, 10000)
+                o['method_delete_count'] = random.randint(10, 10000)
+                o['status_200_count'] = random.randint(10, 10000)
+                o['status_201_count'] = random.randint(10, 10000)
+                o['status_202_count'] = random.randint(10, 10000)
+                o['status_300_count'] = random.randint(10, 10000)
+                o['status_301_count'] = random.randint(10, 10000)
+                o['status_302_count'] = random.randint(10, 10000)
+                o['status_400_count'] = random.randint(10, 10000)
+                o['status_401_count'] = random.randint(10, 10000)
+                o['status_403_count'] = random.randint(10, 10000)
+                o['status_404_count'] = random.randint(10, 10000)
+                o['status_500_count'] = random.randint(10, 10000)
+                o['status_505_count'] = random.randint(10, 10000)
+                o['status_502_count'] = random.randint(10, 10000)
+                hits.append(o)
+        result['hits'] = hits
         return result

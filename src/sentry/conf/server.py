@@ -522,11 +522,6 @@ LOGGING = {
             'formatter': 'client_info',
         },
     },
-    'filters': {
-        'sentry:internal': {
-            '()': 'sentry.utils.raven.SentryInternalFilter',
-        },
-    },
     'formatters': {
         'simple': {
             'format': '[%(levelname)s] %(message)s',
@@ -575,6 +570,8 @@ LOGGING = {
         },
     }
 }
+
+
 
 # django-rest-framework
 
@@ -1007,6 +1004,7 @@ def get_raven_config():
         'include_paths': [
             'sentry',
         ],
+        'dsn': 'http://ad0f7c3a1e1b4b3b8bc193d6eaf9607b:3322eb2f77884610aa6e37241d4c2600@localhost/1',
     }
 
 RAVEN_CONFIG = get_raven_config()

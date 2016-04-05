@@ -217,7 +217,6 @@ def test_parse_search():
             "aa & (bb | cc & dd | ee)",
             "aa & (bb | cc & dd | !ee)"]
     for q in querys:
-
         r = parse_search_query(q)
         print "====================", q
         print "====================", r
