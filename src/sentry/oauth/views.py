@@ -1,3 +1,12 @@
+# -*- coding: utf-8 -*-
+"""
+author : wanghe
+company: LogInsight
+email_ : wangh@loginsight.cn
+file: oauth/views.py
+time   : 16/4/5 上午10:54
+"""
+
 from django.http import  HttpResponseRedirect
 from django.views.generic import FormView
 from sentry.models.user import User
@@ -17,6 +26,10 @@ import hashlib
 from datetime import datetime
 from django.core.exceptions import ObjectDoesNotExist
 from xpinyin import Pinyin
+import sys
+
+reload(sys)
+sys.setdefaultencoding("utf-8")
 
 ApiUrl = namedtuple('ApiUrl', 'name, url')
 
@@ -74,6 +87,7 @@ class ConsumerExchangeView(FormView):
                 user.save()
             user = User.objects.get(username=data['username'])
             data = resp.json()[1]['fields']
+            # org_name = data['org_name'] + str(user.id)
             org_name = data['org_name'] + str(user.id)
             # create organization
             # m = hashlib.md5()
