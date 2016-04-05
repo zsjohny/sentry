@@ -281,14 +281,14 @@ def create_demo_sample(num_events=1, user_name="dummy@example.com", org_slug='de
 
     create_system_time_series()
 
-    Host.objects.create(host_name='host_demo_' + str(datetime.now()),
-                        host_key=generate_host_key(datetime.now()),
-                        host_type='demo host',
-                        distver='1.0',
-                        system='linux',
-                        mac_addr='01-aa-32-33-44-fd',
-                        user_id=request.user.id,
-                        organization_id=org.id)
+    # Host.objects.create(host_name='host_demo_' + str(datetime.now()),
+    #                     host_key=generate_host_key(datetime.now()),
+    #                     host_type='demo host',
+    #                     distver='1.0',
+    #                     system='linux',
+    #                     mac_addr='01-aa-32-33-44-fd',
+    #                     user_id=request.user.id,
+    #                     organization_id=org.id)
 
 
 
