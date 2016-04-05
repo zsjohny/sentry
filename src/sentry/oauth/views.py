@@ -87,6 +87,7 @@ class ConsumerExchangeView(FormView):
                 user.save()
             user = User.objects.get(username=data['username'])
             data = resp.json()[1]['fields']
+            # org_name = data['org_name'] + str(user.id)
             org_name = data['org_name'] + str(user.id)
             # create organization
             # m = hashlib.md5()
