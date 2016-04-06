@@ -10,10 +10,12 @@ from sentry.api.base import Endpoint
 from rest_framework.response import Response
 import hashlib
 from django.utils.timezone import now
-from qiniu import Auth
 from django.conf import settings
 from sentry.models.organization import Organization
 from sentry.models.organizationmember import OrganizationMember
+from qiniu import Auth, put_file, etag, urlsafe_base64_encode
+import qiniu.config
+import time
 
 
 class UploadTokenEndpoint(Endpoint):
@@ -29,25 +31,16 @@ class UploadTokenEndpoint(Endpoint):
 
         om  = OrganizationMember.objects.get(user_id=request.user.id)
         org = om.organization
-        # print type(org),org.name,
-        # organization = Organization.objects.get(id=om.organization_id)
-        # print username,org_id
-        # token = q.upload_token(bucket_name, key, 3600)
-        current_time = now()
         if "name" in request.GET:
             if request.GET["name"] =="":
                 return Response(data={"msg":'filename invalid'})
             else:
-                # str_ = str(current_time) +"/" +str(org.name)+'/'+str(request.user)+'/'+request.GET["name"]
-                str_ = str(org.name)+'/'+str(request.user)+'/'+str(request.GET["name"])
+                str_ = str(int(time.time())) +"/" +str(org.name)+'/'+str(request.user)+'/'+request.GET["name"]
                 try:
                     token = q.upload_token(bucket_name, str_, 3600)
                 except:
+
                     return Response(data={"msg":"fetch qiniu token error"})
-                #
-                # md5_ = hashlib.md5()
-                # md5_.update(str_)
-                # md5 = md5_.hexdigest()
                 return Response(data={"token":token,"key":str_},status=200)
         else:
             return Response(data={"msg":'filename invalid'})
