@@ -156,8 +156,8 @@ urlpatterns += patterns(
     url(r'^indexes/(?P<index_name>[^\/]+)/fields/count/$', IndexesFieldsCountIndexEndpoint.as_view(), name='sentry-api-0-log-index-fields-count'),
     url(r'^upload/$', UploadIndexEndpoint.as_view(), name='sentry-api-0-log-index-fields'),
     url(r'^react/$', ReactEnpoint.as_view(), name='sentry-api-0-react'),
-    url(r'^userinfo/$',LogAgentUserInfoEndpoint.as_view(), name='sentry-api-0-agent-configuration'),
-    url(r'^upload_token/$',UploadTokenEndpoint.as_view(), name='sentry-api-0-upload-token'),
+    url(r'^userinfo/$', LogAgentUserInfoEndpoint.as_view(), name='sentry-api-0-agent-configuration'),
+    url(r'^upload_token/$', UploadTokenEndpoint.as_view(), name='sentry-api-0-upload-token'),
 
     url(r'^account/settings/appearance/$', AppearanceSettingsEndpoint.as_view(),
         name='sentry-api-0-account-settings-appearance'),

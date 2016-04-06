@@ -93,20 +93,10 @@ class SearchResultEndpoint(Endpoint):
             sort = request.GET.get('sort', 'asc')
             key = request.GET.get('key', '_timestamp')
             query = request.GET.get('q', '*')
-            query_json = parse_query(str(query))
-            if not query_json:
-                return Response(data={'msg': 'query statement error'}, status=400)
+            # query_json = parse_query(str(query))
+            # if not query_json:
+            #     return Response(data={'msg': 'query statement error'}, status=400)
             result = fetch_data(offset, count, key, sort, query)
-            # cursor = connection.cursor()
-            # cursor.execute(sql)
-            # rows = cursor.fetchall()
-            # # ls = MockData.objects.raw(sql)
-            # print 'rows = ', rows
-            # data = serializers.serialize("json", rows)
-            # # print 'ls = ', ls.values()
-            # print 'type = ', type(data)
-            # data = ast.literal_eval(data)
-            # return Response(data)
             return Response(result)
 
         else:

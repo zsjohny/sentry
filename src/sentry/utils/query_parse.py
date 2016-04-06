@@ -163,7 +163,8 @@ def parse_query(q):
     sort_query = ""
 
     json_query = {}
-
+    if q == '*':
+        return json_query
     for item in q.split(";"):
         pair = item.strip().split(":")
 
