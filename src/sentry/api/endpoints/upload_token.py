@@ -38,7 +38,8 @@ class UploadTokenEndpoint(Endpoint):
             if request.GET["name"] =="":
                 return Response(data={"msg":'filename invalid'})
             else:
-                str_ = str(current_time) +"/" +str(org.name)+'/'+str(request.user)+'/'+request.GET["name"]
+                # str_ = str(current_time) +"/" +str(org.name)+'/'+str(request.user)+'/'+request.GET["name"]
+                str_ = str(org.name)+'/'+str(request.user)+'/'+str(request.GET["name"])
                 try:
                     token = q.upload_token(bucket_name, str_, 3600)
                 except:
