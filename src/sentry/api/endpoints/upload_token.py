@@ -34,12 +34,20 @@ class UploadTokenEndpoint(Endpoint):
         # print username,org_id
         # token = q.upload_token(bucket_name, key, 3600)
         current_time = now()
-        str_ = str(current_time) +"/" +str(org.name)+str(request.user)
-        token = q.upload_token(bucket_name, str_, 3600)
-        #
-        # md5_ = hashlib.md5()
-        # md5_.update(str_)
-        # md5 = md5_.hexdigest()
-        return Response(data={"token":token},status=200)
-
+        if "name" in request.GET:
+            if request.GET["name"] =="":
+                return Response(data={"msg":'filename invalid'})
+            else:
+                str_ = str(current_time) +"/" +str(org.name)+'/'+str(request.user)+'/'+request.GET["name"]
+                try:
+                    token = q.upload_token(bucket_name, str_, 3600)
+                except:
+                    return Response(data={"msg":"fetch qiniu token error"})
+                #
+                # md5_ = hashlib.md5()
+                # md5_.update(str_)
+                # md5 = md5_.hexdigest()
+                return Response(data={"token":token,"key":str_},status=200)
+        else:
+            return Response(data={"msg":'filename invalid'})
 
