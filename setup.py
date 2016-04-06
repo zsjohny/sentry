@@ -136,6 +136,7 @@ install_requires = [
     'tarantool==0.5.4',
     'python-pcre',
     'xpinyin==0.5.4',
+    'qiniu==7.0.6',
 ]
 
 postgres_requires = [
